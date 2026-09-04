@@ -71,7 +71,7 @@ function VerifyOtp() {
 
             <div className="auth-wrapper">
 
-                {/* DataLife Logo */}
+                {/* Calvion Logo */}
 
                 <button
                     type="button"
@@ -82,7 +82,7 @@ function VerifyOtp() {
                         D
                     </div>
 
-                    <span>DataLife</span>
+                    <span>Calvion</span>
                 </button>
 
 

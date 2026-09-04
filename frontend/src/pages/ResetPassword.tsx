@@ -125,7 +125,7 @@ function ResetPassword() {
                         D
                     </div>
 
-                    <span>DataLife</span>
+                    <span>Calvion</span>
 
                 </button>
 
@@ -147,7 +147,7 @@ function ResetPassword() {
 
                         <p>
                             Choose a strong password to keep your
-                            DataLife account secure.
+                            Calvion account secure.
                         </p>
 
                     </div>

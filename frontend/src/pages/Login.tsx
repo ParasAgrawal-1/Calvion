@@ -330,7 +330,7 @@ export default function Login() {
                         <div className="text-left">
 
                             <div className="text-lg font-bold tracking-tight text-slate-900">
-                                DataLife
+                                Calvion
                             </div>
 
                             <div className="hidden text-[11px] font-medium text-slate-400 sm:block">
@@ -390,7 +390,7 @@ export default function Login() {
                         </h1>
 
                         <p className="mt-2 text-sm leading-6 text-slate-500">
-                            Sign in to access your DataLife assets.
+                            Sign in to access your Calvion assets.
                         </p>
 
                     </div>

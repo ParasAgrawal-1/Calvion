@@ -1,6 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
 import {
-    ArrowLeft,
+    useEffect,
+    useMemo,
+    useState,
+} from "react";
+
+import {
     CalendarDays,
     FileText,
     FileBadge,
@@ -15,15 +19,19 @@ import {
     UserRound,
     ExternalLink,
     Inbox,
-    LogOut,
-    LayoutDashboard,
     FolderOpen,
-    ChevronDown,
+    ChevronDown, ArrowLeft,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+
+import {
+    useNavigate,
+} from "react-router-dom";
+
 import axios from "axios";
 
 import api from "../services/api";
+
+import AppNavbar from "../components/AppNavbar";
 
 
 /* =========================================================
@@ -39,33 +47,48 @@ type AssetType =
     | "SOCIAL_PROFILE"
     | "OTHER";
 
+
 type AssetPermission =
     | "VIEW"
     | "EDIT";
 
 
 interface SharedFile {
+
     id: number;
+
     originalFileName: string;
+
     fileType?: string;
+
     fileSize?: number;
 }
 
 
 interface SharedAsset {
+
     id: number;
+
     title: string;
+
     description?: string;
+
     type: AssetType;
+
     content?: string;
+
     createdAt: string;
+
     updatedAt: string;
+
     files: SharedFile[];
 
     ownerName: string;
+
     ownerEmail: string;
 
     permission: AssetPermission;
+
     sharedAt: string;
 }
 
@@ -74,26 +97,39 @@ interface SharedAsset {
    ASSET ICON
 ========================================================= */
 
-function getAssetIcon(type: AssetType) {
+function getAssetIcon(
+    type: AssetType
+) {
 
     switch (type) {
 
         case "DOCUMENT":
+
             return FileText;
 
+
         case "CERTIFICATE":
+
             return FileBadge;
 
+
         case "NOTE":
+
             return StickyNote;
 
+
         case "LINK":
+
             return LinkIcon;
 
+
         case "CREDENTIAL":
+
             return KeyRound;
 
+
         default:
+
             return Files;
     }
 }
@@ -103,50 +139,100 @@ function getAssetIcon(type: AssetType) {
    ASSET STYLE
 ========================================================= */
 
-function getAssetStyle(type: AssetType) {
+function getAssetStyle(
+    type: AssetType
+) {
 
     switch (type) {
 
         case "DOCUMENT":
+
             return {
-                icon: "bg-blue-50 text-blue-600",
-                badge: "bg-blue-50 text-blue-700",
+
+                icon:
+                    "bg-blue-50 text-blue-600",
+
+                badge:
+                    "bg-blue-50 text-blue-700",
+
             };
+
 
         case "CERTIFICATE":
+
             return {
-                icon: "bg-amber-50 text-amber-600",
-                badge: "bg-amber-50 text-amber-700",
+
+                icon:
+                    "bg-amber-50 text-amber-600",
+
+                badge:
+                    "bg-amber-50 text-amber-700",
+
             };
+
 
         case "NOTE":
+
             return {
-                icon: "bg-yellow-50 text-yellow-600",
-                badge: "bg-yellow-50 text-yellow-700",
+
+                icon:
+                    "bg-yellow-50 text-yellow-600",
+
+                badge:
+                    "bg-yellow-50 text-yellow-700",
+
             };
+
 
         case "LINK":
+
             return {
-                icon: "bg-cyan-50 text-cyan-600",
-                badge: "bg-cyan-50 text-cyan-700",
+
+                icon:
+                    "bg-cyan-50 text-cyan-600",
+
+                badge:
+                    "bg-cyan-50 text-cyan-700",
+
             };
+
 
         case "CREDENTIAL":
+
             return {
-                icon: "bg-violet-50 text-violet-600",
-                badge: "bg-violet-50 text-violet-700",
+
+                icon:
+                    "bg-violet-50 text-violet-600",
+
+                badge:
+                    "bg-violet-50 text-violet-700",
+
             };
+
 
         case "SOCIAL_PROFILE":
+
             return {
-                icon: "bg-pink-50 text-pink-600",
-                badge: "bg-pink-50 text-pink-700",
+
+                icon:
+                    "bg-pink-50 text-pink-600",
+
+                badge:
+                    "bg-pink-50 text-pink-700",
+
             };
 
+
         default:
+
             return {
-                icon: "bg-slate-100 text-slate-600",
-                badge: "bg-slate-100 text-slate-700",
+
+                icon:
+                    "bg-slate-100 text-slate-600",
+
+                badge:
+                    "bg-slate-100 text-slate-700",
+
             };
     }
 }
@@ -156,17 +242,29 @@ function getAssetStyle(type: AssetType) {
    FORMAT DATE
 ========================================================= */
 
-function formatDate(date?: string) {
+function formatDate(
+    date?: string
+) {
 
     if (!date) {
+
         return "Unknown";
     }
 
-    const parsed = new Date(date);
 
-    if (Number.isNaN(parsed.getTime())) {
+    const parsed =
+        new Date(date);
+
+
+    if (
+        Number.isNaN(
+            parsed.getTime()
+        )
+    ) {
+
         return "Unknown";
     }
+
 
     return parsed.toLocaleDateString(
         "en-IN",
@@ -180,67 +278,67 @@ function formatDate(date?: string) {
 
 
 /* =========================================================
-   INITIALS
-========================================================= */
-
-function getInitials(name?: string) {
-
-    if (!name) {
-        return "U";
-    }
-
-    return name
-        .trim()
-        .split(/\s+/)
-        .slice(0, 2)
-        .map(
-            (part) =>
-                part.charAt(0).toUpperCase()
-        )
-        .join("");
-}
-
-
-/* =========================================================
    ERROR MESSAGE
 ========================================================= */
 
-function getErrorMessage(error: unknown) {
+function getErrorMessage(
+    error: unknown
+) {
 
-    if (axios.isAxiosError(error)) {
+    if (
+        axios.isAxiosError(
+            error
+        )
+    ) {
 
-        const data = error.response?.data;
+        const data =
+            error.response?.data;
 
 
-        if (typeof data === "string") {
+        if (
+            typeof data ===
+            "string"
+        ) {
+
             return data;
         }
 
 
         if (
             data &&
-            typeof data === "object" &&
+            typeof data ===
+            "object" &&
             "message" in data &&
-            typeof data.message === "string"
+            typeof data.message ===
+            "string"
         ) {
 
             return data.message;
         }
 
 
-        if (error.response?.status === 401) {
+        if (
+            error.response?.status ===
+            401
+        ) {
 
             return "Your session has expired. Please login again.";
         }
 
 
-        if (error.response?.status === 403) {
+        if (
+            error.response?.status ===
+            403
+        ) {
 
             return "You do not have permission to access this resource.";
         }
 
 
-        if (error.response?.status === 404) {
+        if (
+            error.response?.status ===
+            404
+        ) {
 
             return "Shared assets endpoint was not found.";
         }
@@ -256,7 +354,9 @@ function getErrorMessage(error: unknown) {
     }
 
 
-    if (error instanceof Error) {
+    if (
+        error instanceof Error
+    ) {
 
         return error.message;
     }
@@ -272,236 +372,210 @@ function getErrorMessage(error: unknown) {
 
 export default function SharedAssets() {
 
-    const navigate = useNavigate();
+    const navigate =
+        useNavigate();
 
 
     /* =====================================================
        STATE
     ===================================================== */
 
-    const [assets, setAssets] =
-        useState<SharedAsset[]>([]);
+    const [
+        assets,
+        setAssets,
+    ] =
+        useState<SharedAsset[]>(
+            []
+        );
 
 
-    const [loading, setLoading] =
+    const [
+        loading,
+        setLoading,
+    ] =
         useState(true);
 
 
-    const [refreshing, setRefreshing] =
+    const [
+        refreshing,
+        setRefreshing,
+    ] =
         useState(false);
 
 
-    const [search, setSearch] =
+    const [
+        search,
+        setSearch,
+    ] =
         useState("");
 
 
-    const [typeFilter, setTypeFilter] =
+    const [
+        typeFilter,
+        setTypeFilter,
+    ] =
         useState<
             "ALL" | AssetType
-        >("ALL");
+        >(
+            "ALL"
+        );
 
 
-    const [permissionFilter, setPermissionFilter] =
+    const [
+        permissionFilter,
+        setPermissionFilter,
+    ] =
         useState<
             "ALL" | AssetPermission
-        >("ALL");
+        >(
+            "ALL"
+        );
 
 
-    const [error, setError] =
+    const [
+        error,
+        setError,
+    ] =
         useState("");
-
-
-    /* =====================================================
-       USER
-    ===================================================== */
-
-    const userName =
-        localStorage.getItem("name") ||
-        localStorage
-            .getItem("email")
-            ?.split("@")[0] ||
-        "User";
 
 
     /* =====================================================
        FETCH SHARED ASSETS
     ===================================================== */
 
-    const fetchSharedAssets = async (
-        isRefresh = false
-    ) => {
+    const fetchSharedAssets =
+        async (
+            isRefresh = false
+        ) => {
 
-        try {
+            try {
 
-            setError("");
+                setError("");
 
-
-            if (isRefresh) {
-
-                setRefreshing(true);
-
-            } else {
-
-                setLoading(true);
-            }
-
-
-            const token =
-                localStorage.getItem("token");
-
-
-            console.log(
-                "========================================"
-            );
-
-            console.log(
-                "SHARED ASSETS REQUEST"
-            );
-
-            console.log(
-                "Token exists:",
-                Boolean(token)
-            );
-
-
-            /* ---------------------------------------------
-               CHECK LOGIN
-            --------------------------------------------- */
-
-            if (!token) {
-
-                console.warn(
-                    "No authentication token found."
-                );
-
-                navigate("/login");
-
-                return;
-            }
-
-
-            /* ---------------------------------------------
-               API REQUEST
-
-               Your api.ts should automatically attach:
-               Authorization: Bearer <token>
-            --------------------------------------------- */
-
-            const response =
-                await api.get<SharedAsset[]>(
-                    "/assets/shared"
-                );
-
-
-            console.log(
-                "Shared Assets API Status:",
-                response.status
-            );
-
-
-            console.log(
-                "Shared Assets API Response:",
-                response.data
-            );
-
-
-            console.log(
-                "Shared Assets Count:",
-                Array.isArray(response.data)
-                    ? response.data.length
-                    : "NOT AN ARRAY"
-            );
-
-
-            /* ---------------------------------------------
-               STORE RESPONSE
-            --------------------------------------------- */
-
-            if (
-                Array.isArray(response.data)
-            ) {
-
-                setAssets(
-                    response.data
-                );
-
-            } else {
-
-                console.error(
-                    "Expected array but received:",
-                    response.data
-                );
-
-                setAssets([]);
-            }
-
-
-            console.log(
-                "========================================"
-            );
-
-        } catch (err) {
-
-            console.error(
-                "FAILED TO LOAD SHARED ASSETS:",
-                err
-            );
-
-
-            if (
-                axios.isAxiosError(err)
-            ) {
-
-                console.error(
-                    "HTTP STATUS:",
-                    err.response?.status
-                );
-
-
-                console.error(
-                    "SERVER RESPONSE:",
-                    err.response?.data
-                );
-
-
-                /* -----------------------------------------
-                   SESSION EXPIRED
-                ----------------------------------------- */
 
                 if (
-                    err.response?.status === 401
+                    isRefresh
                 ) {
 
-                    localStorage.removeItem(
+                    setRefreshing(
+                        true
+                    );
+
+                } else {
+
+                    setLoading(
+                        true
+                    );
+                }
+
+
+                const token =
+                    localStorage.getItem(
                         "token"
                     );
 
-                    localStorage.removeItem(
-                        "email"
-                    );
 
-                    localStorage.removeItem(
-                        "name"
-                    );
+                if (!token) {
 
-                    navigate("/login");
+                    navigate(
+                        "/login"
+                    );
 
                     return;
                 }
+
+
+                const response =
+                    await api.get<
+                        SharedAsset[]
+                    >(
+                        "/assets/shared"
+                    );
+
+
+                if (
+                    Array.isArray(
+                        response.data
+                    )
+                ) {
+
+                    setAssets(
+                        response.data
+                    );
+
+                } else {
+
+                    console.error(
+                        "Expected array but received:",
+                        response.data
+                    );
+
+                    setAssets(
+                        []
+                    );
+                }
+
+
+            } catch (
+                err
+                ) {
+
+                console.error(
+                    "FAILED TO LOAD SHARED ASSETS:",
+                    err
+                );
+
+
+                if (
+                    axios.isAxiosError(
+                        err
+                    )
+                ) {
+
+                    if (
+                        err.response?.status ===
+                        401
+                    ) {
+
+                        localStorage.removeItem(
+                            "token"
+                        );
+
+                        localStorage.removeItem(
+                            "email"
+                        );
+
+                        localStorage.removeItem(
+                            "name"
+                        );
+
+
+                        navigate(
+                            "/login"
+                        );
+
+                        return;
+                    }
+                }
+
+
+                setError(
+                    getErrorMessage(
+                        err
+                    )
+                );
+
+            } finally {
+
+                setLoading(
+                    false
+                );
+
+                setRefreshing(
+                    false
+                );
             }
-
-
-            setError(
-                getErrorMessage(err)
-            );
-
-        } finally {
-
-            setLoading(false);
-
-            setRefreshing(false);
-        }
-    };
+        };
 
 
     /* =====================================================
@@ -529,31 +603,44 @@ export default function SharedAssets() {
 
 
             return assets.filter(
-                (asset) => {
+                (
+                    asset
+                ) => {
 
                     const matchesSearch =
                         !keyword ||
                         asset.title
                             ?.toLowerCase()
-                            .includes(keyword) ||
+                            .includes(
+                                keyword
+                            ) ||
                         asset.description
                             ?.toLowerCase()
-                            .includes(keyword) ||
+                            .includes(
+                                keyword
+                            ) ||
                         asset.ownerName
                             ?.toLowerCase()
-                            .includes(keyword) ||
+                            .includes(
+                                keyword
+                            ) ||
                         asset.ownerEmail
                             ?.toLowerCase()
-                            .includes(keyword);
+                            .includes(
+                                keyword
+                            );
 
 
                     const matchesType =
-                        typeFilter === "ALL" ||
-                        asset.type === typeFilter;
+                        typeFilter ===
+                        "ALL" ||
+                        asset.type ===
+                        typeFilter;
 
 
                     const matchesPermission =
-                        permissionFilter === "ALL" ||
+                        permissionFilter ===
+                        "ALL" ||
                         asset.permission ===
                         permissionFilter;
 
@@ -567,10 +654,15 @@ export default function SharedAssets() {
             );
 
         }, [
+
             assets,
+
             search,
+
             typeFilter,
+
             permissionFilter,
+
         ]);
 
 
@@ -589,28 +681,6 @@ export default function SharedAssets() {
 
 
     /* =====================================================
-       LOGOUT
-    ===================================================== */
-
-    const handleLogout = () => {
-
-        localStorage.removeItem(
-            "token"
-        );
-
-        localStorage.removeItem(
-            "email"
-        );
-
-        localStorage.removeItem(
-            "name"
-        );
-
-        navigate("/login");
-    };
-
-
-    /* =====================================================
        STATISTICS
     ===================================================== */
 
@@ -620,7 +690,9 @@ export default function SharedAssets() {
 
     const viewCount =
         assets.filter(
-            (asset) =>
+            (
+                asset
+            ) =>
                 asset.permission ===
                 "VIEW"
         ).length;
@@ -628,7 +700,9 @@ export default function SharedAssets() {
 
     const editCount =
         assets.filter(
-            (asset) =>
+            (
+                asset
+            ) =>
                 asset.permission ===
                 "EDIT"
         ).length;
@@ -638,14 +712,21 @@ export default function SharedAssets() {
        CLEAR FILTERS
     ===================================================== */
 
-    const clearFilters = () => {
+    const clearFilters =
+        () => {
 
-        setSearch("");
+            setSearch(
+                ""
+            );
 
-        setTypeFilter("ALL");
+            setTypeFilter(
+                "ALL"
+            );
 
-        setPermissionFilter("ALL");
-    };
+            setPermissionFilter(
+                "ALL"
+            );
+        };
 
 
     /* =====================================================
@@ -658,163 +739,12 @@ export default function SharedAssets() {
 
 
             {/* =================================================
-                HEADER
+                SHARED NAVBAR
             ================================================= */}
 
-            <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
-
-                <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-
-
-                    {/* ================= LEFT LOGO ================= */}
-
-                    <button
-                        type="button"
-                        onClick={() =>
-                            navigate(
-                                "/dashboard"
-                            )
-                        }
-                        className="group flex items-center gap-3"
-                    >
-
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 transition group-hover:scale-105">
-
-                            <Files size={20} />
-
-                        </div>
-
-
-                        <div className="text-left">
-
-                            <div className="text-lg font-bold tracking-tight text-slate-900">
-                                DataLife
-                            </div>
-
-
-                            <div className="hidden text-[11px] font-medium text-slate-400 sm:block">
-                                Digital Asset Manager
-                            </div>
-
-                        </div>
-
-                    </button>
-
-
-                    {/* ================= RIGHT NAV ================= */}
-
-                    <div className="flex items-center gap-2 sm:gap-3">
-
-
-                        {/* NAVIGATION */}
-
-                        <div className="hidden items-center gap-1 md:flex">
-
-
-                            {/* DASHBOARD */}
-
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    navigate(
-                                        "/dashboard"
-                                    )
-                                }
-                                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
-                            >
-
-                                <LayoutDashboard
-                                    size={16}
-                                />
-
-                                Dashboard
-
-                            </button>
-
-
-                            {/* MY ASSETS */}
-
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    navigate(
-                                        "/assets"
-                                    )
-                                }
-                                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
-                            >
-
-                                <FolderOpen
-                                    size={16}
-                                />
-
-                                My Assets
-
-                            </button>
-
-
-                            {/* SHARED */}
-
-                            <button
-                                type="button"
-                                className="flex items-center gap-2 rounded-lg bg-cyan-50 px-3 py-2 text-sm font-semibold text-cyan-700"
-                            >
-
-                                <UserRound
-                                    size={16}
-                                />
-
-                                Shared With Me
-
-                            </button>
-
-                        </div>
-
-
-                        {/* USER */}
-
-                        <div className="hidden items-center gap-2 border-l border-slate-200 pl-3 sm:flex">
-
-                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-xs font-bold text-white">
-
-                                {getInitials(
-                                    userName
-                                )}
-
-                            </div>
-
-
-                            <span className="max-w-28 truncate text-sm font-medium text-slate-700">
-
-                                {userName}
-
-                            </span>
-
-                        </div>
-
-
-                        {/* LOGOUT */}
-
-                        <button
-                            type="button"
-                            onClick={
-                                handleLogout
-                            }
-                            title="Logout"
-                            className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-red-50 hover:text-red-600"
-                        >
-
-                            <LogOut
-                                size={18}
-                            />
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </header>
+            <AppNavbar
+                activePage="shared"
+            />
 
 
             {/* =================================================
@@ -868,13 +798,15 @@ export default function SharedAssets() {
 
 
                         <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+
                             Shared With Me
+
                         </h1>
 
 
                         <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base">
 
-                            Assets that other DataLife users have shared with you.
+                            Assets that other Calvion users have shared with you.
 
                         </p>
 
@@ -906,9 +838,11 @@ export default function SharedAssets() {
                             }
                         />
 
-                        {refreshing
-                            ? "Refreshing..."
-                            : "Refresh"}
+                        {
+                            refreshing
+                                ? "Refreshing..."
+                                : "Refresh"
+                        }
 
                     </button>
 
@@ -945,7 +879,11 @@ export default function SharedAssets() {
 
 
                         <p className="text-2xl font-bold text-slate-950">
-                            {totalShared}
+
+                            {
+                                totalShared
+                            }
+
                         </p>
 
 
@@ -979,7 +917,11 @@ export default function SharedAssets() {
 
 
                         <p className="text-2xl font-bold text-slate-950">
-                            {viewCount}
+
+                            {
+                                viewCount
+                            }
+
                         </p>
 
 
@@ -1013,7 +955,11 @@ export default function SharedAssets() {
 
 
                         <p className="text-2xl font-bold text-slate-950">
-                            {editCount}
+
+                            {
+                                editCount
+                            }
+
                         </p>
 
 
@@ -1041,13 +987,15 @@ export default function SharedAssets() {
 
                             <Search
                                 size={18}
-                                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                                className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
                             />
 
 
                             <input
                                 type="text"
-                                value={search}
+                                value={
+                                    search
+                                }
                                 onChange={(
                                     event
                                 ) =>
@@ -1074,8 +1022,7 @@ export default function SharedAssets() {
                                     event
                                 ) =>
                                     setTypeFilter(
-                                        event
-                                            .target
+                                        event.target
                                             .value as
                                             | "ALL"
                                             | AssetType
@@ -1139,8 +1086,7 @@ export default function SharedAssets() {
                                     event
                                 ) =>
                                     setPermissionFilter(
-                                        event
-                                            .target
+                                        event.target
                                             .value as
                                             | "ALL"
                                             | AssetPermission
@@ -1187,36 +1133,46 @@ export default function SharedAssets() {
 
                             <p className="text-sm font-medium text-slate-500">
 
-                                {filteredAssets.length}{" "}
+                                {
+                                    filteredAssets.length
+                                }{" "}
 
-                                {filteredAssets.length === 1
-                                    ? "asset"
-                                    : "assets"}{" "}
+                                {
+                                    filteredAssets.length ===
+                                    1
+                                        ? "asset"
+                                        : "assets"
+                                }
 
-                                found
+                                {" "}found
 
                             </p>
 
 
-                            {(search ||
+                            {(
+                                search ||
                                 typeFilter !==
                                 "ALL" ||
                                 permissionFilter !==
-                                "ALL") && (
+                                "ALL"
+                            ) && (
 
                                 <button
                                     type="button"
                                     onClick={
                                         clearFilters
                                     }
-                                    className="text-sm font-semibold text-cyan-600 hover:text-cyan-700"
+                                    className="text-sm font-semibold text-cyan-600 transition hover:text-cyan-700"
                                 >
+
                                     Clear filters
+
                                 </button>
 
                             )}
 
                         </div>
+
                     )}
 
 
@@ -1229,7 +1185,6 @@ export default function SharedAssets() {
                     <div className="rounded-2xl border border-red-200 bg-red-50 p-6">
 
                         <div className="flex items-start gap-4">
-
 
                             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-100 text-red-600">
 
@@ -1273,6 +1228,7 @@ export default function SharedAssets() {
                         </div>
 
                     </div>
+
                 )}
 
 
@@ -1288,7 +1244,10 @@ export default function SharedAssets() {
                             {Array.from({
                                 length: 6,
                             }).map(
-                                (_, index) => (
+                                (
+                                    _,
+                                    index
+                                ) => (
 
                                     <div
                                         key={
@@ -1300,6 +1259,7 @@ export default function SharedAssets() {
                                         <div className="mb-5 flex justify-between">
 
                                             <div className="h-11 w-11 rounded-xl bg-slate-200" />
+
 
                                             <div className="h-6 w-16 rounded-full bg-slate-200" />
 
@@ -1326,6 +1286,7 @@ export default function SharedAssets() {
                             )}
 
                         </div>
+
                     )}
 
 
@@ -1335,10 +1296,10 @@ export default function SharedAssets() {
 
                 {!loading &&
                     !error &&
-                    assets.length === 0 && (
+                    assets.length ===
+                    0 && (
 
                         <div className="rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center shadow-sm">
-
 
                             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-600">
 
@@ -1356,7 +1317,7 @@ export default function SharedAssets() {
 
                             <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
 
-                                When another DataLife user shares an asset with you,
+                                When another Calvion user shares an asset with you,
                                 it will appear here.
 
                             </p>
@@ -1381,6 +1342,7 @@ export default function SharedAssets() {
                             </button>
 
                         </div>
+
                     )}
 
 
@@ -1390,11 +1352,12 @@ export default function SharedAssets() {
 
                 {!loading &&
                     !error &&
-                    assets.length > 0 &&
-                    filteredAssets.length === 0 && (
+                    assets.length >
+                    0 &&
+                    filteredAssets.length ===
+                    0 && (
 
                         <div className="rounded-3xl border border-slate-200 bg-white px-6 py-16 text-center shadow-sm">
-
 
                             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500">
 
@@ -1422,10 +1385,13 @@ export default function SharedAssets() {
                                 }
                                 className="mt-5 text-sm font-semibold text-cyan-600 hover:text-cyan-700"
                             >
+
                                 Clear filters
+
                             </button>
 
                         </div>
+
                     )}
 
 
@@ -1435,12 +1401,15 @@ export default function SharedAssets() {
 
                 {!loading &&
                     !error &&
-                    filteredAssets.length > 0 && (
+                    filteredAssets.length >
+                    0 && (
 
                         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
 
                             {filteredAssets.map(
-                                (asset) => {
+                                (
+                                    asset
+                                ) => {
 
                                     const Icon =
                                         getAssetIcon(
@@ -1469,7 +1438,7 @@ export default function SharedAssets() {
                                         >
 
 
-                                            {/* ================= CARD TOP ================= */}
+                                            {/* CARD TOP */}
 
                                             <div className="p-5">
 
@@ -1477,7 +1446,6 @@ export default function SharedAssets() {
                                                 {/* ICON + TYPE */}
 
                                                 <div className="mb-5 flex items-start justify-between gap-3">
-
 
                                                     <div
                                                         className={`flex h-11 w-11 items-center justify-center rounded-xl ${style.icon}`}
@@ -1496,7 +1464,9 @@ export default function SharedAssets() {
                                                         className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold ${style.badge}`}
                                                     >
 
-                                                        {asset.type}
+                                                        {
+                                                            asset.type
+                                                        }
 
                                                     </span>
 
@@ -1507,8 +1477,10 @@ export default function SharedAssets() {
 
                                                 <h2 className="line-clamp-1 text-lg font-bold text-slate-950">
 
-                                                    {asset.title ||
-                                                        "Untitled Asset"}
+                                                    {
+                                                        asset.title ||
+                                                        "Untitled Asset"
+                                                    }
 
                                                 </h2>
 
@@ -1517,8 +1489,10 @@ export default function SharedAssets() {
 
                                                 <p className="mt-2 min-h-10 line-clamp-2 text-sm leading-5 text-slate-500">
 
-                                                    {asset.description ||
-                                                        "No description provided."}
+                                                    {
+                                                        asset.description ||
+                                                        "No description provided."
+                                                    }
 
                                                 </p>
 
@@ -1527,12 +1501,31 @@ export default function SharedAssets() {
 
                                                 <div className="mt-5 flex items-center gap-3 rounded-xl bg-slate-50 p-3">
 
-
                                                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-xs font-bold text-white">
 
-                                                        {getInitials(
+                                                        {
                                                             asset.ownerName
-                                                        )}
+                                                                ?.trim()
+                                                                .split(/\s+/)
+                                                                .slice(
+                                                                    0,
+                                                                    2
+                                                                )
+                                                                .map(
+                                                                    (
+                                                                        part
+                                                                    ) =>
+                                                                        part
+                                                                            .charAt(
+                                                                                0
+                                                                            )
+                                                                            .toUpperCase()
+                                                                )
+                                                                .join(
+                                                                    ""
+                                                                ) ||
+                                                            "U"
+                                                        }
 
                                                     </div>
 
@@ -1541,16 +1534,20 @@ export default function SharedAssets() {
 
                                                         <p className="truncate text-sm font-semibold text-slate-800">
 
-                                                            {asset.ownerName ||
-                                                                "Unknown owner"}
+                                                            {
+                                                                asset.ownerName ||
+                                                                "Unknown owner"
+                                                            }
 
                                                         </p>
 
 
                                                         <p className="truncate text-xs text-slate-500">
 
-                                                            {asset.ownerEmail ||
-                                                                "Unknown email"}
+                                                            {
+                                                                asset.ownerEmail ||
+                                                                "Unknown email"
+                                                            }
 
                                                         </p>
 
@@ -1577,13 +1574,16 @@ export default function SharedAssets() {
                                                                 }
                                                             />
 
+
                                                             <span className="truncate">
 
                                                                 Shared{" "}
 
-                                                                {formatDate(
-                                                                    asset.sharedAt
-                                                                )}
+                                                                {
+                                                                    formatDate(
+                                                                        asset.sharedAt
+                                                                    )
+                                                                }
 
                                                             </span>
 
@@ -1600,24 +1600,30 @@ export default function SharedAssets() {
                                                             }`}
                                                         >
 
-                                                            {permissionIsEdit ? (
-                                                                <Pencil
-                                                                    size={
-                                                                        12
-                                                                    }
-                                                                />
-                                                            ) : (
-                                                                <Eye
-                                                                    size={
-                                                                        12
-                                                                    }
-                                                                />
-                                                            )}
+                                                            {
+                                                                permissionIsEdit
+                                                                    ? (
+                                                                        <Pencil
+                                                                            size={
+                                                                                12
+                                                                            }
+                                                                        />
+                                                                    )
+                                                                    : (
+                                                                        <Eye
+                                                                            size={
+                                                                                12
+                                                                            }
+                                                                        />
+                                                                    )
+                                                            }
 
 
-                                                            {permissionIsEdit
-                                                                ? "Can Edit"
-                                                                : "View Only"}
+                                                            {
+                                                                permissionIsEdit
+                                                                    ? "Can Edit"
+                                                                    : "View Only"
+                                                            }
 
                                                         </span>
 
@@ -1634,13 +1640,19 @@ export default function SharedAssets() {
                                                             }
                                                         />
 
-                                                        {asset.files?.length ||
-                                                            0}{" "}
 
-                                                        {asset.files?.length ===
-                                                        1
-                                                            ? "file"
-                                                            : "files"}
+                                                        {
+                                                            asset.files?.length ||
+                                                            0
+                                                        }{" "}
+
+
+                                                        {
+                                                            asset.files?.length ===
+                                                            1
+                                                                ? "file"
+                                                                : "files"
+                                                        }
 
                                                     </div>
 
@@ -1649,7 +1661,7 @@ export default function SharedAssets() {
                                             </div>
 
 
-                                            {/* ================= CARD ACTION ================= */}
+                                            {/* CARD ACTION */}
 
                                             <div className="mt-auto border-t border-slate-100 bg-slate-50/70 p-4">
 
@@ -1682,6 +1694,7 @@ export default function SharedAssets() {
                             )}
 
                         </div>
+
                     )}
 
             </main>

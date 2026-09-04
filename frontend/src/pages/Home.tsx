@@ -91,7 +91,7 @@ const features = [
     {
         title: "Responsive",
         description:
-            "Use DataLife comfortably across desktop, tablet and mobile devices.",
+            "Use Calvion comfortably across desktop, tablet and mobile devices.",
         icon: Smartphone,
         className: "bg-cyan-50 text-cyan-600",
     },
@@ -208,7 +208,7 @@ function Home() {
                     <button
                         type="button"
                         onClick={() => navigate("/")}
-                        aria-label="Go to DataLife home"
+                        aria-label="Go to Calvion home"
                         className="
                             group
                             flex
@@ -256,7 +256,7 @@ function Home() {
                                 sm:text-2xl
                             "
                         >
-                            DataLife
+                            Calvion
                         </span>
 
                     </button>
@@ -1020,7 +1020,7 @@ function Home() {
                                     text-blue-600
                                 "
                             >
-                                Why DataLife
+                                Why Calvion
                             </p>
 
 
@@ -1236,7 +1236,7 @@ function Home() {
                             "
                         >
                             Authentication, OTP verification and
-                            controlled access help keep your DataLife
+                            controlled access help keep your Calvion
                             workspace protected.
                         </p>
 
@@ -1400,7 +1400,7 @@ function Home() {
                                     sm:text-base
                                 "
                             >
-                                Create your DataLife workspace and
+                                Create your Calvion workspace and
                                 keep your important digital assets
                                 organized in one place.
                             </p>
@@ -1522,7 +1522,7 @@ function Home() {
                                 text-slate-900
                             "
                         >
-                            DataLife
+                            Calvion
                         </span>
 
                     </button>

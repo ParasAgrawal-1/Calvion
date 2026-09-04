@@ -477,7 +477,7 @@ export default function ProfileSettings() {
                             </h3>
 
                             <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
-                                Your account information stored securely in DataLife.
+                                Your account information stored securely in Calvion.
                             </p>
 
                         </div>

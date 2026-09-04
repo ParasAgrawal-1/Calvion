@@ -206,7 +206,7 @@ const settingsMenu: SettingItem[] = [
     {
         id: "about",
         label: "About",
-        description: "About DataLife",
+        description: "About Calvion",
         icon: Info,
     },
 ];
@@ -1588,7 +1588,7 @@ function NotificationsSection() {
 
 
                         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                            Control how notifications and alerts work in DataLife.
+                            Control how notifications and alerts work in Calvion.
                         </p>
 
                     </div>
@@ -1886,7 +1886,7 @@ function AppearanceSection() {
 
 
                         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                            Customize how DataLife looks and feels.
+                            Customize how Calvion looks and feels.
                         </p>
 
                     </div>
@@ -2440,7 +2440,7 @@ export default function Settings() {
                     return (
                         <PlaceholderSection
                             title="Data Export"
-                            description="Export your DataLife account information."
+                            description="Export your Calvion account information."
                             icon={
                                 Download
                             }
@@ -2466,7 +2466,7 @@ export default function Settings() {
                     return (
                         <PlaceholderSection
                             title="Help & Support"
-                            description="Find help and support resources for using DataLife."
+                            description="Find help and support resources for using Calvion."
                             icon={
                                 HelpCircle
                             }
@@ -2478,7 +2478,7 @@ export default function Settings() {
 
                     return (
                         <PlaceholderSection
-                            title="About DataLife"
+                            title="About Calvion"
                             description="Application version and project information."
                             icon={
                                 Info

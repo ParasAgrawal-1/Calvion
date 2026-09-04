@@ -65,19 +65,19 @@ function ForgotPassword() {
 
             <div className="auth-wrapper">
 
-                {/* DataLife Logo */}
+                {/* Calvion Logo */}
 
                 <button
                     type="button"
                     className="auth-logo auth-logo-button"
                     onClick={() => navigate("/")}
-                    aria-label="Go to DataLife home"
+                    aria-label="Go to Calvion home"
                 >
                     <div className="logo-mark">
                         D
                     </div>
 
-                    <span>DataLife</span>
+                    <span>Calvion</span>
                 </button>
 
 

@@ -342,7 +342,7 @@ function Register() {
                     </div>
 
                     <span>
-                        DataLife
+                       Calvion
                     </span>
 
                 </div>

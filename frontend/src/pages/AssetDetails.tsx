@@ -1952,7 +1952,7 @@ return (
 
                         <p className="mt-1 max-w-sm text-sm leading-6 text-slate-500">
 
-                            Give another DataLife user access to{" "}
+                            Give another Calvion user access to{" "}
 
                             <strong className="font-semibold text-slate-700">
                                 {asset.title}
@@ -2255,7 +2255,7 @@ return (
 
 
                                 <p className="mx-auto mt-1 max-w-sm text-xs leading-5 text-slate-400">
-                                    This asset hasn't been shared with any other DataLife user yet.
+                                    This asset hasn't been shared with any other Calvion user yet.
                                 </p>
 
                             </div>
