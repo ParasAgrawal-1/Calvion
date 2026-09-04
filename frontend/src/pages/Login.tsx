@@ -6,7 +6,7 @@ import {
     Mail,
     ShieldCheck,
     ArrowRight,
-    Files,
+
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -321,10 +321,12 @@ export default function Login() {
                         className="group flex items-center gap-3"
                     >
 
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 transition group-hover:scale-105">
-
-                            <Files size={20} />
-
+                        <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200 transition duration-200 group-hover:scale-105">
+                            <img
+                                src="/calvion-icon.png"
+                                alt="Calvion"
+                                className="h-8 w-8 object-contain"
+                            />
                         </div>
 
                         <div className="text-left">

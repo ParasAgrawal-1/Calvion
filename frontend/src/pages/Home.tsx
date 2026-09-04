@@ -238,11 +238,13 @@ function Home() {
                                 group-hover:shadow-lg
                             "
                         >
-
-                            <ShieldCheck
-                                size={21}
-                                strokeWidth={2.2}
-                            />
+                            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200 transition duration-200 group-hover:scale-105">
+                                <img
+                                    src="/calvion-icon.png"
+                                    alt="Calvion"
+                                    className="h-8 w-8 object-contain"
+                                />
+                            </div>
 
                         </div>
 

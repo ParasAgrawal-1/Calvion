@@ -2,7 +2,6 @@ import {
     Bell,
     ChevronDown,
     CheckCheck,
-    Files,
     Folder,
     LayoutDashboard,
     LogOut,
@@ -741,10 +740,13 @@ export default function AppNavbar({
 
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 transition duration-200 group-hover:scale-105">
 
-                        <Files
-                            size={20}
-                            strokeWidth={2}
-                        />
+                        <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200 transition duration-200 group-hover:scale-105">
+                            <img
+                                src="/calvion-icon.png"
+                                alt="Calvion"
+                                className="h-8 w-8 object-contain"
+                            />
+                        </div>
 
                     </div>
 
