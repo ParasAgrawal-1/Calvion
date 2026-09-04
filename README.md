@@ -145,16 +145,23 @@ Do not commit:
 
 ## Screenshots
 
-Screenshots of the application will be added here.
+### Login
+![Login](screenshots/login.png)
 
-Recommended screenshots:
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
 
-- Login
-- Dashboard
-- My Assets
-- Shared With Me
-- Settings
-- Dark Mode
+### My Assets
+![My Assets](screenshots/my-assets.png)
+
+### Shared With Me
+![Shared With Me](screenshots/shared-with-me.png)
+
+### Settings
+![Settings](screenshots/settings.png)
+
+### Dark Mode
+![Dark Mode](screenshots/dark-mode.png)
 
 ## Security
 
