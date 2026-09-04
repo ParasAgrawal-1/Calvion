@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -20,6 +21,7 @@ import SharedAssets from "./pages/SharedAssets";
 import Settings from "./pages/settings/Settings";
 function App() {
   return (
+      <>
       <BrowserRouter>
 
         <Routes>
@@ -110,6 +112,8 @@ function App() {
         </Routes>
 
       </BrowserRouter>
+      <Analytics />
+      </>
   );
 }
 
