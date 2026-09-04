@@ -1,0 +1,309 @@
+/* =========================================
+   EDIT ASSET PAGE
+========================================= */
+
+.edit-asset-page {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 40px 24px;
+
+    background: #f8fafc;
+
+    color: #1e293b;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.edit-asset-container {
+    width: 100%;
+    max-width: 720px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-button {
+    border: none;
+    background: transparent;
+
+    padding: 0;
+    margin-bottom: 28px;
+
+    color: #64748b;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+.back-button:hover {
+    color: #4f46e5;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.edit-asset-header {
+    margin-bottom: 28px;
+}
+
+.edit-asset-header h1 {
+    margin: 0 0 8px;
+
+    color: #172033;
+
+    font-size: 34px;
+    font-weight: 700;
+
+    letter-spacing: -1px;
+}
+
+.edit-asset-header p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   FORM CARD
+========================================= */
+
+.edit-asset-form {
+    padding: 32px;
+
+    background: #ffffff;
+
+    border: 1px solid #e7ebf2;
+    border-radius: 20px;
+
+    box-shadow:
+            0 10px 30px
+            rgba(15, 23, 42, 0.05);
+}
+
+
+/* =========================================
+   FORM GROUP
+========================================= */
+
+.edit-asset-form .form-group {
+    margin-bottom: 24px;
+}
+
+.edit-asset-form label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #334155;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.edit-asset-form input,
+.edit-asset-form textarea,
+.edit-asset-form select {
+    width: 100%;
+
+    border: 1px solid #dbe2ea;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    color: #1e293b;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.edit-asset-form input,
+.edit-asset-form select {
+    height: 52px;
+
+    padding: 0 16px;
+}
+
+.edit-asset-form textarea {
+    min-height: 130px;
+
+    padding: 14px 16px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+.edit-asset-form input:focus,
+.edit-asset-form textarea:focus,
+.edit-asset-form select:focus {
+    border-color: #6366f1;
+
+    box-shadow:
+            0 0 0 4px
+            rgba(99, 102, 241, 0.1);
+}
+
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+.edit-asset-message {
+    margin: 0 0 20px;
+
+    padding: 12px 14px;
+
+    border: 1px solid #fecdd3;
+    border-radius: 10px;
+
+    background: #fff1f2;
+
+    color: #be123c;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.edit-asset-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 32px;
+    padding-top: 24px;
+
+    border-top: 1px solid #edf0f5;
+}
+
+
+.cancel-button,
+.update-button {
+    height: 48px;
+
+    padding: 0 20px;
+
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+            transform 0.2s ease,
+            background 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+
+/* Cancel */
+
+.cancel-button {
+    border: 1px solid #dbe2ea;
+
+    background: #ffffff;
+
+    color: #475569;
+}
+
+.cancel-button:hover {
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+}
+
+
+/* Save */
+
+.update-button {
+    border: none;
+
+    background: #4f46e5;
+
+    color: #ffffff;
+
+    box-shadow:
+            0 8px 20px
+            rgba(79, 70, 229, 0.16);
+}
+
+.update-button:hover {
+    background: #4338ca;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+            0 12px 26px
+            rgba(79, 70, 229, 0.22);
+}
+
+.update-button:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .edit-asset-page {
+        padding: 24px 16px;
+    }
+
+    .edit-asset-header h1 {
+        font-size: 30px;
+    }
+
+    .edit-asset-form {
+        padding: 24px 20px;
+
+        border-radius: 16px;
+    }
+
+    .edit-asset-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-button,
+    .update-button {
+        width: 100%;
+    }
+}

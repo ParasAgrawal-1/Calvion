@@ -1,0 +1,489 @@
+/* ================= PAGE ================= */
+
+.add-asset-page {
+    min-height: 100vh;
+
+    padding: 32px 20px 70px;
+
+    background: #f8f8f7;
+}
+
+
+/* ================= MAIN WRAPPER ================= */
+
+.add-asset-wrapper {
+    width: 100%;
+    max-width: 680px;
+
+    margin: 0 auto;
+}
+
+
+/* ================= BACK BUTTON ================= */
+
+.back-button {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    border: none;
+    background: transparent;
+
+    padding: 0;
+
+    color: #42515f;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+.back-button:hover {
+    color: #16705c;
+}
+
+
+/* ================= HEADING ================= */
+
+.add-asset-wrapper h1 {
+    margin: 26px 0 28px;
+
+    font-size: 30px;
+    font-weight: 700;
+
+    color: #172536;
+}
+
+
+/* ================= FORM CARD ================= */
+
+.asset-form-card {
+    padding: 30px;
+
+    border: 1px solid #d8dce1;
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.55);
+
+    box-shadow:
+            0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ================= FORM GROUP ================= */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    color: #253545;
+}
+
+
+/* ================= INPUTS ================= */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    border: 1px solid #cfd4da;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    padding: 11px 14px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    font-family: inherit;
+
+    color: #253545;
+
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+
+.form-group input {
+    height: 42px;
+}
+
+
+.form-group select {
+    height: 42px;
+
+    cursor: pointer;
+}
+
+
+.form-group textarea {
+    height: 100px;
+
+    resize: vertical;
+}
+
+
+/* ================= FOCUS ================= */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #16705c;
+
+    box-shadow:
+            0 0 0 3px rgba(22, 112, 92, 0.12);
+}
+
+
+/* ================= CONTENT TEXTAREA ================= */
+
+.content-textarea {
+    min-height: 180px;
+}
+
+
+/* ================= CHARACTER COUNT ================= */
+
+.character-count {
+    margin-top: 6px;
+
+    text-align: right;
+
+    font-size: 12px;
+
+    color: #6c7782;
+}
+
+
+/* ================= FILE INPUT ================= */
+
+.hidden-file-input {
+    display: none;
+}
+
+
+/* ================= UPLOAD AREA ================= */
+
+.upload-area {
+    min-height: 150px;
+
+    border: 1px dashed #c8cdd2;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    background:
+            rgba(255, 255, 255, 0.35);
+
+    transition:
+            border-color 0.2s ease,
+            background 0.2s ease,
+            transform 0.2s ease;
+}
+
+
+.upload-area:hover {
+    border-color: #16705c;
+
+    background:
+            rgba(22, 112, 92, 0.04);
+}
+
+
+.upload-area.drag-active {
+    border-color: #16705c;
+
+    background:
+            rgba(22, 112, 92, 0.08);
+
+    transform: scale(1.01);
+}
+
+
+/* ================= UPLOAD ICON ================= */
+
+.upload-icon {
+    margin-bottom: 10px;
+
+    color: #647789;
+}
+
+
+/* ================= UPLOAD TEXT ================= */
+
+.upload-title {
+    font-size: 15px;
+    font-weight: 500;
+
+    color: #263646;
+}
+
+
+.upload-subtitle {
+    margin-top: 5px;
+
+    font-size: 13px;
+
+    color: #667686;
+}
+
+
+.upload-formats {
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    color: #8a96a1;
+}
+
+
+/* ================= UPLOADED FILES ================= */
+
+.uploaded-files {
+    margin-top: 16px;
+}
+
+
+.uploaded-files-header {
+    margin-bottom: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #253545;
+}
+
+
+.uploaded-file {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 12px;
+
+    margin-bottom: 8px;
+
+    border: 1px solid #dde1e5;
+    border-radius: 8px;
+
+    background: #ffffff;
+}
+
+
+.file-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #16705c;
+}
+
+
+.file-info p {
+    margin: 0;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    color: #2b3a49;
+}
+
+
+.file-info span {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 12px;
+
+    color: #7b8792;
+}
+
+
+/* ================= REMOVE FILE ================= */
+
+.remove-file {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 6px;
+
+    background: transparent;
+
+    color: #7a8792;
+
+    cursor: pointer;
+
+    transition:
+            background 0.2s ease,
+            color 0.2s ease;
+}
+
+
+.remove-file:hover {
+    background: #fff0f0;
+
+    color: #d64545;
+}
+
+
+/* ================= HELPER TEXT ================= */
+
+.field-helper {
+    display: block;
+
+    margin-top: 6px;
+
+    font-size: 12px;
+
+    color: #6e7a85;
+}
+
+
+/* ================= ACTION BUTTONS ================= */
+
+.form-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 26px;
+}
+
+
+.create-button,
+.cancel-button {
+    height: 40px;
+
+    padding: 0 20px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+            transform 0.2s ease,
+            background 0.2s ease;
+}
+
+
+/* CREATE */
+
+.create-button {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    border: none;
+
+    background: #16705c;
+
+    color: white;
+}
+
+
+.create-button:hover {
+    background: #115d4d;
+
+    transform: translateY(-1px);
+}
+
+
+/* CANCEL */
+
+.cancel-button {
+    border: 1px solid #cfd4da;
+
+    background: white;
+
+    color: #344150;
+}
+
+
+.cancel-button:hover {
+    background: #f2f4f5;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 600px) {
+
+    .add-asset-page {
+        padding: 25px 15px 50px;
+    }
+
+
+    .asset-form-card {
+        padding: 20px;
+    }
+
+
+    .add-asset-wrapper h1 {
+        font-size: 26px;
+    }
+
+
+    .form-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .create-button,
+    .cancel-button {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+}
+.form-group label {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 8px;
+}

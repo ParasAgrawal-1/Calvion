@@ -1,0 +1,29 @@
+# Frontend
+node_modules/
+dist/
+.vite/
+
+# Spring Boot
+target/
+*.class
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Uploaded files
+uploads/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

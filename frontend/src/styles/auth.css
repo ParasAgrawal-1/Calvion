@@ -1,0 +1,1412 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family:
+            Inter,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            sans-serif;
+
+    background: #f8fafc;
+    color: #1e293b;
+}
+
+
+/* =========================================
+   AUTH PAGE
+========================================= */
+
+.auth-page {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 24px;
+
+    background:
+            radial-gradient(
+                    circle at top left,
+                    rgba(99, 102, 241, 0.07),
+                    transparent 32%
+            ),
+            radial-gradient(
+                    circle at bottom right,
+                    rgba(56, 189, 248, 0.05),
+                    transparent 30%
+            ),
+            #f8fafc;
+}
+
+
+/* =========================================
+   AUTH WRAPPER
+========================================= */
+
+.auth-wrapper {
+    width: 100%;
+    max-width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+.auth-logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 30px;
+    padding: 0;
+
+    border: none;
+    outline: none;
+    background: transparent;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    box-shadow: none;
+
+    color: #1e293b;
+
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+
+    cursor: pointer;
+}
+
+
+.logo-mark {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #4f46e5,
+                    #6366f1
+            );
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    box-shadow:
+            0 8px 22px
+            rgba(79, 70, 229, 0.2);
+}
+
+
+/* =========================================
+   AUTH CARD
+========================================= */
+
+.auth-card {
+    width: 100%;
+
+    padding: 42px;
+
+    background: #ffffff;
+
+    border: 1px solid #e7ebf2;
+
+    border-radius: 22px;
+
+    box-shadow:
+            0 20px 60px
+            rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.auth-header {
+    text-align: center;
+
+    margin-bottom: 34px;
+}
+
+
+.auth-header h1 {
+    margin: 0 0 10px;
+
+    color: #172033;
+
+    font-size: 34px;
+    line-height: 1.2;
+    font-weight: 700;
+
+    letter-spacing: -1.2px;
+}
+
+
+.auth-header p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   FORM GROUP
+========================================= */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #334155;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   LABEL ROW
+========================================= */
+
+.label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+}
+
+.label-row label {
+    margin-bottom: 0;
+}
+
+
+/* =========================================
+   CHARACTER COUNT
+========================================= */
+
+.character-count {
+    color: #94a3b8;
+
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.form-group input {
+    width: 100%;
+    height: 52px;
+
+    padding: 0 16px;
+
+    border: 1px solid #dbe2ea;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    color: #1e293b;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+
+.form-group input::placeholder {
+    color: #94a3b8;
+}
+
+
+.form-group input:hover {
+    border-color: #c4cbd6;
+}
+
+
+.form-group input:focus {
+    border-color: #6366f1;
+
+    box-shadow:
+            0 0 0 4px
+            rgba(99, 102, 241, 0.1);
+}
+
+
+/* =========================================
+   PASSWORD INPUT
+========================================= */
+
+.password-input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+
+.password-input-wrapper input {
+    padding-right: 52px;
+}
+
+
+/* =========================================
+   PASSWORD SHOW / HIDE BUTTON
+========================================= */
+
+.password-toggle {
+    position: absolute;
+
+    top: 50%;
+    right: 14px;
+
+    transform: translateY(-50%);
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    background: transparent;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    border-radius: 8px;
+
+    transition:
+            color 0.2s ease,
+            background 0.2s ease;
+}
+
+
+.password-toggle:hover {
+    color: #4f46e5;
+
+    background: #eef2ff;
+}
+
+
+/* =========================================
+   LIVE VALIDATION
+========================================= */
+
+.validation-success,
+.validation-error {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    margin-top: 7px;
+
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+.validation-success {
+    color: #16a34a;
+}
+
+
+.validation-error {
+    color: #dc2626;
+}
+
+
+/* =========================================
+   INPUT HINT
+========================================= */
+
+.input-hint {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   PASSWORD STRENGTH
+========================================= */
+
+.password-strength {
+    margin-top: 12px;
+}
+
+
+.strength-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 7px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+.strength-label {
+    font-weight: 600;
+}
+
+
+.strength-weak {
+    color: #dc2626;
+}
+
+
+.strength-medium {
+    color: #d97706;
+}
+
+
+.strength-strong {
+    color: #16a34a;
+}
+
+
+/* Strength Bars */
+
+.strength-bars {
+    display: flex;
+
+    gap: 5px;
+}
+
+
+.strength-bars span {
+    flex: 1;
+
+    height: 5px;
+
+    border-radius: 10px;
+
+    background: #e5e7eb;
+
+    transition:
+            background 0.25s ease;
+}
+
+
+.strength-bars span.active.strength-weak {
+    background: #dc2626;
+}
+
+
+.strength-bars span.active.strength-medium {
+    background: #d97706;
+}
+
+
+.strength-bars span.active.strength-strong {
+    background: #16a34a;
+}
+
+
+/* =========================================
+   PASSWORD REQUIREMENTS
+========================================= */
+
+/* =========================================
+   PASSWORD REQUIREMENTS
+========================================= */
+
+.password-requirements {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 0.2px;
+
+    margin-top: 10px;
+
+    text-align: left;
+}
+
+
+.requirement {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    min-height: 22px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+    line-height: 1.2;
+
+    transition: color 0.2s ease;
+}
+
+
+.requirement svg {
+    width: 14px;
+    height: 14px;
+
+    flex-shrink: 0;
+
+    color: #cbd5e1;
+}
+
+
+.requirement.valid {
+    color: #16a34a;
+}
+
+
+.requirement.valid svg {
+    color: #16a34a;
+}
+
+
+/* =========================================
+   INPUT HINT
+========================================= */
+
+.input-hint {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 7px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+    line-height: 1.4;
+
+    text-align: left;
+}
+
+
+.requirement svg {
+    width: 14px;
+    height: 14px;
+
+    color: #cbd5e1;
+}
+
+
+.requirement.valid {
+    color: #16a34a;
+}
+
+
+.requirement.valid svg {
+    color: #16a34a;
+}
+
+
+/* =========================================
+   TERMS AND CONDITIONS
+========================================= */
+
+.terms-group {
+    margin-top: 4px;
+    margin-bottom: 22px;
+}
+
+
+.terms-label {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    color: #64748b;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    cursor: pointer;
+}
+
+
+.terms-label input {
+    width: 16px;
+    height: 16px;
+
+    margin: 2px 0 0;
+
+    accent-color: #4f46e5;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+}
+
+
+/* Terms Link */
+
+.terms-link {
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #4f46e5;
+
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.terms-link:hover {
+    color: #3730a3;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+.auth-message {
+    margin-bottom: 18px;
+
+    padding: 12px 14px;
+
+    border: 1px solid #fecdd3;
+
+    border-radius: 10px;
+
+    background: #fff1f2;
+
+    color: #be123c;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   AUTH BUTTON
+========================================= */
+
+.auth-button {
+    width: 100%;
+    height: 52px;
+
+    margin-top: 4px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #4f46e5;
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+            background 0.2s ease,
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+
+.auth-button:hover:not(:disabled) {
+    background: #4338ca;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+            0 10px 24px
+            rgba(79, 70, 229, 0.2);
+}
+
+
+.auth-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+
+/* Disabled Button */
+
+.auth-button:disabled {
+    background: #a5b4fc;
+
+    color: #ffffff;
+
+    opacity: 0.7;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+
+    transform: none;
+}
+
+
+/* =========================================
+   LOGIN LINK
+========================================= */
+
+.auth-links {
+    margin-top: 26px;
+
+    text-align: center;
+}
+
+
+.auth-switch-text {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+.auth-link {
+    color: #4f46e5;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+            color 0.2s ease;
+}
+
+
+.auth-link:hover {
+    color: #3730a3;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   OTP VERIFICATION
+========================================= */
+
+.otp-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 18px;
+
+    border-radius: 16px;
+
+    background: #eef2ff;
+
+    color: #4f46e5;
+
+    font-size: 22px;
+}
+
+
+.otp-email {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #334155;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+
+.auth-success-message {
+    margin-bottom: 18px;
+
+    padding: 12px 14px;
+
+    border: 1px solid #bbf7d0;
+
+    border-radius: 10px;
+
+    background: #f0fdf4;
+
+    color: #15803d;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .auth-page {
+        padding: 24px 16px;
+    }
+
+    .auth-wrapper {
+        max-width: 100%;
+    }
+
+    .auth-logo {
+        margin-bottom: 24px;
+    }
+
+    .auth-card {
+        padding: 32px 24px;
+
+        border-radius: 20px;
+    }
+
+    .auth-header {
+        margin-bottom: 30px;
+    }
+
+    .auth-header h1 {
+        font-size: 30px;
+    }
+
+}
+
+
+@media (max-width: 380px) {
+
+    .auth-page {
+        padding: 12px;
+    }
+
+    .auth-card {
+        padding: 28px 18px;
+    }
+
+    .auth-header h1 {
+        font-size: 27px;
+    }
+
+    .logo-mark {
+        width: 40px;
+        height: 40px;
+    }
+
+}
+/* =========================================
+   PASSWORD INPUT
+========================================= */
+
+.password-input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+.password-input-wrapper input {
+    padding-right: 52px;
+}
+
+.password-toggle {
+    position: absolute;
+
+    top: 50%;
+    right: 14px;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    background: transparent;
+
+    color: #64748b;
+
+    cursor: pointer;
+}
+
+.password-toggle:hover {
+    color: #4f46e5;
+}
+
+
+/* =========================================
+   PASSWORD VALIDATION
+   Hidden until user types password
+========================================= */
+
+.password-validation {
+    margin-top: 16px;
+}
+
+
+/* STRENGTH HEADER */
+
+.password-strength-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    font-size: 14px;
+
+    color: #64748b;
+}
+
+.strength-text {
+    font-weight: 600;
+}
+
+.strength-text.weak {
+    color: #dc2626;
+}
+
+.strength-text.medium {
+    color: #d97706;
+}
+
+.strength-text.strong {
+    color: #15803d;
+}
+
+
+/* STRENGTH BARS */
+
+.strength-bars {
+    display: flex;
+
+    gap: 6px;
+
+    margin-bottom: 10px;
+}
+
+.strength-bar {
+    flex: 1;
+
+    height: 4px;
+
+    border-radius: 14px;
+
+    background: #e2e8f0;
+}
+
+.strength-bar.active.weak {
+    background: #dc2626;
+}
+
+.strength-bar.active.medium {
+    background: #d97706;
+}
+
+.strength-bar.active.strong {
+    background: #15803d;
+}
+
+
+/* =========================================
+   PASSWORD RULES
+========================================= */
+
+.password-rules {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1px;
+}
+
+.password-rule {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 14px;
+}
+
+.password-rule.valid {
+    color: #15803d;
+}
+
+.password-rule.invalid {
+    color: #94a3b8;
+}
+
+
+/* =========================================
+   PASSWORD MATCH
+========================================= */
+
+.password-match {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 9px;
+
+    font-size: 14px;
+}
+
+.password-match.match {
+    color: #15803d;
+}
+
+.password-match.no-match {
+    color: #dc2626;
+}
+
+
+/* =========================================
+   DIGITAL ID LABEL
+========================================= */
+
+.label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+}
+
+.label-row label {
+    margin-bottom: 0;
+}
+
+.character-count {
+    font-size: 13px;
+
+    color: #64748b;
+}
+
+
+/* LEFT ALIGNED HINT */
+
+.input-hint {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 8px;
+
+    text-align: left;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   TERMS
+========================================= */
+
+.terms-container {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin: 24px 0 18px;
+
+    font-size: 14px;
+
+    color: #64748b;
+}
+
+.terms-container input {
+    width: 18px;
+    height: 18px;
+
+    margin: 1px 0 0;
+
+    accent-color: #4f46e5;
+
+    cursor: pointer;
+}
+
+.terms-container label {
+    cursor: pointer;
+
+    line-height: 1.5;
+}
+
+.terms-link {
+    color: #4338ca;
+
+    font-weight: 600;
+}
+/* =========================================
+   PASSWORD INPUT
+========================================= */
+
+.password-input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+.password-input-wrapper input {
+    padding-right: 52px;
+}
+
+
+/* Password Eye Button */
+
+.password-toggle {
+    position: absolute;
+
+    top: 50%;
+    right: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+
+    padding: 0;
+
+    color: #64748b;
+
+    cursor: pointer;
+}
+
+.password-toggle:hover {
+    color: #4f46e5;
+}
+
+
+/* =========================================
+   PASSWORD LABEL ROW
+========================================= */
+
+.password-label-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+}
+
+.password-label-row label {
+    margin-bottom: 0;
+}
+
+
+/* Forgot Password */
+
+.forgot-password-link {
+    border: none;
+    background: transparent;
+
+    padding: 0;
+
+    color: #4f46e5;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.forgot-password-link:hover {
+    color: #3730a3;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   LOGIN / REGISTER SWITCH
+========================================= */
+
+.auth-links {
+    margin-top: 20px;
+
+    text-align: center;
+}
+
+.auth-switch-text {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+.auth-link {
+    color: #4f46e5;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+.auth-link:hover {
+    color: #3730a3;
+
+    text-decoration: underline;
+}
+/* =========================================
+   AUTH LOGO BUTTON FIX
+========================================= */
+
+.auth-logo-button {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent !important;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    box-shadow: none !important;
+
+    color: #1e293b;
+
+    font-family: inherit;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   CREATE ACCOUNT / BACK BUTTON
+========================================= */
+
+.create-account-link {
+    display: inline-block;
+
+    padding: 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent !important;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    box-shadow: none !important;
+
+    color: #4f46e5;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+.create-account-link:hover {
+    color: #3730a3;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   OTP / FORGOT PASSWORD ICON
+========================================= */
+
+.otp-icon {
+    width: 62px;
+    height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 20px;
+
+    border-radius: 18px;
+
+    background: #eef2ff;
+
+    color: #4f46e5;
+}
+
+
+/* =========================================
+   AUTH FOOTER
+========================================= */
+
+.auth-footer {
+    margin-top: 26px;
+
+    text-align: center;
+}
+
+.auth-footer p {
+    margin: 0 0 8px;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+/* =========================================
+   BACK TO HOME BUTTON
+========================================= */
+
+.auth-page {
+    position: relative;
+}
+
+.back-home-button {
+    position: absolute;
+
+    top: 28px;
+    left: 32px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 14px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: transparent !important;
+
+    color: #475569;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    box-shadow: none !important;
+
+    transition:
+            color 0.2s ease,
+            background 0.2s ease,
+            transform 0.2s ease;
+}
+
+.back-home-button:hover {
+    background: #eef2ff !important;
+
+    color: #4f46e5;
+
+    transform: translateX(-3px);
+}
+
+.back-home-button:active {
+    transform: translateX(-1px);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .back-home-button {
+        top: 16px;
+        left: 16px;
+
+        padding: 8px 10px;
+
+        font-size: 13px;
+    }
+
+}
