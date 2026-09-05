@@ -297,15 +297,12 @@ navigate(
             );
 
 
-            setMessage(
-
+            const errorText =
+                (typeof error.response?.data === "string" ? error.response.data : null) ||
                 error.response?.data?.message ||
+                "Registration failed. Please try again.";
 
-                error.response?.data ||
-
-                "Registration failed. Please try again."
-
-            );
+            setMessage(errorText);
 
         } finally {
 
@@ -383,6 +380,12 @@ navigate(
                         </p>
 
                     </div>
+
+                    {message && (
+                        <div className="auth-message" style={{ marginBottom: "20px" }}>
+                            {message}
+                        </div>
+                    )}
 
 
                     {/* ================= FORM ================= */}

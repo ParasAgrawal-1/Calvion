@@ -56,7 +56,7 @@ public ResponseEntity<?> register(
     // Check if user is already registered
     if (userRepository.existsByEmail(request.getEmail())) {
         return ResponseEntity.badRequest()
-                .body("Email already registered");
+                .body(Map.of("message", "Email already registered. Please login instead."));
     }
 
     // Check digital identity
@@ -64,7 +64,7 @@ public ResponseEntity<?> register(
             request.getDigitalIdentity()
     )) {
         return ResponseEntity.badRequest()
-                .body("Digital Identity already exists");
+                .body(Map.of("message", "Digital Identity is already taken. Please choose another."));
     }
 
     // Generate 6-digit OTP
