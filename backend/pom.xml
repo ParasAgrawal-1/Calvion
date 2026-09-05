@@ -95,13 +95,8 @@
 
 
 		<!-- =================================================
-             MAIL
-        ================================================== -->
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
+			 RESEND (HTTP API via RestTemplate - no SMTP needed)
+		================================================== -->
 
 
 		<!-- =================================================
