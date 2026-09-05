@@ -176,9 +176,13 @@ public ResponseEntity<?> register(
         }
 
         // Generate JWT token
+        backend.entity.UserRole role = (user.getRole() != null)
+                ? user.getRole()
+                : backend.entity.UserRole.USER;
+
         String token = jwtService.generateToken(
                 user.getEmail(),
-                user.getRole()
+                role
         );
 
         return ResponseEntity.ok(
@@ -353,6 +357,7 @@ public ResponseEntity<?> register(
                 .digitalIdentity(
                         pendingRegistration.getDigitalIdentity()
                 )
+                .role(backend.entity.UserRole.USER)
                 .build();
 
         userRepository.save(user);

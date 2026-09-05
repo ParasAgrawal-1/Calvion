@@ -15,26 +15,34 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    @Value("${jwt.secret}")
+    private static final String DEFAULT_SECRET =
+            "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
+
+    @Value("${jwt.secret:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}")
     private String secret;
 
-    @Value("${jwt.expiration}")
+    @Value("${jwt.expiration:86400000}")
     private long expiration;
 
     private SecretKey getSigningKey() {
+        String keyToUse = (secret != null && secret.trim().length() >= 32)
+                ? secret.trim()
+                : DEFAULT_SECRET;
+
         return Keys.hmacShaKeyFor(
-                secret.getBytes(StandardCharsets.UTF_8)
+                keyToUse.getBytes(StandardCharsets.UTF_8)
         );
     }
 
     // Generate token with email + role
     public String generateToken(String email, UserRole role) {
+        String roleName = (role != null) ? role.name() : UserRole.USER.name();
 
         return Jwts.builder()
                 .subject(email)
 
                 // Store role inside JWT
-                .claim("role", role.name())
+                .claim("role", roleName)
 
                 .issuedAt(new Date())
 
