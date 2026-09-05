@@ -244,38 +244,50 @@ function Register() {
             setLoading(true);
 
 
-            await api.post(
-                "/api/auth/register",
-                {
-
-                    name:
-                        name.trim(),
-
-                    email:
-                        email.trim(),
-
-                    password,
-
-                    digitalIdentity:
-                        digitalIdentity.trim(),
-
-                }
-            );
-
-
+           const response = await api.post(
+    "/auth/register",
+    {
+        name: name.trim(),
+        email: email.trim(),
+        password,
+        digitalIdentity: digitalIdentity.trim(),
+    }
+);
             /* SAVE EMAIL FOR OTP */
 
-            localStorage.setItem(
-                "registerEmail",
-                email.trim()
-            );
+localStorage.setItem(
+    "registerEmail",
+    email.trim()
+);
 
 
-            /* REDIRECT TO OTP */
+/* SAVE DEMO OTP WHEN DEMO MODE IS ENABLED */
 
-            navigate(
-                "/verify-registration-otp"
-            );
+if (
+    response.data &&
+    typeof response.data === "object" &&
+    response.data.demoOtp
+) {
+
+    localStorage.setItem(
+        "demoOtp",
+        response.data.demoOtp
+    );
+
+} else {
+
+    localStorage.removeItem(
+        "demoOtp"
+    );
+
+}
+
+
+/* REDIRECT TO OTP */
+
+navigate(
+    "/verify-registration-otp"
+);
 
         } catch (error: any) {
 

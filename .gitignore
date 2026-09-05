@@ -3,6 +3,7 @@
 # =========================================================
 
 .idea/
+.vscode/
 *.iml
 
 
@@ -55,3 +56,4 @@ backend/uploads/
 
 .DS_Store
 Thumbs.db
+desktop.ini

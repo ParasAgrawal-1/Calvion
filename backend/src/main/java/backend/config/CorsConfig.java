@@ -34,15 +34,21 @@ public class CorsConfig {
          * http://localhost:5173
          */
 
-        List<String> allowedOrigins =
-                Arrays.asList(
-                        frontendUrl,
-                        "http://localhost:5173"
-                );
+        List<String> originPatterns = new java.util.ArrayList<>();
+        originPatterns.add("http://localhost:*");
+        originPatterns.add("https://*.vercel.app");
 
+        if (frontendUrl != null && !frontendUrl.isBlank()) {
+            for (String origin : frontendUrl.split(",")) {
+                String cleanOrigin = origin.trim().replaceAll("/+$", "");
+                if (!cleanOrigin.isBlank() && !originPatterns.contains(cleanOrigin)) {
+                    originPatterns.add(cleanOrigin);
+                }
+            }
+        }
 
-        configuration.setAllowedOrigins(
-                allowedOrigins
+        configuration.setAllowedOriginPatterns(
+                originPatterns
         );
 
 

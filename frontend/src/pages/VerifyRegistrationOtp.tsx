@@ -6,12 +6,14 @@ import "../styles/auth.css";
 function VerifyRegistrationOtp() {
     const navigate = useNavigate();
 
-    const [otp, setOtp] = useState("");
+    // Get registration data BEFORE rendering
+    const email = localStorage.getItem("registerEmail");
+    const demoOtp = localStorage.getItem("demoOtp");
+
+    const [otp, setOtp] = useState(demoOtp || "");
     const [message, setMessage] = useState("");
     const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    const email = localStorage.getItem("registerEmail");
 
     const handleVerifyOtp = async (
         e: React.FormEvent<HTMLFormElement>
@@ -25,12 +27,18 @@ function VerifyRegistrationOtp() {
             return;
         }
 
+        if (otp.length !== 6) {
+            setMessage("Please enter a valid 6-digit OTP.");
+            return;
+        }
+
         try {
             setLoading(true);
             setMessage("");
+            setSuccess(false);
 
             const response = await api.post(
-                "/api/auth/verify-registration-otp",
+                "/auth/verify-registration-otp",
                 {
                     email,
                     otp,
@@ -45,13 +53,20 @@ function VerifyRegistrationOtp() {
                     : "Account verified successfully!"
             );
 
+            // Remove temporary registration data
             localStorage.removeItem("registerEmail");
+            localStorage.removeItem("demoOtp");
 
+            // Redirect to login
             setTimeout(() => {
                 navigate("/login");
             }, 1500);
 
         } catch (error: any) {
+            console.error(
+                "OTP verification failed:",
+                error
+            );
 
             const errorData = error.response?.data;
 
@@ -59,12 +74,12 @@ function VerifyRegistrationOtp() {
 
             if (typeof errorData === "string") {
                 setMessage(errorData);
-
             } else if (errorData?.message) {
                 setMessage(errorData.message);
-
             } else {
-                setMessage("Invalid or expired OTP. Please try again.");
+                setMessage(
+                    "Invalid or expired OTP. Please try again."
+                );
             }
 
         } finally {
@@ -77,7 +92,7 @@ function VerifyRegistrationOtp() {
 
             <div className="auth-wrapper">
 
-                {/* Calvion Logo */}
+                {/* ================= LOGO ================= */}
 
                 <button
                     type="button"
@@ -92,7 +107,7 @@ function VerifyRegistrationOtp() {
                 </button>
 
 
-                {/* OTP Card */}
+                {/* ================= OTP CARD ================= */}
 
                 <section className="auth-card">
 
@@ -102,7 +117,9 @@ function VerifyRegistrationOtp() {
                             ✉
                         </div>
 
-                        <h1>Verify your email</h1>
+                        <h1>
+                            Verify your email
+                        </h1>
 
                         <p>
                             We've sent a 6-digit verification code to
@@ -117,7 +134,17 @@ function VerifyRegistrationOtp() {
                     </div>
 
 
-                    {/* OTP Form */}
+                    {/* ================= DEMO OTP ================= */}
+
+                    {demoOtp && (
+                        <div className="auth-success-message">
+                            Demo OTP:{" "}
+                            <strong>{demoOtp}</strong>
+                        </div>
+                    )}
+
+
+                    {/* ================= OTP FORM ================= */}
 
                     <form onSubmit={handleVerifyOtp}>
 
@@ -148,8 +175,9 @@ function VerifyRegistrationOtp() {
                         </div>
 
 
-                        {message && (
+                        {/* ================= MESSAGE ================= */}
 
+                        {message && (
                             <div
                                 className={
                                     success
@@ -160,23 +188,28 @@ function VerifyRegistrationOtp() {
                             >
                                 {message}
                             </div>
-
                         )}
 
+
+                        {/* ================= VERIFY BUTTON ================= */}
 
                         <button
                             type="submit"
                             className="auth-button"
-                            disabled={loading || otp.length !== 6}
+                            disabled={
+                                loading ||
+                                otp.length !== 6
+                            }
                         >
                             {loading
                                 ? "Verifying..."
-                                : "Verify email"
-                            }
+                                : "Verify email"}
                         </button>
 
                     </form>
 
+
+                    {/* ================= FOOTER ================= */}
 
                     <div className="auth-footer">
 

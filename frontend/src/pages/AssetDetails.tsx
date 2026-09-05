@@ -28,7 +28,7 @@ import {
     X,
 } from "lucide-react";
 
-import api from "../services/api";
+import api, { apiBaseUrl } from "../services/api";
 
 
 // =========================================
@@ -855,7 +855,7 @@ const handleViewFile = async (
 
         const response =
             await fetch(
-                `http://localhost:8080/api/assets/${id}/files/${fileId}/view`,
+                `${apiBaseUrl}/assets/${id}/files/${fileId}/view`,
                 {
                     headers: {
                         Authorization:
@@ -936,7 +936,7 @@ const handleDownloadFile = async (
 
         const response =
             await fetch(
-                `http://localhost:8080/api/assets/${id}/files/${file.id}/download`,
+                `${apiBaseUrl}/assets/${id}/files/${file.id}/download`,
                 {
                     headers: {
                         Authorization:

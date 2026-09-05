@@ -1,7 +1,8 @@
 package backend.controller;
 
 import backend.dto.*;
-
+import org.springframework.beans.factory.annotation.Value;
+import java.util.Map;
 import backend.entity.User;
 import backend.repository.UserRepository;
 
@@ -32,6 +33,7 @@ public class AuthController {
             PendingRegistrationRepository pendingRegistrationRepository,
             PasswordEncoder passwordEncoder,
             JwtService jwtService,
+            
             EmailService emailService
     ) {
         this.userRepository = userRepository;
@@ -40,78 +42,110 @@ public class AuthController {
         this.jwtService = jwtService;
         this.emailService = emailService;
     }
+    @Value("${app.otp.demo-mode:false}")
+private boolean demoOtpMode;
 
     // =========================
-    // REGISTER
-    // =========================
-    @PostMapping("/register")
-    public ResponseEntity<?> register(
-            @RequestBody RegisterRequest request
-    ) {
+// REGISTER
+// =========================
+@PostMapping("/register")
+public ResponseEntity<?> register(
+        @RequestBody RegisterRequest request
+) {
 
-        // Check if user is already registered
-        if (userRepository.existsByEmail(request.getEmail())) {
-            return ResponseEntity.badRequest()
-                    .body("Email already registered");
-        }
+    // Check if user is already registered
+    if (userRepository.existsByEmail(request.getEmail())) {
+        return ResponseEntity.badRequest()
+                .body("Email already registered");
+    }
 
-        if (userRepository.existsByDigitalIdentity(
-                request.getDigitalIdentity()
-        )) {
-            return ResponseEntity.badRequest()
-                    .body("Digital Identity already exists");
-        }
+    // Check digital identity
+    if (userRepository.existsByDigitalIdentity(
+            request.getDigitalIdentity()
+    )) {
+        return ResponseEntity.badRequest()
+                .body("Digital Identity already exists");
+    }
 
-        // Generate 6-digit OTP
-        String otp = String.format(
-                "%06d",
-                new Random().nextInt(1_000_000)
-        );
+    // Generate 6-digit OTP
+    String otp = String.format(
+            "%06d",
+            new Random().nextInt(1_000_000)
+    );
 
-        // OTP expiry: 10 minutes
-        LocalDateTime expiryTime =
-                LocalDateTime.now().plusMinutes(10);
+    // OTP expiry: 10 minutes
+    LocalDateTime expiryTime =
+            LocalDateTime.now().plusMinutes(10);
 
-        // If user requested registration again, update pending data
-        PendingRegistration pendingRegistration =
-                pendingRegistrationRepository
-                        .findByEmail(request.getEmail())
-                        .orElse(
-                                PendingRegistration.builder()
-                                        .email(request.getEmail())
-                                        .build()
-                        );
+    // Find existing pending registration or create new one
+    PendingRegistration pendingRegistration =
+            pendingRegistrationRepository
+                    .findByEmail(request.getEmail())
+                    .orElse(
+                            PendingRegistration.builder()
+                                    .email(request.getEmail())
+                                    .build()
+                    );
 
-        pendingRegistration.setName(request.getName());
-        pendingRegistration.setEmail(request.getEmail());
+    pendingRegistration.setName(
+            request.getName()
+    );
 
-        // Store encoded password temporarily
-        pendingRegistration.setPassword(
-                passwordEncoder.encode(request.getPassword())
-        );
+    pendingRegistration.setEmail(
+            request.getEmail()
+    );
 
-        pendingRegistration.setDigitalIdentity(
-                request.getDigitalIdentity()
-        );
+    // Store encoded password temporarily
+    pendingRegistration.setPassword(
+            passwordEncoder.encode(
+                    request.getPassword()
+            )
+    );
 
-        pendingRegistration.setOtp(otp);
-        pendingRegistration.setOtpExpiry(expiryTime);
+    pendingRegistration.setDigitalIdentity(
+            request.getDigitalIdentity()
+    );
 
-        pendingRegistrationRepository.save(pendingRegistration);
+    pendingRegistration.setOtp(otp);
 
-        // Send OTP to the email entered during signup
-        emailService.sendOtp(
-                request.getEmail(),
-                otp
-        );
+    pendingRegistration.setOtpExpiry(
+            expiryTime
+    );
+
+    pendingRegistrationRepository.save(
+            pendingRegistration
+    );
+
+    // =====================================================
+    // DEMO MODE
+    // =====================================================
+
+    if (demoOtpMode) {
 
         return ResponseEntity.ok(
-                "OTP sent to your email. Please verify to complete registration."
+                Map.of(
+                        "message",
+                        "Demo OTP generated successfully.",
+
+                        "demoOtp",
+                        otp
+                )
         );
     }
 
+    // =====================================================
+    // REAL EMAIL MODE
+    // =====================================================
 
-    // =========================
+    emailService.sendOtp(
+            request.getEmail(),
+            otp
+    );
+
+    return ResponseEntity.ok(
+            "OTP sent to your email. Please verify to complete registration."
+    );
+}    // =========================
     // LOGIN
     // =========================
     @PostMapping("/login")
