@@ -75,14 +75,18 @@ public class EmailService {
                     RESEND_SEND_URL,
                     new HttpEntity<>(body, headers),
                     String.class);
+
         } catch (org.springframework.web.client.HttpStatusCodeException e) {
+
             throw new RuntimeException(
                     "Resend API failed. Status: "
                             + e.getStatusCode()
                             + ", Response: "
                             + e.getResponseBodyAsString(),
                     e);
+
         } catch (Exception e) {
+
             throw new RuntimeException(
                     "Failed to send OTP via Resend: "
                             + e.getMessage(),
