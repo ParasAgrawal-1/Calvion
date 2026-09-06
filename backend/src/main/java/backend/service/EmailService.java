@@ -71,6 +71,7 @@ public class EmailService {
                 "html", buildOtpHtml(otp));
 
         try {
+
             restTemplate.postForEntity(
                     RESEND_SEND_URL,
                     new HttpEntity<>(body, headers),
@@ -79,21 +80,20 @@ public class EmailService {
         } catch (org.springframework.web.client.HttpStatusCodeException e) {
 
             throw new RuntimeException(
-                    "Resend API failed. Status: "
+                    "RESEND ERROR - Status: "
                             + e.getStatusCode()
-                            + ", Response: "
+                            + " | Response: "
                             + e.getResponseBodyAsString(),
                     e);
 
         } catch (Exception e) {
 
             throw new RuntimeException(
-                    "Failed to send OTP via Resend: "
+                    "RESEND CONNECTION ERROR: "
                             + e.getMessage(),
                     e);
         }
     }
-
     // =========================================================
     // PRIVATE HELPERS
     // =========================================================
