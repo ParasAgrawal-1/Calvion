@@ -13,11 +13,18 @@ import java.util.Map;
 /**
  * Email service using the Resend HTTP API.
  *
- * <p>Unlike SMTP (which is blocked by most cloud providers including Railway),
- * this service uses HTTPS to send emails via Resend's REST API.</p>
+ * <p>
+ * Unlike SMTP (which is blocked by most cloud providers including Railway),
+ * this service uses HTTPS to send emails via Resend's REST API.
+ * </p>
  *
- * <p>Required environment variable: {@code RESEND_API_KEY}</p>
- * <p>Optional environment variable: {@code RESEND_FROM} (defaults to Resend's shared test sender)</p>
+ * <p>
+ * Required environment variable: {@code RESEND_API_KEY}
+ * </p>
+ * <p>
+ * Optional environment variable: {@code RESEND_FROM} (defaults to Resend's
+ * shared test sender)
+ * </p>
  */
 @Service
 public class EmailService {
@@ -50,8 +57,7 @@ public class EmailService {
     public void sendOtp(String toEmail, String otp) {
         if (apiKey == null || apiKey.isBlank()) {
             throw new RuntimeException(
-                    "RESEND_API_KEY is not configured. Please set the environment variable in Railway."
-            );
+                    "RESEND_API_KEY is not configured. Please set the environment variable in Railway.");
         }
 
         HttpHeaders headers = new HttpHeaders();
@@ -59,20 +65,28 @@ public class EmailService {
         headers.setBearerAuth(apiKey);
 
         Map<String, Object> body = Map.of(
-                "from",    fromAddress,
-                "to",      List.of(toEmail),
+                "from", fromAddress,
+                "to", List.of(toEmail),
                 "subject", "Calvion – Email Verification OTP",
-                "html",    buildOtpHtml(otp)
-        );
+                "html", buildOtpHtml(otp));
 
         try {
             restTemplate.postForEntity(
                     RESEND_SEND_URL,
                     new HttpEntity<>(body, headers),
-                    String.class
-            );
+                    String.class);
+        } catch (org.springframework.web.client.HttpStatusCodeException e) {
+            throw new RuntimeException(
+                    "Resend API failed. Status: "
+                            + e.getStatusCode()
+                            + ", Response: "
+                            + e.getResponseBodyAsString(),
+                    e);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to send OTP via Resend: " + e.getMessage(), e);
+            throw new RuntimeException(
+                    "Failed to send OTP via Resend: "
+                            + e.getMessage(),
+                    e);
         }
     }
 
@@ -126,6 +140,7 @@ public class EmailService {
                     </div>
                 </body>
                 </html>
-                """.formatted(otp);
+                """
+                .formatted(otp);
     }
 }
