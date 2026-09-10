@@ -789,6 +789,16 @@ public class DigitalAssetService {
                                 asset);
 
                 // =====================================================
+                // DETACH ACTIVITIES FROM ASSET
+                //
+                // Activities must remain in history even after the
+                // asset is deleted. We therefore set asset_id = NULL.
+                // =====================================================
+
+                activityService.detachActivitiesFromAsset(
+                                asset.getId());
+
+                // =====================================================
                 // DELETE ASSET
                 // =====================================================
 

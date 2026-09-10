@@ -9,134 +9,122 @@ import backend.repository.ActivityRepository;
 import backend.repository.UserRepository;
 
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
 public class ActivityService {
 
-    private final ActivityRepository activityRepository;
+        private final ActivityRepository activityRepository;
 
-    private final UserRepository userRepository;
+        private final UserRepository userRepository;
 
-    public ActivityService(
-            ActivityRepository activityRepository,
-            UserRepository userRepository
-    ) {
-        this.activityRepository =
-                activityRepository;
+        public ActivityService(
+                        ActivityRepository activityRepository,
+                        UserRepository userRepository) {
+                this.activityRepository = activityRepository;
 
-        this.userRepository =
-                userRepository;
-    }
+                this.userRepository = userRepository;
+        }
 
+        // =========================================================
+        // CREATE ACTIVITY
+        // =========================================================
 
-    // =========================================================
-    // CREATE ACTIVITY
-    // =========================================================
+        public void createActivity(
+                        User user,
+                        DigitalAsset asset,
+                        String action,
+                        String description) {
 
-    public void createActivity(
-            User user,
-            DigitalAsset asset,
-            String action,
-            String description
-    ) {
+                Activity activity = Activity.builder()
 
-        Activity activity =
-                Activity.builder()
+                                .user(user)
 
-                        .user(user)
+                                .asset(asset)
 
-                        .asset(asset)
+                                .action(action)
 
-                        .action(action)
+                                .description(description)
 
-                        .description(description)
+                                .build();
 
-                        .build();
+                activityRepository.save(activity);
+        }
 
-        activityRepository.save(activity);
-    }
+        // =========================================================
+        // GET MY ACTIVITIES
+        // =========================================================
 
+        public List<ActivityResponse> getMyActivities(
+                        String email) {
 
-    // =========================================================
-    // GET MY ACTIVITIES
-    // =========================================================
+                User user = userRepository
+                                .findByEmail(email)
+                                .orElseThrow(() -> new RuntimeException(
+                                                "User not found"));
 
-    public List<ActivityResponse> getMyActivities(
-            String email
-    ) {
+                return activityRepository
+                                .findByUserOrderByCreatedAtDesc(user)
+                                .stream()
+                                .map(this::mapToResponse)
+                                .toList();
+        }
 
-        User user =
-                userRepository
-                        .findByEmail(email)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "User not found"
-                                )
-                        );
+        // =========================================================
+        // GET RECENT ACTIVITIES
+        // =========================================================
 
-        return activityRepository
-                .findByUserOrderByCreatedAtDesc(user)
-                .stream()
-                .map(this::mapToResponse)
-                .toList();
-    }
+        public List<ActivityResponse> getRecentActivities(
+                        String email) {
 
+                User user = userRepository
+                                .findByEmail(email)
+                                .orElseThrow(() -> new RuntimeException(
+                                                "User not found"));
 
-    // =========================================================
-    // GET RECENT ACTIVITIES
-    // =========================================================
+                return activityRepository
+                                .findTop20ByUserOrderByCreatedAtDesc(user)
+                                .stream()
+                                .map(this::mapToResponse)
+                                .toList();
+        }
 
-    public List<ActivityResponse> getRecentActivities(
-            String email
-    ) {
+        // =========================================================
+        // MAP ENTITY → RESPONSE
+        // =========================================================
 
-        User user =
-                userRepository
-                        .findByEmail(email)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "User not found"
-                                )
-                        );
+        private ActivityResponse mapToResponse(
+                        Activity activity) {
 
-        return activityRepository
-                .findTop20ByUserOrderByCreatedAtDesc(user)
-                .stream()
-                .map(this::mapToResponse)
-                .toList();
-    }
+                DigitalAsset asset = activity.getAsset();
 
+                return new ActivityResponse(
 
-    // =========================================================
-    // MAP ENTITY → RESPONSE
-    // =========================================================
+                                activity.getId(),
 
-    private ActivityResponse mapToResponse(
-            Activity activity
-    ) {
+                                activity.getAction(),
 
-        DigitalAsset asset =
-                activity.getAsset();
+                                activity.getDescription(),
 
-        return new ActivityResponse(
+                                asset != null
+                                                ? asset.getId()
+                                                : null,
 
-                activity.getId(),
+                                asset != null
+                                                ? asset.getTitle()
+                                                : null,
 
-                activity.getAction(),
+                                activity.getCreatedAt());
 
-                activity.getDescription(),
+        }
 
-                asset != null
-                        ? asset.getId()
-                        : null,
+        @Transactional
+        public void detachActivitiesFromAsset(
+                        Long assetId) {
 
-                asset != null
-                        ? asset.getTitle()
-                        : null,
+                activityRepository.detachActivitiesFromAsset(
+                                assetId);
+        }
 
-                activity.getCreatedAt()
-        );
-    }
 }
