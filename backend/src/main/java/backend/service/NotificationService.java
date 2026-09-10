@@ -18,297 +18,250 @@ import java.util.List;
 @Service
 public class NotificationService {
 
-    private final NotificationRepository notificationRepository;
+        private final NotificationRepository notificationRepository;
 
-    private final UserRepository userRepository;
+        private final UserRepository userRepository;
 
-    public NotificationService(
-            NotificationRepository notificationRepository,
-            UserRepository userRepository
-    ) {
-        this.notificationRepository =
-                notificationRepository;
+        public NotificationService(
+                        NotificationRepository notificationRepository,
+                        UserRepository userRepository) {
+                this.notificationRepository = notificationRepository;
 
-        this.userRepository =
-                userRepository;
-    }
-
-    // =========================================================
-    // GET ALL NOTIFICATIONS
-    // =========================================================
-
-    public List<NotificationResponse> getNotifications(
-            String email
-    ) {
-
-        User user =
-                userRepository
-                        .findByEmail(email)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "User not found"
-                                )
-                        );
-
-        return notificationRepository
-                .findByUserOrderByCreatedAtDesc(user)
-                .stream()
-                .map(this::mapToResponse)
-                .toList();
-    }
-
-    // =========================================================
-    // GET UNREAD COUNT
-    // =========================================================
-
-    public long getUnreadCount(
-            String email
-    ) {
-
-        User user =
-                userRepository
-                        .findByEmail(email)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "User not found"
-                                )
-                        );
-
-        return notificationRepository
-                .countByUserAndReadFalse(user);
-    }
-
-    // =========================================================
-    // MARK ONE AS READ
-    // =========================================================
-
-    @Transactional
-    public void markAsRead(
-            Long notificationId,
-            String email
-    ) {
-
-        User user =
-                userRepository
-                        .findByEmail(email)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "User not found"
-                                )
-                        );
-
-        Notification notification =
-                notificationRepository
-                        .findById(notificationId)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "Notification not found"
-                                )
-                        );
-
-        // Security check
-        if (
-                !notification.getUser()
-                        .getId()
-                        .equals(user.getId())
-        ) {
-            throw new RuntimeException(
-                    "You do not have access to this notification"
-            );
+                this.userRepository = userRepository;
         }
 
-        notification.setRead(true);
+        // =========================================================
+        // GET ALL NOTIFICATIONS
+        // =========================================================
 
-        notificationRepository.save(
-                notification
-        );
-    }
+        public List<NotificationResponse> getNotifications(
+                        String email) {
 
-    // =========================================================
-    // MARK ALL AS READ
-    // =========================================================
+                User user = userRepository
+                                .findByEmail(email)
+                                .orElseThrow(() -> new RuntimeException(
+                                                "User not found"));
 
-    @Transactional
-    public void markAllAsRead(
-            String email
-    ) {
-
-        User user =
-                userRepository
-                        .findByEmail(email)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "User not found"
-                                )
-                        );
-
-        List<Notification> notifications =
-                notificationRepository
-                        .findByUserOrderByCreatedAtDesc(user);
-
-        for (
-                Notification notification :
-                notifications
-        ) {
-            notification.setRead(true);
+                return notificationRepository
+                                .findByUserOrderByCreatedAtDesc(user)
+                                .stream()
+                                .map(this::mapToResponse)
+                                .toList();
         }
 
-        notificationRepository.saveAll(
-                notifications
-        );
-    }
+        // =========================================================
+        // GET UNREAD COUNT
+        // =========================================================
 
-    // =========================================================
-    // CREATE SHARE NOTIFICATION
-    // =========================================================
+        public long getUnreadCount(
+                        String email) {
 
-    public void createShareNotification(
-            User owner,
-            User sharedUser,
-            DigitalAsset asset,
-            AssetPermission permission
-    ) {
+                User user = userRepository
+                                .findByEmail(email)
+                                .orElseThrow(() -> new RuntimeException(
+                                                "User not found"));
 
-        String permissionText =
-                permission == AssetPermission.EDIT
-                        ? "edit"
-                        : "view";
+                return notificationRepository
+                                .countByUserAndReadFalse(user);
+        }
 
-        Notification notification =
-                Notification.builder()
+        // =========================================================
+        // MARK ONE AS READ
+        // =========================================================
 
-                        .user(sharedUser)
+        @Transactional
+        public void markAsRead(
+                        Long notificationId,
+                        String email) {
 
-                        .title("Asset shared with you")
+                User user = userRepository
+                                .findByEmail(email)
+                                .orElseThrow(() -> new RuntimeException(
+                                                "User not found"));
 
-                        .message(
-                                owner.getName()
-                                        + " shared \""
-                                        + asset.getTitle()
-                                        + "\" with you with "
-                                        + permissionText
-                                        + " permission."
-                        )
+                Notification notification = notificationRepository
+                                .findById(notificationId)
+                                .orElseThrow(() -> new RuntimeException(
+                                                "Notification not found"));
 
-                        .asset(asset)
+                // Security check
+                if (!notification.getUser()
+                                .getId()
+                                .equals(user.getId())) {
+                        throw new RuntimeException(
+                                        "You do not have access to this notification");
+                }
 
-                        .read(false)
+                notification.setRead(true);
 
-                        .build();
+                notificationRepository.save(
+                                notification);
+        }
 
-        notificationRepository.save(
-                notification
-        );
-    }
+        // =========================================================
+        // MARK ALL AS READ
+        // =========================================================
 
-    // =========================================================
-    // CREATE PERMISSION UPDATE NOTIFICATION
-    // =========================================================
+        @Transactional
+        public void markAllAsRead(
+                        String email) {
 
-    public void createPermissionUpdateNotification(
-            User owner,
-            User sharedUser,
-            DigitalAsset asset,
-            AssetPermission permission
-    ) {
+                User user = userRepository
+                                .findByEmail(email)
+                                .orElseThrow(() -> new RuntimeException(
+                                                "User not found"));
 
-        String permissionText =
-                permission == AssetPermission.EDIT
-                        ? "EDIT"
-                        : "VIEW";
+                List<Notification> notifications = notificationRepository
+                                .findByUserOrderByCreatedAtDesc(user);
 
-        Notification notification =
-                Notification.builder()
+                for (Notification notification : notifications) {
+                        notification.setRead(true);
+                }
 
-                        .user(sharedUser)
+                notificationRepository.saveAll(
+                                notifications);
+        }
 
-                        .title("Asset permission updated")
+        // =========================================================
+        // CREATE SHARE NOTIFICATION
+        // =========================================================
 
-                        .message(
-                                owner.getName()
-                                        + " changed your permission for \""
-                                        + asset.getTitle()
-                                        + "\" to "
-                                        + permissionText
-                                        + "."
-                        )
+        public void createShareNotification(
+                        User owner,
+                        User sharedUser,
+                        DigitalAsset asset,
+                        AssetPermission permission) {
 
-                        .asset(asset)
+                String permissionText = permission == AssetPermission.EDIT
+                                ? "edit"
+                                : "view";
 
-                        .read(false)
+                Notification notification = Notification.builder()
 
-                        .build();
+                                .user(sharedUser)
 
-        notificationRepository.save(
-                notification
-        );
-    }
+                                .title("Asset shared with you")
 
-    // =========================================================
-    // CREATE ACCESS REMOVED NOTIFICATION
-    // =========================================================
+                                .message(
+                                                owner.getName()
+                                                                + " shared \""
+                                                                + asset.getTitle()
+                                                                + "\" with you with "
+                                                                + permissionText
+                                                                + " permission.")
 
-    public void createAccessRemovedNotification(
-            User owner,
-            User sharedUser,
-            DigitalAsset asset
-    ) {
+                                .asset(asset)
 
-        Notification notification =
-                Notification.builder()
+                                .read(false)
 
-                        .user(sharedUser)
+                                .build();
 
-                        .title("Asset access removed")
+                notificationRepository.save(
+                                notification);
+        }
 
-                        .message(
-                                owner.getName()
-                                        + " removed your access to \""
-                                        + asset.getTitle()
-                                        + "\"."
-                        )
+        // =========================================================
+        // CREATE PERMISSION UPDATE NOTIFICATION
+        // =========================================================
 
-                        .asset(null)
+        public void createPermissionUpdateNotification(
+                        User owner,
+                        User sharedUser,
+                        DigitalAsset asset,
+                        AssetPermission permission) {
 
-                        .read(false)
+                String permissionText = permission == AssetPermission.EDIT
+                                ? "EDIT"
+                                : "VIEW";
 
-                        .build();
+                Notification notification = Notification.builder()
 
-        notificationRepository.save(
-                notification
-        );
-    }
+                                .user(sharedUser)
 
-    // =========================================================
-    // MAP ENTITY → RESPONSE
-    // =========================================================
+                                .title("Asset permission updated")
 
-    private NotificationResponse mapToResponse(
-            Notification notification
-    ) {
+                                .message(
+                                                owner.getName()
+                                                                + " changed your permission for \""
+                                                                + asset.getTitle()
+                                                                + "\" to "
+                                                                + permissionText
+                                                                + ".")
 
-        DigitalAsset asset =
-                notification.getAsset();
+                                .asset(asset)
 
-        return new NotificationResponse(
+                                .read(false)
 
-                notification.getId(),
+                                .build();
 
-                notification.getTitle(),
+                notificationRepository.save(
+                                notification);
+        }
 
-                notification.getMessage(),
+        // =========================================================
+        // CREATE ACCESS REMOVED NOTIFICATION
+        // =========================================================
 
-                asset != null
-                        ? asset.getId()
-                        : null,
+        public void createAccessRemovedNotification(
+                        User owner,
+                        User sharedUser,
+                        DigitalAsset asset) {
 
-                asset != null
-                        ? asset.getTitle()
-                        : null,
+                Notification notification = Notification.builder()
 
-                notification.isRead(),
+                                .user(sharedUser)
 
-                notification.getCreatedAt()
-        );
-    }
+                                .title("Asset access removed")
+
+                                .message(
+                                                owner.getName()
+                                                                + " removed your access to \""
+                                                                + asset.getTitle()
+                                                                + "\".")
+
+                                .asset(null)
+
+                                .read(false)
+
+                                .build();
+
+                notificationRepository.save(
+                                notification);
+        }
+
+        // =========================================================
+        // MAP ENTITY → RESPONSE
+        // =========================================================
+
+        private NotificationResponse mapToResponse(
+                        Notification notification) {
+
+                DigitalAsset asset = notification.getAsset();
+
+                return new NotificationResponse(
+
+                                notification.getId(),
+
+                                notification.getTitle(),
+
+                                notification.getMessage(),
+
+                                asset != null
+                                                ? asset.getId()
+                                                : null,
+
+                                asset != null
+                                                ? asset.getTitle()
+                                                : null,
+
+                                notification.isRead(),
+
+                                notification.getCreatedAt());
+        }
+
+        @Transactional
+        public void detachNotificationsFromAsset(Long assetId) {
+
+                notificationRepository.detachNotificationsFromAsset(assetId);
+        }
 }

@@ -795,15 +795,14 @@ public class DigitalAssetService {
                 // asset is deleted. We therefore set asset_id = NULL.
                 // =====================================================
 
-                activityService.detachActivitiesFromAsset(
-                                asset.getId());
+                // Detach activities
+                activityService.detachActivitiesFromAsset(asset.getId());
 
-                // =====================================================
-                // DELETE ASSET
-                // =====================================================
+                // Detach notifications
+                notificationService.detachNotificationsFromAsset(asset.getId());
 
-                digitalAssetRepository.delete(
-                                asset);
+                // Finally delete asset
+                digitalAssetRepository.delete(asset);
         }
 
         // =========================================================
