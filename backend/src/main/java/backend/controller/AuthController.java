@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.UUID;
 import backend.entity.PendingRegistration;
 import backend.repository.PendingRegistrationRepository;
