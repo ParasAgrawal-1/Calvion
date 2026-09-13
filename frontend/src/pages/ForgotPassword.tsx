@@ -27,7 +27,7 @@ function ForgotPassword() {
             setLoading(true);
 
             await api.post(
-                "/api/auth/forgot-password",
+                "/auth/forgot-password",
                 {
                     email: email.trim(),
                 }
