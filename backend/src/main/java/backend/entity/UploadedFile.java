@@ -38,7 +38,7 @@ public class UploadedFile {
 
     @Column(name = "is_encrypted")
     @Builder.Default
-    private Boolean isEncrypted = true;
+    private Boolean isEncrypted = false;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
