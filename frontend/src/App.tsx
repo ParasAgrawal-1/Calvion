@@ -13,6 +13,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import VerifyOtp from "./pages/VerifyOtp";
 import ResetPassword from "./pages/ResetPassword";
 import VerifyRegistrationOtp from "./pages/VerifyRegistrationOtp";
+import VerifyEmail from "./pages/VerifyEmail";
 import AddAsset from "./pages/AddAsset";
 import Home from "./pages/Home";
 import AssetDetails from "./pages/AssetDetails";
@@ -49,6 +50,11 @@ function App() {
           <Route
               path="/verify-registration-otp"
               element={<VerifyRegistrationOtp />}
+          />
+
+          <Route
+              path="/verify-email"
+              element={<VerifyEmail />}
           />
 
           <Route

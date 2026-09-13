@@ -10,5 +10,7 @@ public interface PendingRegistrationRepository
 
     Optional<PendingRegistration> findByEmail(String email);
 
+    Optional<PendingRegistration> findByVerificationToken(String verificationToken);
+
     boolean existsByEmail(String email);
 }

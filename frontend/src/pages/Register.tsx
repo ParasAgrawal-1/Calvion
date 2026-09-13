@@ -33,6 +33,8 @@ function Register() {
     /* ================= UI STATES ================= */
 
     const [message, setMessage] = useState("");
+    const [successEmail, setSuccessEmail] = useState("");
+    const [demoLink, setDemoLink] = useState("");
 
     const [loading, setLoading] =
         useState(false);
@@ -253,41 +255,21 @@ function Register() {
         digitalIdentity: digitalIdentity.trim(),
     }
 );
-            /* SAVE EMAIL FOR OTP */
-
-localStorage.setItem(
-    "registerEmail",
-    email.trim()
-);
-
-
-/* SAVE DEMO OTP WHEN DEMO MODE IS ENABLED */
+            /* SAVE DEMO LINK WHEN DEMO MODE IS ENABLED */
 
 if (
     response.data &&
     typeof response.data === "object" &&
-    response.data.demoOtp
+    response.data.demoLink
 ) {
-
-    localStorage.setItem(
-        "demoOtp",
-        response.data.demoOtp
-    );
-
+    setDemoLink(response.data.demoLink);
 } else {
-
-    localStorage.removeItem(
-        "demoOtp"
-    );
-
+    setDemoLink("");
 }
 
+/* SHOW SUCCESS: check your email */
 
-/* REDIRECT TO OTP */
-
-navigate(
-    "/verify-registration-otp"
-);
+setSuccessEmail(email.trim());
 
         } catch (error: any) {
 
@@ -365,6 +347,63 @@ navigate(
 
                 <div className="auth-card">
 
+                    {/* ================= SUCCESS STATE ================= */}
+
+                    {successEmail ? (
+                        <div style={{ textAlign: "center" }}>
+
+                            <div className="otp-icon" style={{ fontSize: "48px", marginBottom: "16px" }}>
+                                ✉️
+                            </div>
+
+                            <h1 style={{ fontSize: "22px", marginBottom: "8px" }}>
+                                Check your inbox!
+                            </h1>
+
+                            <p style={{ color: "#64748b", marginBottom: "20px", lineHeight: "1.6" }}>
+                                We've sent a verification link to<br />
+                                <strong style={{ color: "#0284c7" }}>{successEmail}</strong>
+                            </p>
+
+                            <p style={{ color: "#64748b", fontSize: "14px", marginBottom: "24px" }}>
+                                Click the link in your email to complete
+                                registration. The link expires in <strong>24 hours</strong>.
+                            </p>
+
+                            {demoLink && (
+                                <div
+                                    className="auth-success-message"
+                                    style={{ marginBottom: "20px", wordBreak: "break-all", fontSize: "13px" }}
+                                >
+                                    <strong>Demo link:</strong>{" "}
+                                    <a href={demoLink} style={{ color: "#0369a1" }}>
+                                        {demoLink}
+                                    </a>
+                                </div>
+                            )}
+
+                            <button
+                                type="button"
+                                className="auth-button"
+                                onClick={() => navigate("/login")}
+                            >
+                                Go to Login
+                            </button>
+
+                            <div className="auth-footer" style={{ marginTop: "16px" }}>
+                                <p>Entered the wrong email?</p>
+                                <button
+                                    type="button"
+                                    className="create-account-link"
+                                    onClick={() => setSuccessEmail("")}
+                                >
+                                    Go back to registration
+                                </button>
+                            </div>
+
+                        </div>
+                    ) : (
+                    <>
 
                     {/* HEADER */}
 
@@ -386,6 +425,7 @@ navigate(
                             {message}
                         </div>
                     )}
+
 
 
                     {/* ================= FORM ================= */}
@@ -894,7 +934,11 @@ navigate(
 
                     </div>
 
+                    </>
+                    )}
+
                 </div>
+
 
             </div>
 

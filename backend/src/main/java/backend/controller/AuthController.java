@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Random;
+import java.util.UUID;
 import backend.entity.PendingRegistration;
 import backend.repository.PendingRegistrationRepository;
 
@@ -43,7 +43,10 @@ public class AuthController {
         this.emailService = emailService;
     }
     @Value("${app.otp.demo-mode:false}")
-private boolean demoOtpMode;
+    private boolean demoOtpMode;
+
+    @Value("${app.frontend-url:http://localhost:5173}")
+    private String frontendUrl;
 
     // =========================
 // REGISTER
@@ -67,15 +70,12 @@ public ResponseEntity<?> register(
                 .body(Map.of("message", "Digital Identity is already taken. Please choose another."));
     }
 
-    // Generate 6-digit OTP
-    String otp = String.format(
-            "%06d",
-            new Random().nextInt(1_000_000)
-    );
+    // Generate a secure random verification token
+    String token = UUID.randomUUID().toString();
 
-    // OTP expiry: 10 minutes
+    // Token expiry: 24 hours
     LocalDateTime expiryTime =
-            LocalDateTime.now().plusMinutes(10);
+            LocalDateTime.now().plusHours(24);
 
     // Find existing pending registration or create new one
     PendingRegistration pendingRegistration =
@@ -87,48 +87,30 @@ public ResponseEntity<?> register(
                                     .build()
                     );
 
-    pendingRegistration.setName(
-            request.getName()
-    );
-
-    pendingRegistration.setEmail(
-            request.getEmail()
-    );
+    pendingRegistration.setName(request.getName());
+    pendingRegistration.setEmail(request.getEmail());
 
     // Store encoded password temporarily
     pendingRegistration.setPassword(
-            passwordEncoder.encode(
-                    request.getPassword()
-            )
+            passwordEncoder.encode(request.getPassword())
     );
 
-    pendingRegistration.setDigitalIdentity(
-            request.getDigitalIdentity()
-    );
+    pendingRegistration.setDigitalIdentity(request.getDigitalIdentity());
+    pendingRegistration.setVerificationToken(token);
+    pendingRegistration.setTokenExpiry(expiryTime);
 
-    pendingRegistration.setOtp(otp);
-
-    pendingRegistration.setOtpExpiry(
-            expiryTime
-    );
-
-    pendingRegistrationRepository.save(
-            pendingRegistration
-    );
+    pendingRegistrationRepository.save(pendingRegistration);
 
     // =====================================================
     // DEMO MODE
     // =====================================================
 
     if (demoOtpMode) {
-
+        String demoLink = frontendUrl + "/verify-email?token=" + token;
         return ResponseEntity.ok(
                 Map.of(
-                        "message",
-                        "Demo OTP generated successfully.",
-
-                        "demoOtp",
-                        otp
+                        "message", "Demo mode: verification link generated.",
+                        "demoLink", demoLink
                 )
         );
     }
@@ -137,15 +119,74 @@ public ResponseEntity<?> register(
     // REAL EMAIL MODE
     // =====================================================
 
-    emailService.sendOtp(
+    String verificationLink = frontendUrl + "/verify-email?token=" + token;
+    emailService.sendVerificationLink(
             request.getEmail(),
-            otp
+            request.getName(),
+            verificationLink
     );
 
     return ResponseEntity.ok(
-            "OTP sent to your email. Please verify to complete registration."
+            "Verification link sent to your email. Please check your inbox."
     );
-}    // =========================
+}
+
+    // =========================
+    // VERIFY EMAIL (TOKEN LINK)
+    // =========================
+    @GetMapping("/verify-email")
+    public ResponseEntity<?> verifyEmail(
+            @RequestParam("token") String token
+    ) {
+
+        PendingRegistration pendingRegistration =
+                pendingRegistrationRepository
+                        .findByVerificationToken(token)
+                        .orElse(null);
+
+        if (pendingRegistration == null) {
+            return ResponseEntity.badRequest()
+                    .body("Invalid or expired verification link.");
+        }
+
+        // Check token expiry
+        if (pendingRegistration.getTokenExpiry() == null ||
+                pendingRegistration.getTokenExpiry().isBefore(LocalDateTime.now())) {
+            return ResponseEntity.badRequest()
+                    .body("Verification link has expired. Please register again.");
+        }
+
+        // Final check before creating user
+        if (userRepository.existsByEmail(pendingRegistration.getEmail())) {
+            return ResponseEntity.badRequest()
+                    .body("Email already registered.");
+        }
+
+        if (userRepository.existsByDigitalIdentity(pendingRegistration.getDigitalIdentity())) {
+            return ResponseEntity.badRequest()
+                    .body("Digital Identity already exists.");
+        }
+
+        // Create the verified user
+        User user = User.builder()
+                .name(pendingRegistration.getName())
+                .email(pendingRegistration.getEmail())
+                .password(pendingRegistration.getPassword())
+                .digitalIdentity(pendingRegistration.getDigitalIdentity())
+                .role(backend.entity.UserRole.USER)
+                .build();
+
+        userRepository.save(user);
+
+        // Delete temporary registration data
+        pendingRegistrationRepository.delete(pendingRegistration);
+
+        return ResponseEntity.ok(
+                "Email verified successfully. Registration complete."
+        );
+    }
+
+    // =========================
     // LOGIN
     // =========================
     @PostMapping("/login")
@@ -300,76 +341,13 @@ public ResponseEntity<?> register(
     // =========================
 // VERIFY REGISTRATION OTP
 // =========================
+    // verify-registration-otp kept for backward-compatibility but is no longer used
     @PostMapping("/verify-registration-otp")
     public ResponseEntity<?> verifyRegistrationOtp(
             @RequestBody VerifyRegistrationOtpRequest request
     ) {
-
-        // Find pending registration using email
-        PendingRegistration pendingRegistration =
-                pendingRegistrationRepository
-                        .findByEmail(request.getEmail())
-                        .orElse(null);
-
-        if (pendingRegistration == null) {
-            return ResponseEntity.badRequest()
-                    .body("No pending registration found for this email");
-        }
-
-        // Check OTP
-        if (pendingRegistration.getOtp() == null ||
-                !pendingRegistration.getOtp()
-                        .equals(request.getOtp())) {
-
-            return ResponseEntity.badRequest()
-                    .body("Invalid OTP");
-        }
-
-        // Check OTP expiry
-        if (pendingRegistration.getOtpExpiry() == null ||
-                pendingRegistration.getOtpExpiry()
-                        .isBefore(LocalDateTime.now())) {
-
-            return ResponseEntity.badRequest()
-                    .body("OTP has expired");
-        }
-
-        // Final check before creating user
-        if (userRepository.existsByEmail(
-                pendingRegistration.getEmail()
-        )) {
-            return ResponseEntity.badRequest()
-                    .body("Email already registered");
-        }
-
-        if (userRepository.existsByDigitalIdentity(
-                pendingRegistration.getDigitalIdentity()
-        )) {
-            return ResponseEntity.badRequest()
-                    .body("Digital Identity already exists");
-        }
-
-        // Create the actual verified user
-        User user = User.builder()
-                .name(pendingRegistration.getName())
-                .email(pendingRegistration.getEmail())
-                .password(pendingRegistration.getPassword())
-                .digitalIdentity(
-                        pendingRegistration.getDigitalIdentity()
-                )
-                .role(backend.entity.UserRole.USER)
-                .build();
-
-        userRepository.save(user);
-
-        // Delete temporary registration data
-        pendingRegistrationRepository.delete(
-                pendingRegistration
-        );
-
-        return ResponseEntity.ok(
-                "Email verified successfully. Registration completed."
-        );
+        return ResponseEntity.badRequest()
+                .body("OTP verification is no longer supported. Please use the email verification link.");
     }
     // =========================
 // VERIFY RESET OTP

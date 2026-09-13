@@ -31,4 +31,10 @@ public class PendingRegistration {
     private String otp;
 
     private LocalDateTime otpExpiry;
+
+    @Column(name = "verification_token", unique = true)
+    private String verificationToken;
+
+    @Column(name = "token_expiry")
+    private LocalDateTime tokenExpiry;
 }
