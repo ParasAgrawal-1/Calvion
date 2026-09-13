@@ -29,7 +29,7 @@ function VerifyOtp() {
             setMessage("");
 
             const response = await api.post(
-                "/api/auth/verify-otp",
+                "/auth/verify-otp",
                 {
                     email,
                     otp,
