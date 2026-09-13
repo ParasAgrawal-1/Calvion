@@ -56,7 +56,7 @@ function ResetPassword() {
             setLoading(true);
 
             const response = await api.post(
-                "/api/auth/reset-password",
+                "/auth/reset-password",
                 {
                     email,
                     otp,
