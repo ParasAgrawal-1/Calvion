@@ -1,5 +1,6 @@
 package backend.entity;
 
+import backend.security.crypto.EncryptedStringConverter;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,7 +33,8 @@ public class DigitalAsset {
     private AssetType type;
 
 
-    @Column(length = 2000)
+    @Convert(converter = EncryptedStringConverter.class)
+    @Column(columnDefinition = "TEXT")
     private String content;
 
 

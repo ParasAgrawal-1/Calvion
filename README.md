@@ -171,11 +171,16 @@ Do not commit:
 ### Dark Mode
 ![Dark Mode](screenshots/dark-mode.png)
 
-## Security
+## Security & Cryptography
 
-Calvion uses JWT-based authentication and Spring Security to protect authenticated resources.
+Calvion incorporates enterprise-grade cryptographic security to protect sensitive digital assets and confidential user data:
 
-Sensitive configuration such as database credentials and JWT secrets should always remain outside the public repository.
+- **AES-256-GCM Storage Encryption at Rest**: All uploaded files are encrypted using Galois/Counter Mode (AES-256-GCM) with unique 96-bit cryptographically secure initialization vectors (IV) prior to disk write, and decrypted on-the-fly during viewing and download.
+- **SHA-256 Cryptographic Checksums & Tamper Detection**: Computes SHA-256 hashes for all files during upload. Any disk tampering or bit corruption is immediately detected by the 128-bit authentication tag and cryptographic digest checks.
+- **PostgreSQL Field Encryption**: Sensitive asset notes, passwords, and credentials stored in the database are automatically encrypted via JPA attribute converters using AES-256 with full backward compatibility.
+- **Spring Security & JWT**: Stateless token authentication with BCrypt password hashing.
+
+Sensitive configuration such as database credentials, JWT secrets, and `CRYPTO_SECRET_KEY` should always remain outside the public repository.
 
 ## Future Improvements
 

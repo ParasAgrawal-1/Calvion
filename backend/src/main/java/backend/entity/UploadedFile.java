@@ -32,6 +32,15 @@ public class UploadedFile {
     private Long fileSize;
 
 
+    @Column(name = "file_hash", length = 64)
+    private String fileHash;
+
+
+    @Column(name = "is_encrypted")
+    @Builder.Default
+    private Boolean isEncrypted = true;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "asset_id")
     private DigitalAsset asset;

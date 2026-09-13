@@ -17,9 +17,11 @@ import backend.repository.AssetShareRepository;
 import backend.repository.DigitalAssetRepository;
 import backend.repository.UserRepository;
 
+import backend.service.CryptoService;
 import backend.service.DigitalAssetService;
 import backend.service.NotificationService;
 
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 
@@ -61,6 +63,8 @@ public class DigitalAssetController {
 
     private final ActivityService activityService;
 
+    private final CryptoService cryptoService;
+
 
     // =========================================================
     // CONSTRUCTOR
@@ -72,7 +76,8 @@ public class DigitalAssetController {
             AssetShareRepository assetShareRepository,
             DigitalAssetService digitalAssetService,
             NotificationService notificationService,
-            ActivityService activityService
+            ActivityService activityService,
+            CryptoService cryptoService
     ) {
 
         this.digitalAssetRepository =
@@ -92,6 +97,9 @@ public class DigitalAssetController {
 
         this.activityService =
                 activityService;
+
+        this.cryptoService =
+                cryptoService;
     }
 
 
@@ -269,19 +277,7 @@ public class DigitalAssetController {
             List<UploadedFileResponse> files =
                     asset.getFiles()
                             .stream()
-                            .map(
-                                    file ->
-                                            new UploadedFileResponse(
-
-                                                    file.getId(),
-
-                                                    file.getOriginalFileName(),
-
-                                                    file.getFileType(),
-
-                                                    file.getFileSize()
-                                            )
-                            )
+                            .map(this::mapToFileResponse)
                             .toList();
 
             DigitalAssetResponse response =
@@ -1031,10 +1027,25 @@ public class DigitalAssetController {
                         .build();
             }
 
-            Resource resource =
-                    new UrlResource(
-                            path.toUri()
-                    );
+            Resource resource;
+            long contentLength;
+
+            if (Boolean.TRUE.equals(file.getIsEncrypted())) {
+                byte[] decryptedBytes = cryptoService.decryptFileToBytes(path);
+
+                if (file.getFileHash() != null && !file.getFileHash().isBlank()) {
+                    String computedHash = cryptoService.computeSha256(decryptedBytes);
+                    if (!file.getFileHash().equalsIgnoreCase(computedHash)) {
+                        throw new SecurityException("Cryptographic integrity verification failed for file " + file.getOriginalFileName());
+                    }
+                }
+
+                resource = new ByteArrayResource(decryptedBytes);
+                contentLength = decryptedBytes.length;
+            } else {
+                resource = new UrlResource(path.toUri());
+                contentLength = Files.size(path);
+            }
 
             String contentType =
                     file.getFileType();
@@ -1057,17 +1068,15 @@ public class DigitalAssetController {
                                 .APPLICATION_OCTET_STREAM_VALUE;
             }
 
-            return ResponseEntity.ok()
-
+            var responseBuilder = ResponseEntity.ok()
                     .contentType(
                             MediaType.parseMediaType(
                                     contentType
                             )
                     )
-
+                    .contentLength(contentLength)
                     .header(
                             HttpHeaders.CONTENT_DISPOSITION,
-
                             ContentDisposition
                                     .inline()
                                     .filename(
@@ -1075,9 +1084,18 @@ public class DigitalAssetController {
                                     )
                                     .build()
                                     .toString()
-                    )
+                    );
 
-                    .body(resource);
+            if (Boolean.TRUE.equals(file.getIsEncrypted())) {
+                responseBuilder
+                        .header("X-Encrypted", "AES-256-GCM")
+                        .header("X-Integrity-Status", "VERIFIED");
+                if (file.getFileHash() != null) {
+                    responseBuilder.header("X-File-Hash", file.getFileHash());
+                }
+            }
+
+            return responseBuilder.body(resource);
 
         } catch (Exception e) {
 
@@ -1138,10 +1156,25 @@ public class DigitalAssetController {
                         .build();
             }
 
-            Resource resource =
-                    new UrlResource(
-                            path.toUri()
-                    );
+            Resource resource;
+            long contentLength;
+
+            if (Boolean.TRUE.equals(file.getIsEncrypted())) {
+                byte[] decryptedBytes = cryptoService.decryptFileToBytes(path);
+
+                if (file.getFileHash() != null && !file.getFileHash().isBlank()) {
+                    String computedHash = cryptoService.computeSha256(decryptedBytes);
+                    if (!file.getFileHash().equalsIgnoreCase(computedHash)) {
+                        throw new SecurityException("Cryptographic integrity verification failed for file " + file.getOriginalFileName());
+                    }
+                }
+
+                resource = new ByteArrayResource(decryptedBytes);
+                contentLength = decryptedBytes.length;
+            } else {
+                resource = new UrlResource(path.toUri());
+                contentLength = Files.size(path);
+            }
 
             String contentType =
                     file.getFileType();
@@ -1164,17 +1197,15 @@ public class DigitalAssetController {
                                 .APPLICATION_OCTET_STREAM_VALUE;
             }
 
-            return ResponseEntity.ok()
-
+            var responseBuilder = ResponseEntity.ok()
                     .contentType(
                             MediaType.parseMediaType(
                                     contentType
                             )
                     )
-
+                    .contentLength(contentLength)
                     .header(
                             HttpHeaders.CONTENT_DISPOSITION,
-
                             ContentDisposition
                                     .attachment()
                                     .filename(
@@ -1182,9 +1213,18 @@ public class DigitalAssetController {
                                     )
                                     .build()
                                     .toString()
-                    )
+                    );
 
-                    .body(resource);
+            if (Boolean.TRUE.equals(file.getIsEncrypted())) {
+                responseBuilder
+                        .header("X-Encrypted", "AES-256-GCM")
+                        .header("X-Integrity-Status", "VERIFIED");
+                if (file.getFileHash() != null) {
+                    responseBuilder.header("X-File-Hash", file.getFileHash());
+                }
+            }
+
+            return responseBuilder.body(resource);
 
         } catch (Exception e) {
 
@@ -1210,19 +1250,7 @@ public class DigitalAssetController {
         List<UploadedFileResponse> files =
                 asset.getFiles()
                         .stream()
-                        .map(
-                                file ->
-                                        new UploadedFileResponse(
-
-                                                file.getId(),
-
-                                                file.getOriginalFileName(),
-
-                                                file.getFileType(),
-
-                                                file.getFileSize()
-                                        )
-                        )
+                        .map(this::mapToFileResponse)
                         .toList();
 
         return new DigitalAssetResponse(
@@ -1264,19 +1292,7 @@ public class DigitalAssetController {
         List<UploadedFileResponse> files =
                 asset.getFiles()
                         .stream()
-                        .map(
-                                file ->
-                                        new UploadedFileResponse(
-
-                                                file.getId(),
-
-                                                file.getOriginalFileName(),
-
-                                                file.getFileType(),
-
-                                                file.getFileSize()
-                                        )
-                        )
+                        .map(this::mapToFileResponse)
                         .toList();
 
         User owner =
@@ -1307,6 +1323,22 @@ public class DigitalAssetController {
                 assetShare.getPermission(),
 
                 assetShare.getSharedAt()
+        );
+    }
+
+
+    // =========================================================
+    // MAP UPLOADED FILE RESPONSE
+    // =========================================================
+
+    private UploadedFileResponse mapToFileResponse(UploadedFile file) {
+        return new UploadedFileResponse(
+                file.getId(),
+                file.getOriginalFileName(),
+                file.getFileType(),
+                file.getFileSize(),
+                file.getIsEncrypted(),
+                file.getFileHash()
         );
     }
 }

@@ -12,6 +12,7 @@ import backend.repository.DigitalAssetRepository;
 import backend.repository.UploadedFileRepository;
 import backend.repository.UserRepository;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,13 +42,13 @@ public class DigitalAssetService {
 
         private final ActivityService activityService;
 
+        private final CryptoService cryptoService;
+
         // =========================================================
         // UPLOAD DIRECTORY
         // =========================================================
 
-        private final Path uploadDirectory = Paths.get("/app/uploads")
-                        .toAbsolutePath()
-                        .normalize();
+        private final Path uploadDirectory;
 
         // =========================================================
         // CONSTRUCTOR
@@ -59,7 +60,9 @@ public class DigitalAssetService {
                         AssetShareRepository assetShareRepository,
                         UploadedFileRepository uploadedFileRepository,
                         NotificationService notificationService,
-                        ActivityService activityService) {
+                        ActivityService activityService,
+                        CryptoService cryptoService,
+                        @Value("${file.upload-dir:uploads}") String uploadDir) {
 
                 this.digitalAssetRepository = digitalAssetRepository;
 
@@ -73,10 +76,16 @@ public class DigitalAssetService {
 
                 this.activityService = activityService;
 
+                this.cryptoService = cryptoService;
+
+                this.uploadDirectory = Paths.get(uploadDir)
+                                .toAbsolutePath()
+                                .normalize();
+
                 try {
 
                         Files.createDirectories(
-                                        uploadDirectory);
+                                        this.uploadDirectory);
 
                 } catch (IOException e) {
 
@@ -257,10 +266,10 @@ public class DigitalAssetService {
                                                 "Invalid file path");
                         }
 
-                        Files.copy(
-                                        file.getInputStream(),
-                                        targetLocation,
-                                        StandardCopyOption.REPLACE_EXISTING);
+                        CryptoService.FileEncryptionResult encryptionResult =
+                                        cryptoService.encryptAndSave(
+                                                        file.getInputStream(),
+                                                        targetLocation);
 
                         UploadedFile uploadedFile = UploadedFile.builder()
 
@@ -279,6 +288,12 @@ public class DigitalAssetService {
 
                                         .fileSize(
                                                         file.getSize())
+
+                                        .fileHash(
+                                                        encryptionResult.sha256Checksum())
+
+                                        .isEncrypted(
+                                                        true)
 
                                         .asset(asset)
 

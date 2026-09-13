@@ -16,9 +16,11 @@ import {
     FileImage,
     FileText,
     FileType2,
+    Hash,
     KeyRound,
     Link2,
     Loader2,
+    Lock,
     Pencil,
     Share2,
     ShieldCheck,
@@ -40,6 +42,8 @@ interface UploadedFile {
     originalFileName: string;
     fileType?: string | null;
     fileSize?: number | null;
+    encrypted?: boolean | null;
+    fileHash?: string | null;
 }
 
 
@@ -197,6 +201,15 @@ function AssetDetails() {
 
     const [copied, setCopied] =
         useState(false);
+
+    const [copiedHashId, setCopiedHashId] =
+        useState<number | null>(null);
+
+    const handleCopyHash = (fileId: number, hash: string) => {
+        navigator.clipboard.writeText(hash);
+        setCopiedHashId(fileId);
+        setTimeout(() => setCopiedHashId(null), 2000);
+    };
 
 
     // =========================================
@@ -1403,15 +1416,24 @@ function AssetDetails() {
 
                         <section className="px-6 py-7 sm:px-9 lg:px-10">
 
-                            <div className="mb-4">
+                            <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
 
-                                <h2 className="text-base font-bold text-slate-900">
-                                    Content
-                                </h2>
+                                <div>
 
-                                <p className="mt-1 text-sm text-slate-400">
-                                    Information stored inside this asset.
-                                </p>
+                                    <h2 className="text-base font-bold text-slate-900">
+                                        Content
+                                    </h2>
+
+                                    <p className="mt-1 text-sm text-slate-400">
+                                        Information stored inside this asset.
+                                    </p>
+
+                                </div>
+
+                                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 border border-emerald-200/80 shadow-xs">
+                                    <Lock size={12} className="text-emerald-600" />
+                                    <span>AES-256-GCM Encrypted at Rest</span>
+                                </span>
 
                             </div>
 
@@ -1424,28 +1446,37 @@ function AssetDetails() {
 
                                 <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/70">
 
-                                    <div className="flex items-center gap-3 border-b border-slate-200 bg-white px-5 py-4">
+                                    <div className="flex items-center justify-between border-b border-slate-200 bg-white px-5 py-4">
 
-                                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                                        <div className="flex items-center gap-3">
 
-                                            <ShieldCheck
-                                                size={18}
-                                            />
+                                            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+
+                                                <ShieldCheck
+                                                    size={18}
+                                                />
+
+                                            </div>
+
+
+                                            <div>
+
+                                                <p className="text-sm font-bold text-slate-800">
+                                                    Secure Credential
+                                                </p>
+
+                                                <p className="text-xs text-slate-400">
+                                                    Sensitive information
+                                                </p>
+
+                                            </div>
 
                                         </div>
 
-
-                                        <div>
-
-                                            <p className="text-sm font-bold text-slate-800">
-                                                Secure Credential
-                                            </p>
-
-                                            <p className="text-xs text-slate-400">
-                                                Sensitive information
-                                            </p>
-
-                                        </div>
+                                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 border border-emerald-200/80">
+                                            <Lock size={11} className="text-emerald-600" />
+                                            Vault Protected
+                                        </span>
 
                                     </div>
 
@@ -1671,10 +1702,18 @@ function AssetDetails() {
                                         </div>
 
 
-                                        <div className="hidden h-8 min-w-8 items-center justify-center rounded-lg bg-slate-100 px-2 text-xs font-bold text-slate-500 sm:flex">
+                                        <div className="flex items-center gap-2">
+                                            <span className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-50 border border-emerald-200/80 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+                                                <ShieldCheck size={14} className="text-emerald-600" />
+                                                <span className="hidden sm:inline">AES-256 Encrypted</span>
+                                                <span className="sm:hidden">Encrypted</span>
+                                            </span>
 
-                                            {asset.files.length}
+                                            <div className="hidden h-8 min-w-8 items-center justify-center rounded-lg bg-slate-100 px-2 text-xs font-bold text-slate-500 sm:flex">
 
+                                                {asset.files.length}
+
+                                            </div>
                                         </div>
 
                                     </div>
@@ -1727,6 +1766,32 @@ function AssetDetails() {
                                                                     )}
                                                                 </span>
 
+                                                            </div>
+
+                                                            <div className="mt-2 flex flex-wrap items-center gap-2">
+                                                                {file.encrypted !== false && (
+                                                                    <span className="inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 border border-emerald-200/80">
+                                                                        <Lock size={10} className="text-emerald-600" />
+                                                                        AES-256-GCM
+                                                                    </span>
+                                                                )}
+
+                                                                {file.fileHash && (
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => handleCopyHash(file.id, file.fileHash!)}
+                                                                        title={`SHA-256: ${file.fileHash}\nClick to copy full checksum`}
+                                                                        className="inline-flex items-center gap-1 rounded-md bg-slate-100 hover:bg-slate-200/80 px-2 py-0.5 text-[11px] font-mono text-slate-600 transition border border-slate-200"
+                                                                    >
+                                                                        <Hash size={10} className="text-slate-400" />
+                                                                        <span>{file.fileHash.substring(0, 8)}...</span>
+                                                                        {copiedHashId === file.id ? (
+                                                                            <Check size={10} className="text-emerald-600" />
+                                                                        ) : (
+                                                                            <Copy size={10} className="text-slate-400" />
+                                                                        )}
+                                                                    </button>
+                                                                )}
                                                             </div>
 
                                                         </div>

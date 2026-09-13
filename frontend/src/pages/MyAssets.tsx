@@ -51,6 +51,8 @@ interface UploadedFile {
     originalFileName: string;
     fileType?: string | null;
     fileSize?: number | null;
+    encrypted?: boolean | null;
+    fileHash?: string | null;
 }
 
 

@@ -14,4 +14,8 @@ public class UploadedFileResponse {
     private String fileType;
 
     private Long fileSize;
+
+    private Boolean encrypted;
+
+    private String fileHash;
 }
