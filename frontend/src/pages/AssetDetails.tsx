@@ -248,11 +248,34 @@ function AssetDetails() {
                         decryptText(rawData?.content),
                     ]);
 
+                let mappedFiles = rawData?.files || [];
+                try {
+                    if (decryptedContent && decryptedContent.trim().startsWith("[")) {
+                        const parsedMetadata = JSON.parse(decryptedContent);
+                        if (Array.isArray(parsedMetadata)) {
+                            mappedFiles = mappedFiles.map((file: UploadedFile, idx: number) => {
+                                const meta = parsedMetadata[idx];
+                                return meta
+                                    ? {
+                                          ...file,
+                                          originalFileName: meta.name || file.originalFileName,
+                                          fileType: meta.type || file.fileType,
+                                          fileSize: meta.size || file.fileSize,
+                                      }
+                                    : file;
+                            });
+                        }
+                    }
+                } catch {
+                    // Fallback to existing file fields
+                }
+
                 setAsset({
                     ...rawData,
                     title: decryptedTitle,
                     description: decryptedDescription,
                     content: decryptedContent,
+                    files: mappedFiles,
                 });
 
             } catch (error: any) {

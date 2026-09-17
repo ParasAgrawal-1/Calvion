@@ -478,12 +478,13 @@ const AddAsset = () => {
             ) {
 
                 assetContent =
-                    files
-                        .map(
-                            (file) =>
-                                file.name
-                        )
-                        .join(", ");
+                    JSON.stringify(
+                        files.map((file) => ({
+                            name: file.name,
+                            size: file.size,
+                            type: file.type || "application/octet-stream",
+                        }))
+                    );
             }
 
 
@@ -1417,7 +1418,7 @@ const AddAsset = () => {
 
 
                                         <p className="mt-2 text-[11px] font-medium text-slate-400">
-                                            PDF, DOC, DOCX, TXT, PNG, JPG and more
+                                            Supports any file type (PDF, Images, Videos, Audio, ZIP, Code, Binaries, etc. up to 500MB)
                                         </p>
 
                                     </div>
