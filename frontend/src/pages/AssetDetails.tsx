@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 
 import api, { apiBaseUrl } from "../services/api";
+import { decryptText, decryptFile } from "../utils/crypto";
 
 
 // =========================================
@@ -233,7 +234,26 @@ function AssetDetails() {
                     );
 
 
-                setAsset(response.data);
+                const rawData = response.data;
+
+                /*
+                 * Zero-Knowledge Client-Side Decryption:
+                 * Decrypts title, description, and content in the user's browser.
+                 * If the fields were saved in legacy plaintext, decryptText passes them through.
+                 */
+                const [decryptedTitle, decryptedDescription, decryptedContent] =
+                    await Promise.all([
+                        decryptText(rawData?.title),
+                        decryptText(rawData?.description),
+                        decryptText(rawData?.content),
+                    ]);
+
+                setAsset({
+                    ...rawData,
+                    title: decryptedTitle,
+                    description: decryptedDescription,
+                    content: decryptedContent,
+                });
 
             } catch (error: any) {
 
@@ -972,10 +992,17 @@ function AssetDetails() {
             const blob =
                 await response.blob();
 
+            /*
+             * Zero-Knowledge Client-Side Decryption:
+             * Decrypts the binary container and recovers the original file content
+             * and original filename, without the server ever knowing the contents.
+             */
+            const { blob: finalBlob, fileName: finalFileName } =
+                await decryptFile(blob, file.originalFileName);
 
             const url =
                 window.URL.createObjectURL(
-                    blob
+                    finalBlob
                 );
 
 
@@ -987,7 +1014,7 @@ function AssetDetails() {
 
 
             link.download =
-                file.originalFileName;
+                finalFileName;
 
 
             document.body.appendChild(
@@ -1432,7 +1459,7 @@ function AssetDetails() {
 
                                 <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 border border-emerald-200/80 shadow-xs">
                                     <Lock size={12} className="text-emerald-600" />
-                                    <span>AES-256-GCM Encrypted at Rest</span>
+                                    <span>Zero-Knowledge Protected (AES-256-GCM)</span>
                                 </span>
 
                             </div>

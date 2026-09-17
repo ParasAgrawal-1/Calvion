@@ -95,6 +95,16 @@ public class DigitalAssetService {
                 }
         }
 
+        private String getSafeAssetTitle(DigitalAsset asset) {
+                if (asset == null || asset.getTitle() == null) {
+                        return "the asset";
+                }
+                if (asset.getTitle().startsWith("E2E:")) {
+                        return "encrypted asset #" + asset.getId();
+                }
+                return "\"" + asset.getTitle() + "\"";
+        }
+
         // =========================================================
         // GET ALL ASSETS OF LOGGED-IN USER
         // =========================================================
@@ -193,9 +203,9 @@ public class DigitalAssetService {
                                 user,
                                 savedAsset,
                                 "CREATE_ASSET",
-                                "You created the asset \""
-                                                + savedAsset.getTitle()
-                                                + "\".");
+                                "You created "
+                                                + getSafeAssetTitle(savedAsset)
+                                                + ".");
 
                 // =====================================================
                 // UPLOAD FILES
@@ -306,15 +316,19 @@ public class DigitalAssetService {
                         // ACTIVITY: UPLOAD FILE
                         // =================================================
 
+                        String fileLabel = originalFileName.startsWith("e2e_enc_") || originalFileName.startsWith("E2E_")
+                                        ? "an encrypted file (SHA-256: " + (encryptionResult.sha256Checksum() != null && encryptionResult.sha256Checksum().length() >= 12 ? encryptionResult.sha256Checksum().substring(0, 12) + "..." : "verified") + ")"
+                                        : "\"" + originalFileName + "\"";
+
                         activityService.createActivity(
                                         user,
                                         asset,
                                         "UPLOAD_FILE",
-                                        "You uploaded \""
-                                                        + originalFileName
-                                                        + "\" to \""
-                                                        + asset.getTitle()
-                                                        + "\".");
+                                        "You uploaded "
+                                                        + fileLabel
+                                                        + " to "
+                                                        + getSafeAssetTitle(asset)
+                                                        + ".");
 
                 } catch (IOException e) {
 
@@ -449,9 +463,9 @@ public class DigitalAssetService {
                                         "PERMISSION_CHANGED",
                                         "You changed "
                                                         + share.getSharedWith().getName()
-                                                        + "'s permission for \""
-                                                        + asset.getTitle()
-                                                        + "\" from "
+                                                        + "'s permission for "
+                                                        + getSafeAssetTitle(asset)
+                                                        + " from "
                                                         + oldPermission
                                                         + " to "
                                                         + permission
@@ -532,9 +546,9 @@ public class DigitalAssetService {
                                 "ACCESS_REMOVED",
                                 "You removed "
                                                 + sharedUser.getName()
-                                                + "'s access to \""
-                                                + asset.getTitle()
-                                                + "\".");
+                                                + "'s access to "
+                                                + getSafeAssetTitle(asset)
+                                                + ".");
         }
 
         // =========================================================
@@ -708,9 +722,9 @@ public class DigitalAssetService {
                                 user,
                                 savedAsset,
                                 "UPDATE_ASSET",
-                                "You updated the asset \""
-                                                + savedAsset.getTitle()
-                                                + "\".");
+                                "You updated "
+                                                + getSafeAssetTitle(savedAsset)
+                                                + ".");
 
                 return savedAsset;
         }
@@ -762,13 +776,17 @@ public class DigitalAssetService {
                 // asset is about to be deleted.
                 // =====================================================
 
+                String assetLabel = assetTitle != null && assetTitle.startsWith("E2E:")
+                                ? "encrypted asset #" + id
+                                : "\"" + assetTitle + "\"";
+
                 activityService.createActivity(
                                 owner,
                                 null,
                                 "DELETE_ASSET",
-                                "You deleted the asset \""
-                                                + assetTitle
-                                                + "\".");
+                                "You deleted "
+                                                + assetLabel
+                                                + ".");
 
                 // =====================================================
                 // DELETE PHYSICAL FILES

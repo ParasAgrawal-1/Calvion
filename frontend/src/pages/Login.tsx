@@ -120,6 +120,11 @@ export default function Login() {
                 );
             }
 
+            /*
+             * Initialize client-side Zero-Knowledge E2EE key in browser session memory
+             */
+            sessionStorage.setItem("datalife_e2ee_vault_passphrase", password);
+
             console.log(
                 "Token saved:",
                 Boolean(

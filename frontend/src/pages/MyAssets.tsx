@@ -31,6 +31,7 @@ import axios from "axios";
 
 import api from "../services/api";
 import AppNavbar from "../components/AppNavbar";
+import { decryptText } from "../utils/crypto";
 
 
 /* =========================================================
@@ -696,8 +697,22 @@ const MyAssets = () => {
                 );
 
 
+                /*
+                 * Zero-Knowledge Client-Side Decryption:
+                 * Decrypts encrypted titles and descriptions in the browser.
+                 */
+                const decryptedAssets = await Promise.all(
+                    receivedAssets.map(async (asset: Asset) => ({
+                        ...asset,
+                        title: await decryptText(asset.title),
+                        description: asset.description
+                            ? await decryptText(asset.description)
+                            : asset.description,
+                    }))
+                );
+
                 setAssets(
-                    receivedAssets
+                    decryptedAssets
                 );
 
 

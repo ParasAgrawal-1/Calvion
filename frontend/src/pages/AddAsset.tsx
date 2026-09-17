@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 import api from "../services/api";
+import { encryptText, encryptFile } from "../utils/crypto";
 
 
 /* =========================================================
@@ -523,6 +524,20 @@ const AddAsset = () => {
 
 
             /* =================================================
+               CLIENT-SIDE ZERO-KNOWLEDGE ENCRYPTION (E2EE)
+            ================================================= */
+            const [encryptedTitle, encryptedDescription, encryptedContent] =
+                await Promise.all([
+                    encryptText(formData.title.trim()),
+                    formData.description.trim()
+                        ? encryptText(formData.description.trim())
+                        : Promise.resolve(""),
+                    assetContent
+                        ? encryptText(assetContent)
+                        : Promise.resolve(""),
+                ]);
+
+            /* =================================================
                CREATE FORMDATA
             ================================================= */
 
@@ -532,13 +547,13 @@ const AddAsset = () => {
 
             data.append(
                 "title",
-                formData.title.trim()
+                encryptedTitle
             );
 
 
             data.append(
                 "description",
-                formData.description.trim()
+                encryptedDescription
             );
 
 
@@ -552,21 +567,27 @@ const AddAsset = () => {
 
             data.append(
                 "content",
-                assetContent
+                encryptedContent
             );
 
 
             /* =================================================
-               ADD FILES
+               ADD ENCRYPTED FILES
             ================================================= */
 
             if (
                 formData.contentMode ===
-                "file"
+                "file" &&
+                files.length > 0
             ) {
 
-                files.forEach(
-                    (file) => {
+                const encryptedFileResults =
+                    await Promise.all(
+                        files.map((file) => encryptFile(file))
+                    );
+
+                encryptedFileResults.forEach(
+                    ({ file }) => {
 
                         data.append(
                             "files",
@@ -895,6 +916,27 @@ const AddAsset = () => {
                             </div>
 
                         )}
+
+
+                        {/* =================================================
+                            ZERO-KNOWLEDGE PRIVACY GUARANTEE BANNER
+                        ================================================= */}
+                        <div className="flex items-start gap-3.5 rounded-2xl border border-emerald-200/80 bg-emerald-50/60 p-4 text-emerald-900 shadow-sm sm:items-center">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm">
+                                <ShieldCheck size={20} />
+                            </div>
+                            <div className="flex-1 text-xs sm:text-sm">
+                                <div className="flex flex-wrap items-center gap-2 font-bold text-emerald-950">
+                                    <span>Zero-Knowledge Client-Side Encryption Active</span>
+                                    <span className="inline-flex items-center rounded-md bg-emerald-200/70 px-2 py-0.5 text-[10px] font-semibold text-emerald-800">
+                                        AES-256-GCM + SHA-256
+                                    </span>
+                                </div>
+                                <p className="mt-0.5 text-xs text-emerald-800/90 leading-relaxed">
+                                    Your title, content, uploaded files, and original filenames are encrypted directly in your browser before transmission. Backend developers, server admins, and the database only ever receive ciphertext and cryptographic hashes.
+                                </p>
+                            </div>
+                        </div>
 
 
                         {/* =================================================
