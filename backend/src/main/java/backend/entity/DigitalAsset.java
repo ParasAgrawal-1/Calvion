@@ -42,6 +42,10 @@ public class DigitalAsset {
 
 
     private LocalDateTime updatedAt;
+    private String expiryDate;
+    private Integer alertThresholdDays;
+    @Column(length = 500)
+    private String expiryNotes;
 
 
     @ManyToOne

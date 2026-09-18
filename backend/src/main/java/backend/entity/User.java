@@ -44,6 +44,17 @@ public class User {
     // Token expiry time
     @Column
     private LocalDateTime resetOtpExpiry;
+
+    // Two-factor authentication
+    @Column(nullable = false)
+    @Builder.Default
+    private Boolean twoFactorEnabled = false;
+
+    @Column
+    private String twoFactorSecret;
+
+    @Column(length = 1000)
+    private String twoFactorBackupCodes;
     @PrePersist
     public void onCreate() {
         createdAt = LocalDateTime.now();

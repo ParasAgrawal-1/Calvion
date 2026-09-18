@@ -48,6 +48,15 @@ import {
 import api from "../../services/api";
 
 import ProfileSettings from "./ProfileSettings";
+import SecuritySection from "./sections/SecuritySection";
+import SharingSection from "./sections/SharingSection";
+import StorageSection from "./sections/StorageSection";
+import LoginHistorySection from "./sections/LoginHistorySection";
+import ExpirySection from "./sections/ExpirySection";
+import DataExportSection from "./sections/DataExportSection";
+import PrivacySection from "./sections/PrivacySection";
+import HelpSection from "./sections/HelpSection";
+import AboutSection from "./sections/AboutSection";
 
 
 /* =========================================================
@@ -245,51 +254,6 @@ const supportSections: SettingSection[] = [
 ];
 
 
-/* =========================================================
-   PLACEHOLDER
-========================================================= */
-
-function PlaceholderSection({
-                                title,
-                                description,
-                                icon: Icon,
-                            }: {
-    title: string;
-    description: string;
-    icon: React.ElementType;
-}) {
-
-    return (
-
-        <div className="flex min-h-[480px] flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
-
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400">
-
-                <Icon
-                    size={28}
-                    strokeWidth={1.8}
-                />
-
-            </div>
-
-
-            <h2 className="mt-5 text-xl font-bold text-slate-950 dark:text-white">
-                {title}
-            </h2>
-
-
-            <p className="mt-2 max-w-md text-sm leading-6 text-slate-500 dark:text-slate-400">
-                {description}
-            </p>
-
-
-            <span className="mt-5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-600 dark:border-blue-900 dark:bg-blue-950/50 dark:text-blue-400">
-                Coming soon
-            </span>
-
-        </div>
-    );
-}
 
 
 /* =========================================================
@@ -2371,120 +2335,31 @@ export default function Settings() {
 
 
                 case "security":
-
-                    return (
-                        <PlaceholderSection
-                            title="Security"
-                            description="Manage your password, authentication methods, and account security controls."
-                            icon={
-                                Shield
-                            }
-                        />
-                    );
-
+                    return <SecuritySection />;
 
                 case "sharing":
-
-                    return (
-                        <PlaceholderSection
-                            title="Sharing & Permissions"
-                            description="Manage asset access and sharing permissions from one centralized place."
-                            icon={
-                                Users
-                            }
-                        />
-                    );
-
+                    return <SharingSection />;
 
                 case "storage":
-
-                    return (
-                        <PlaceholderSection
-                            title="Data & Storage"
-                            description="Review storage usage and manage uploaded files and asset data."
-                            icon={
-                                HardDrive
-                            }
-                        />
-                    );
-
+                    return <StorageSection />;
 
                 case "login-history":
-
-                    return (
-                        <PlaceholderSection
-                            title="Login History"
-                            description="Review recent account login and access information."
-                            icon={
-                                Clock3
-                            }
-                        />
-                    );
-
+                    return <LoginHistorySection />;
 
                 case "expiry":
-
-                    return (
-                        <PlaceholderSection
-                            title="Expiry & Reminders"
-                            description="Manage reminders for certificates, documents, licenses, subscriptions, and other time-sensitive assets."
-                            icon={
-                                Clock3
-                            }
-                        />
-                    );
-
+                    return <ExpirySection />;
 
                 case "data-export":
-
-                    return (
-                        <PlaceholderSection
-                            title="Data Export"
-                            description="Export your Calvion account information."
-                            icon={
-                                Download
-                            }
-                        />
-                    );
-
+                    return <DataExportSection />;
 
                 case "privacy":
-
-                    return (
-                        <PlaceholderSection
-                            title="Privacy"
-                            description="Manage privacy controls and digital identity visibility."
-                            icon={
-                                LockKeyhole
-                            }
-                        />
-                    );
-
+                    return <PrivacySection />;
 
                 case "help":
-
-                    return (
-                        <PlaceholderSection
-                            title="Help & Support"
-                            description="Find help and support resources for using Calvion."
-                            icon={
-                                HelpCircle
-                            }
-                        />
-                    );
-
+                    return <HelpSection />;
 
                 case "about":
-
-                    return (
-                        <PlaceholderSection
-                            title="About Calvion"
-                            description="Application version and project information."
-                            icon={
-                                Info
-                            }
-                        />
-                    );
+                    return <AboutSection />;
 
 
                 default:

@@ -4,6 +4,7 @@ import backend.dto.AssetShareResponse;
 import backend.dto.DigitalAssetResponse;
 import backend.dto.ShareAssetRequest;
 import backend.dto.SharedAssetResponse;
+import backend.dto.UpdateExpiryRequest;
 import backend.dto.UploadedFileResponse;
 
 import backend.entity.AssetPermission;
@@ -306,6 +307,10 @@ public class DigitalAssetController {
 
                             permission
                     );
+
+            response.setExpiryDate(asset.getExpiryDate());
+            response.setAlertThresholdDays(asset.getAlertThresholdDays());
+            response.setExpiryNotes(asset.getExpiryNotes());
 
             return ResponseEntity.ok(
                     response
@@ -942,6 +947,81 @@ public class DigitalAssetController {
 
 
     // =========================================================
+    // UPDATE ASSET EXPIRY
+    //
+    // PUT /api/assets/{id}/expiry
+    // =========================================================
+
+    @PutMapping("/{id}/expiry")
+    public ResponseEntity<?> updateAssetExpiry(
+            @PathVariable Long id,
+            @RequestBody UpdateExpiryRequest request,
+            Authentication authentication
+    ) {
+        try {
+            String email = authentication.getName();
+            DigitalAsset asset = digitalAssetRepository.findById(id).orElse(null);
+            if (asset == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            if (!asset.getUser().getEmail().equals(email)) {
+                return ResponseEntity.status(403).body("Only the asset owner can update expiry details.");
+            }
+
+            asset.setExpiryDate(request.getExpiryDate());
+            asset.setAlertThresholdDays(request.getAlertThresholdDays() != null ? request.getAlertThresholdDays() : 30);
+            asset.setExpiryNotes(request.getExpiryNotes());
+            asset.setUpdatedAt(java.time.LocalDateTime.now());
+
+            digitalAssetRepository.save(asset);
+
+            return ResponseEntity.ok("Expiry details updated successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Failed to update expiry details: " + e.getMessage());
+        }
+    }
+
+
+    // =========================================================
+    // CLEAR ASSET EXPIRY
+    //
+    // DELETE /api/assets/{id}/expiry
+    // =========================================================
+
+    @DeleteMapping("/{id}/expiry")
+    public ResponseEntity<?> clearAssetExpiry(
+            @PathVariable Long id,
+            Authentication authentication
+    ) {
+        try {
+            String email = authentication.getName();
+            DigitalAsset asset = digitalAssetRepository.findById(id).orElse(null);
+            if (asset == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            if (!asset.getUser().getEmail().equals(email)) {
+                return ResponseEntity.status(403).body("Only the asset owner can clear expiry tracking.");
+            }
+
+            asset.setExpiryDate(null);
+            asset.setAlertThresholdDays(null);
+            asset.setExpiryNotes(null);
+            asset.setUpdatedAt(java.time.LocalDateTime.now());
+
+            digitalAssetRepository.save(asset);
+
+            return ResponseEntity.ok("Expiry tracking removed successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Failed to remove expiry tracking: " + e.getMessage());
+        }
+    }
+
+
+    // =========================================================
     // GET SHARED ASSETS
     //
     // GET /api/assets/shared
@@ -1280,7 +1360,13 @@ public class DigitalAssetController {
 
                 true,
 
-                null
+                null,
+
+                asset.getExpiryDate(),
+
+                asset.getAlertThresholdDays(),
+
+                asset.getExpiryNotes()
         );
     }
 

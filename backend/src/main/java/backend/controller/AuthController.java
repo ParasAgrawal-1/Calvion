@@ -17,7 +17,10 @@ import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
 import backend.entity.PendingRegistration;
+import backend.entity.LoginHistory;
 import backend.repository.PendingRegistrationRepository;
+import backend.repository.LoginHistoryRepository;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 @RestController
@@ -29,19 +32,22 @@ public class AuthController {
     private final JwtService jwtService;
     private final EmailService emailService;
     private final PendingRegistrationRepository pendingRegistrationRepository;
+    private final LoginHistoryRepository loginHistoryRepository;
+
     public AuthController(
             UserRepository userRepository,
             PendingRegistrationRepository pendingRegistrationRepository,
             PasswordEncoder passwordEncoder,
             JwtService jwtService,
-            
-            EmailService emailService
+            EmailService emailService,
+            LoginHistoryRepository loginHistoryRepository
     ) {
         this.userRepository = userRepository;
         this.pendingRegistrationRepository = pendingRegistrationRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.emailService = emailService;
+        this.loginHistoryRepository = loginHistoryRepository;
     }
     @Value("${app.otp.demo-mode:false}")
     private boolean demoOtpMode;
@@ -192,7 +198,8 @@ public ResponseEntity<?> register(
     // =========================
     @PostMapping("/login")
     public ResponseEntity<?> login(
-            @RequestBody LoginRequest request
+            @RequestBody LoginRequest request,
+            HttpServletRequest httpRequest
     ) {
 
         User user = userRepository
@@ -227,13 +234,57 @@ public ResponseEntity<?> register(
                 role
         );
 
+        // Audit login history
+        try {
+            String ip = httpRequest.getHeader("X-Forwarded-For");
+            if (ip == null || ip.isBlank() || "unknown".equalsIgnoreCase(ip)) {
+                ip = httpRequest.getRemoteAddr();
+            }
+            if (ip != null && ip.contains(",")) {
+                ip = ip.split(",")[0].trim();
+            }
+            if (ip == null || ip.equals("0:0:0:0:0:0:0:1") || ip.equals("127.0.0.1")) {
+                ip = "127.0.0.1 (Localhost)";
+            }
+
+            String userAgent = httpRequest.getHeader("User-Agent");
+            String browser = "Chrome";
+            String os = "Windows";
+            if (userAgent != null) {
+                if (userAgent.contains("Firefox")) browser = "Firefox";
+                else if (userAgent.contains("Safari") && !userAgent.contains("Chrome")) browser = "Safari";
+                else if (userAgent.contains("Edg")) browser = "Edge";
+                else if (userAgent.contains("Opera") || userAgent.contains("OPR")) browser = "Opera";
+
+                if (userAgent.contains("Mac OS")) os = "macOS";
+                else if (userAgent.contains("Linux")) os = "Linux";
+                else if (userAgent.contains("Android")) os = "Android";
+                else if (userAgent.contains("iPhone") || userAgent.contains("iPad")) os = "iOS";
+            }
+
+            LoginHistory history = LoginHistory.builder()
+                    .user(user)
+                    .ipAddress(ip)
+                    .browser(browser)
+                    .os(os)
+                    .device(browser + " on " + os)
+                    .location("Current Network")
+                    .status("SUCCESS")
+                    .isCurrent(true)
+                    .timestamp(java.time.LocalDateTime.now())
+                    .build();
+
+            loginHistoryRepository.save(history);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return ResponseEntity.ok(
                 new AuthResponse(
                         "Login successful",
                         token,
                         user.getEmail(),
                         user.getName()
-
                 )
         );
     }
