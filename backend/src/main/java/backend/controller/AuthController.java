@@ -201,40 +201,58 @@ public ResponseEntity<?> register(
             @RequestBody LoginRequest request,
             HttpServletRequest httpRequest
     ) {
+        try {
+            User user = userRepository
+                    .findByEmail(request.getEmail())
+                    .orElse(null);
 
-        User user = userRepository
-                .findByEmail(request.getEmail())
-                .orElse(null);
+            // Check user
+            if (user == null) {
+                return ResponseEntity.badRequest()
+                        .body(Map.of("message", "Invalid email or password"));
+            }
 
-        // Check user
-        if (user == null) {
-            return ResponseEntity.badRequest()
-                    .body("Invalid email or password");
+            // Verify password
+            boolean passwordMatches =
+                    passwordEncoder.matches(
+                            request.getPassword(),
+                            user.getPassword()
+                    );
+
+            if (!passwordMatches) {
+                return ResponseEntity.badRequest()
+                        .body(Map.of("message", "Invalid email or password"));
+            }
+
+            // Generate JWT token
+            backend.entity.UserRole role = (user.getRole() != null)
+                    ? user.getRole()
+                    : backend.entity.UserRole.USER;
+
+            String token = jwtService.generateToken(
+                    user.getEmail(),
+                    role
+            );
+
+            // Audit login history safely
+            recordLoginAuditSafely(user, httpRequest);
+
+            return ResponseEntity.ok(
+                    new AuthResponse(
+                            "Login successful",
+                            token,
+                            user.getEmail(),
+                            user.getName()
+                    )
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500)
+                    .body(Map.of("message", "Authentication error: " + e.getMessage()));
         }
+    }
 
-        // Verify password
-        boolean passwordMatches =
-                passwordEncoder.matches(
-                        request.getPassword(),
-                        user.getPassword()
-                );
-
-        if (!passwordMatches) {
-            return ResponseEntity.badRequest()
-                    .body("Invalid email or password");
-        }
-
-        // Generate JWT token
-        backend.entity.UserRole role = (user.getRole() != null)
-                ? user.getRole()
-                : backend.entity.UserRole.USER;
-
-        String token = jwtService.generateToken(
-                user.getEmail(),
-                role
-        );
-
-        // Audit login history
+    private void recordLoginAuditSafely(User user, HttpServletRequest httpRequest) {
         try {
             String ip = httpRequest.getHeader("X-Forwarded-For");
             if (ip == null || ip.isBlank() || "unknown".equalsIgnoreCase(ip)) {
@@ -275,18 +293,9 @@ public ResponseEntity<?> register(
                     .build();
 
             loginHistoryRepository.save(history);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Throwable t) {
+            System.err.println("Notice: Could not persist login history record: " + t.getMessage());
         }
-
-        return ResponseEntity.ok(
-                new AuthResponse(
-                        "Login successful",
-                        token,
-                        user.getEmail(),
-                        user.getName()
-                )
-        );
     }
 
 

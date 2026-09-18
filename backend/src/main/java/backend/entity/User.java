@@ -46,21 +46,30 @@ public class User {
     private LocalDateTime resetOtpExpiry;
 
     // Two-factor authentication
-    @Column(nullable = false)
+    @Column(name = "two_factor_enabled")
     @Builder.Default
     private Boolean twoFactorEnabled = false;
 
-    @Column
+    @Column(name = "two_factor_secret")
     private String twoFactorSecret;
 
-    @Column(length = 1000)
+    @Column(name = "two_factor_backup_codes", length = 1000)
     private String twoFactorBackupCodes;
+
+    public Boolean getTwoFactorEnabled() {
+        return twoFactorEnabled != null && twoFactorEnabled;
+    }
+
     @PrePersist
     public void onCreate() {
         createdAt = LocalDateTime.now();
 
         if (role == null) {
             role = UserRole.USER;
+        }
+
+        if (twoFactorEnabled == null) {
+            twoFactorEnabled = false;
         }
     }
 
