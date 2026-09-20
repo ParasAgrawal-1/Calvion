@@ -333,7 +333,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
     const editorRef = useRef<any>(null);
     const monacoRef = useRef<any>(null);
-    const runCodeRef = useRef<() => void>(() => {});
+    const runCodeRef = useRef<() => void>(() => { });
 
     const handleSetProblem = (problem: CodingProblem | null) => {
         setSelectedProblem(problem);
@@ -474,8 +474,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                     engine: "Diagnostics",
                 });
                 setStderr(
-                    `Execution service notice: ${
-                        err?.message || "Sandbox runner offline. Please check network connection."
+                    `Execution service notice: ${err?.message || "Sandbox runner offline. Please check network connection."
                     }`
                 );
             }
@@ -639,14 +638,13 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                     `### 🧠 Antigravity Code Breakdown\n\n` +
                     `- **Language**: ${language.toUpperCase()} (${lines} logical lines)\n` +
                     `- **Program Flow**: Ingests input tokens from standard input (\`stdin\`), processes state vector, and prints output to stdout.\n` +
-                    `- **Execution Strategy**: ${
-                        hasRecursion
-                            ? "Recursive divide-and-conquer logic with stack allocation."
-                            : hasNestedLoop
+                    `- **Execution Strategy**: ${hasRecursion
+                        ? "Recursive divide-and-conquer logic with stack allocation."
+                        : hasNestedLoop
                             ? "Nested iteration across two-dimensional boundaries."
                             : hasLoop
-                            ? "Single-pass sequential state updates."
-                            : "Direct constant-time execution flow."
+                                ? "Single-pass sequential state updates."
+                                : "Direct constant-time execution flow."
                     }`
                 );
             } else if (actionType === "complexity") {
@@ -699,11 +697,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
     return (
         <div
-            className={`flex flex-col border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#09090b] text-slate-800 dark:text-neutral-100 shadow-xl overflow-hidden transition-all duration-200 ${
-                isFullscreen
+            className={`flex flex-col border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#09090b] text-slate-800 dark:text-neutral-100 shadow-xl overflow-hidden transition-all duration-200 ${isFullscreen
                     ? "fixed inset-0 z-50 rounded-none h-screen w-screen"
                     : "w-full h-full rounded-2xl"
-            }`}
+                }`}
         >
             {/* TOP HEADER CONTROLS */}
             <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-slate-200 dark:border-neutral-800/90 bg-slate-50/90 dark:bg-[#0c0c0f] px-3 py-2 sm:px-4 shrink-0">
@@ -717,17 +714,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                             <span className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white tracking-tight">
                                 {selectedProblem
                                     ? `${selectedProblem.id}. ${selectedProblem.title}`
-                                    : problemTitle || "Antigravity IDE Studio"}
+                                    : problemTitle || "Calvion IDE Studio"}
                             </span>
                             {selectedProblem ? (
                                 <span
-                                    className={`rounded-full px-2 py-0.2 text-[10px] font-bold ring-1 ${
-                                        selectedProblem.difficulty === "Easy"
+                                    className={`rounded-full px-2 py-0.2 text-[10px] font-bold ring-1 ${selectedProblem.difficulty === "Easy"
                                             ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-emerald-500/30"
                                             : selectedProblem.difficulty === "Medium"
-                                            ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-amber-500/30"
-                                            : "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-rose-500/30"
-                                    }`}
+                                                ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-amber-500/30"
+                                                : "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-rose-500/30"
+                                        }`}
                                 >
                                     {selectedProblem.difficulty}
                                 </span>
@@ -746,11 +742,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                     <button
                         type="button"
                         onClick={() => setShowProblemModal(true)}
-                        className={`flex h-8 items-center gap-1.5 rounded-xl border px-2.5 text-xs font-semibold transition ${
-                            selectedProblem
+                        className={`flex h-8 items-center gap-1.5 rounded-xl border px-2.5 text-xs font-semibold transition ${selectedProblem
                                 ? "border-cyan-500/40 bg-cyan-50 dark:bg-cyan-950/30 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-100 dark:hover:bg-cyan-900/40"
                                 : "border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-slate-700 dark:text-neutral-300 hover:border-slate-300 dark:hover:border-neutral-700"
-                        }`}
+                            }`}
                         title="Browse & load coding challenges"
                     >
                         <BookOpen size={13} className="text-cyan-500 dark:text-cyan-400" />
@@ -878,11 +873,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                         <button
                             type="button"
                             onClick={() => setShowSettingsMenu(!showSettingsMenu)}
-                            className={`flex h-8 items-center rounded-xl border px-2 text-xs font-medium transition ${
-                                showSettingsMenu
+                            className={`flex h-8 items-center rounded-xl border px-2 text-xs font-medium transition ${showSettingsMenu
                                     ? "border-cyan-500 bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-300"
                                     : "border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-slate-700 dark:text-neutral-300 hover:bg-slate-100 dark:hover:bg-neutral-800"
-                            }`}
+                                }`}
                             title="Editor Settings"
                         >
                             <Settings2 size={13} />
@@ -900,9 +894,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                         <button
                                             type="button"
                                             onClick={() => setWordWrap(!wordWrap)}
-                                            className={`px-2 py-0.5 rounded-lg font-semibold text-[11px] ${
-                                                wordWrap ? "bg-cyan-500/20 text-cyan-600 dark:text-cyan-300" : "bg-slate-100 dark:bg-neutral-800 text-slate-500 dark:text-neutral-400"
-                                            }`}
+                                            className={`px-2 py-0.5 rounded-lg font-semibold text-[11px] ${wordWrap ? "bg-cyan-500/20 text-cyan-600 dark:text-cyan-300" : "bg-slate-100 dark:bg-neutral-800 text-slate-500 dark:text-neutral-400"
+                                                }`}
                                         >
                                             {wordWrap ? "ON" : "OFF"}
                                         </button>
@@ -912,9 +905,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                         <button
                                             type="button"
                                             onClick={() => setShowMinimap(!showMinimap)}
-                                            className={`px-2 py-0.5 rounded-lg font-semibold text-[11px] ${
-                                                showMinimap ? "bg-cyan-500/20 text-cyan-600 dark:text-cyan-300" : "bg-slate-100 dark:bg-neutral-800 text-slate-500 dark:text-neutral-400"
-                                            }`}
+                                            className={`px-2 py-0.5 rounded-lg font-semibold text-[11px] ${showMinimap ? "bg-cyan-500/20 text-cyan-600 dark:text-cyan-300" : "bg-slate-100 dark:bg-neutral-800 text-slate-500 dark:text-neutral-400"
+                                                }`}
                                         >
                                             {showMinimap ? "ON" : "OFF"}
                                         </button>
@@ -1090,17 +1082,15 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
             {/* MAIN WORKSPACE BODY (ZERO OUTER SCROLLBAR - DYNAMIC VIEWPORT HEIGHT) */}
             <div
-                className={`flex-1 min-h-0 flex ${
-                    layoutMode === "split" ? "flex-col lg:flex-row" : "flex-col"
-                } bg-white dark:bg-[#09090b]`}
+                className={`flex-1 min-h-0 flex ${layoutMode === "split" ? "flex-col lg:flex-row" : "flex-col"
+                    } bg-white dark:bg-[#09090b]`}
             >
                 {/* LEFT PANE: CODE EDITOR (IN SPLIT MODE 60%, IN STACKED 60%) */}
                 <div
-                    className={`${
-                        layoutMode === "split"
+                    className={`${layoutMode === "split"
                             ? "lg:w-3/5 lg:border-r border-slate-200 dark:border-neutral-800 flex flex-col h-full min-h-0"
                             : "w-full h-3/5 border-b border-slate-200 dark:border-neutral-800 flex flex-col min-h-0"
-                    }`}
+                        }`}
                 >
                     {/* FILE TAB BAR */}
                     <div className="flex items-center justify-between border-b border-slate-200 dark:border-neutral-800 bg-slate-100/90 dark:bg-[#0c0c0f] px-3 shrink-0 h-9">
@@ -1150,11 +1140,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
                 {/* RIGHT PANE (SPLIT) OR BOTTOM DOCK (STACKED) */}
                 <div
-                    className={`${
-                        layoutMode === "split"
+                    className={`${layoutMode === "split"
                             ? "lg:w-2/5 flex flex-col h-full min-h-0 bg-slate-50/70 dark:bg-[#0b0b0e]"
                             : "w-full h-2/5 flex flex-col min-h-0 bg-slate-50/70 dark:bg-[#0b0b0e]"
-                    }`}
+                        }`}
                 >
                     {/* DOCK TABS */}
                     <div className="flex flex-wrap items-center justify-between border-b border-slate-200 dark:border-neutral-800 bg-slate-100/80 dark:bg-[#0c0c0f] px-3 shrink-0 h-9">
@@ -1162,11 +1151,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                             <button
                                 type="button"
                                 onClick={() => setDockTab("terminal")}
-                                className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg transition ${
-                                    dockTab === "terminal"
+                                className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg transition ${dockTab === "terminal"
                                         ? "bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm"
                                         : "text-slate-500 hover:text-slate-800 dark:text-neutral-400 dark:hover:text-neutral-200"
-                                }`}
+                                    }`}
                             >
                                 <Terminal size={12} className="text-emerald-500" />
                                 <span>Output</span>
@@ -1175,11 +1163,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                             <button
                                 type="button"
                                 onClick={() => setDockTab("testcases")}
-                                className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg transition ${
-                                    dockTab === "testcases"
+                                className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg transition ${dockTab === "testcases"
                                         ? "bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm"
                                         : "text-slate-500 hover:text-slate-800 dark:text-neutral-400 dark:hover:text-neutral-200"
-                                }`}
+                                    }`}
                             >
                                 <Settings2 size={12} className="text-amber-500" />
                                 <span>Test Cases</span>
@@ -1191,11 +1178,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                             <button
                                 type="button"
                                 onClick={() => setDockTab("ai")}
-                                className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg transition ${
-                                    dockTab === "ai"
+                                className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg transition ${dockTab === "ai"
                                         ? "bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm"
                                         : "text-slate-500 hover:text-slate-800 dark:text-neutral-400 dark:hover:text-neutral-200"
-                                }`}
+                                    }`}
                             >
                                 <Bot size={12} className="text-purple-500" />
                                 <span>AI Copilot</span>
@@ -1205,11 +1191,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                 <button
                                     type="button"
                                     onClick={() => setDockTab("problem")}
-                                    className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg transition ${
-                                        dockTab === "problem"
+                                    className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg transition ${dockTab === "problem"
                                             ? "bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm"
                                             : "text-slate-500 hover:text-slate-800 dark:text-neutral-400 dark:hover:text-neutral-200"
-                                    }`}
+                                        }`}
                                 >
                                     <FileText size={12} className="text-cyan-500" />
                                     <span>Problem Spec</span>
@@ -1221,13 +1206,12 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                         {execStatus && (
                             <div className="flex items-center gap-1.5">
                                 <span
-                                    className={`inline-flex items-center gap-1 rounded-full px-2 py-0.2 text-[10px] font-bold ${
-                                        execStatus.statusType === "success"
+                                    className={`inline-flex items-center gap-1 rounded-full px-2 py-0.2 text-[10px] font-bold ${execStatus.statusType === "success"
                                             ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-500/30"
                                             : execStatus.statusType === "error"
-                                            ? "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-1 ring-rose-500/30"
-                                            : "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/30"
-                                    }`}
+                                                ? "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-1 ring-rose-500/30"
+                                                : "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/30"
+                                        }`}
                                 >
                                     {execStatus.statusType === "success" ? (
                                         <CheckCircle2 size={10} />
@@ -1360,11 +1344,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                                 key={tc.id}
                                                 type="button"
                                                 onClick={() => setActiveTestCaseId(tc.id)}
-                                                className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-semibold transition ${
-                                                    activeTestCaseId === tc.id
+                                                className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-semibold transition ${activeTestCaseId === tc.id
                                                         ? "bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30 dark:border-cyan-500/40"
                                                         : "bg-white dark:bg-neutral-900 border border-slate-200 dark:border-transparent text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
-                                                }`}
+                                                    }`}
                                             >
                                                 <span>{tc.name}</span>
                                                 {testCases.length > 1 && (
@@ -1535,13 +1518,12 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                         </p>
                                     </div>
                                     <span
-                                        className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
-                                            selectedProblem.difficulty === "Easy"
+                                        className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${selectedProblem.difficulty === "Easy"
                                                 ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-500/30"
                                                 : selectedProblem.difficulty === "Medium"
-                                                ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/30"
-                                                : "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-1 ring-rose-500/30"
-                                        }`}
+                                                    ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/30"
+                                                    : "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-1 ring-rose-500/30"
+                                            }`}
                                     >
                                         {selectedProblem.difficulty}
                                     </span>
@@ -1740,17 +1722,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                         key={diff}
                                         type="button"
                                         onClick={() => setDifficultyFilter(diff)}
-                                        className={`rounded-xl px-3 py-1 font-semibold transition ${
-                                            difficultyFilter === diff
+                                        className={`rounded-xl px-3 py-1 font-semibold transition ${difficultyFilter === diff
                                                 ? diff === "Easy"
                                                     ? "bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30"
                                                     : diff === "Medium"
-                                                    ? "bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30"
-                                                    : diff === "Hard"
-                                                    ? "bg-rose-500/20 text-rose-700 dark:text-rose-400 border border-rose-500/30"
-                                                    : "bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30"
+                                                        ? "bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30"
+                                                        : diff === "Hard"
+                                                            ? "bg-rose-500/20 text-rose-700 dark:text-rose-400 border border-rose-500/30"
+                                                            : "bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30"
                                                 : "bg-slate-100 dark:bg-neutral-900 text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-neutral-200"
-                                        }`}
+                                            }`}
                                     >
                                         {diff}
                                     </button>
@@ -1778,11 +1759,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                                 handleSetProblem(prob);
                                                 setShowProblemModal(false);
                                             }}
-                                            className={`w-full flex items-center justify-between rounded-2xl p-3 text-left transition border ${
-                                                isSelected
+                                            className={`w-full flex items-center justify-between rounded-2xl p-3 text-left transition border ${isSelected
                                                     ? "border-cyan-500/50 bg-cyan-50 dark:bg-cyan-950/20 text-slate-900 dark:text-white"
                                                     : "border-slate-200 dark:border-neutral-850 bg-slate-50/70 dark:bg-neutral-900/50 hover:bg-slate-100 dark:hover:bg-neutral-800/80 text-slate-800 dark:text-neutral-200"
-                                            }`}
+                                                }`}
                                         >
                                             <div className="space-y-1 min-w-0 pr-3">
                                                 <div className="flex items-center gap-2">
@@ -1790,13 +1770,12 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                                         {prob.id}. {prob.title}
                                                     </span>
                                                     <span
-                                                        className={`rounded-full px-2 py-0.2 text-[10px] font-bold ${
-                                                            prob.difficulty === "Easy"
+                                                        className={`rounded-full px-2 py-0.2 text-[10px] font-bold ${prob.difficulty === "Easy"
                                                                 ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-500/30"
                                                                 : prob.difficulty === "Medium"
-                                                                ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/30"
-                                                                : "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-1 ring-rose-500/30"
-                                                        }`}
+                                                                    ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/30"
+                                                                    : "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-1 ring-rose-500/30"
+                                                            }`}
                                                     >
                                                         {prob.difficulty}
                                                     </span>
@@ -1813,11 +1792,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                             </div>
                                             <div className="shrink-0">
                                                 <span
-                                                    className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${
-                                                        isSelected
+                                                    className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${isSelected
                                                             ? "bg-cyan-500 text-white dark:text-black font-bold"
                                                             : "bg-slate-200 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 hover:bg-cyan-500 hover:text-white"
-                                                    } transition`}
+                                                        } transition`}
                                                 >
                                                     {isSelected ? "Active" : "Load"}
                                                 </span>
