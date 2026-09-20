@@ -632,7 +632,7 @@ function EditAsset() {
             </div>
 
 
-            <div className="relative mx-auto w-full max-w-4xl px-5 py-6 sm:px-8 sm:py-8">
+            <div className="relative mx-auto w-full max-w-5xl lg:max-w-6xl px-5 py-6 sm:px-8 sm:py-8">
 
                 {/* =========================================
                     TOP NAVIGATION

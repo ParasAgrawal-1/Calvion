@@ -31,6 +31,9 @@ import {
     FileDown,
     Eye,
     AlertCircle,
+    Sun,
+    Moon,
+    Code2,
 } from "lucide-react";
 
 import {
@@ -40,6 +43,7 @@ import {
 import axios from "axios";
 
 import api from "../../services/api";
+import { useTheme } from "../../context/ThemeContext";
 
 import ProfileSettings from "./ProfileSettings";
 import SecuritySection from "./sections/SecuritySection";
@@ -1804,6 +1808,9 @@ export default function Settings() {
     const navigate =
         useNavigate();
 
+    const { theme, setTheme } =
+        useTheme();
+
 
     const [
         activeSection,
@@ -2060,9 +2067,11 @@ export default function Settings() {
                 HEADER
             ================================================= */}
 
-            <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl dark:border-neutral-800 dark:bg-black/95">
+            <header className="sticky top-0 z-50 border-b border-slate-200/80 dark:border-white/[0.08] bg-white/85 dark:bg-[#07090e]/90 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-colors duration-200">
+                {/* Micro accent gradient line on very top */}
+                <div className="h-[2px] w-full bg-gradient-to-r from-cyan-500/0 via-cyan-500/70 to-blue-600/0" />
 
-                <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+                <div className="mx-auto flex h-16 w-full max-w-[1920px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
 
 
                     {/* LEFT */}
@@ -2076,12 +2085,12 @@ export default function Settings() {
                                     "/dashboard"
                                 )
                             }
-                            className="group flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-slate-500 transition hover:bg-slate-50 hover:text-blue-600 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-cyan-400"
+                            className="group flex items-center gap-1.5 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-slate-50/80 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm"
                         >
 
                             <ArrowLeft
-                                size={17}
-                                className="transition-transform group-hover:-translate-x-0.5"
+                                size={14}
+                                className="text-slate-400 dark:text-neutral-400 group-hover:text-cyan-500 group-hover:-translate-x-0.5 transition-all duration-200"
                             />
 
                             <span className="hidden sm:inline">
@@ -2091,29 +2100,32 @@ export default function Settings() {
                         </button>
 
 
-                        <div className="h-6 w-px bg-slate-200 dark:bg-neutral-800" />
+                        <div className="h-5 w-px bg-slate-200/80 dark:bg-neutral-800" />
 
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2.5">
 
-                            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-sm">
-
-                                <SettingsIcon
-                                    size={18}
-                                />
-
+                            <div className="relative group flex h-9 w-9 shrink-0 items-center justify-center rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 shadow-sm shadow-cyan-500/25">
+                                <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-white dark:bg-[#0c0e14] overflow-hidden p-1 text-cyan-600 dark:text-cyan-400 transition duration-200">
+                                    <SettingsIcon
+                                        size={18}
+                                    />
+                                </div>
                             </div>
 
 
                             <div>
 
-                                <h1 className="text-base font-bold text-slate-900 dark:text-white">
+                                <h1 className="text-base font-black tracking-tight text-slate-900 dark:text-white flex items-center">
                                     Settings
+                                    <span className="ml-1.5 font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent text-xs uppercase tracking-wider">
+                                        Preferences
+                                    </span>
                                 </h1>
 
 
-                                <p className="hidden text-[10px] text-slate-400 dark:text-neutral-500 sm:block">
-                                    Manage your account and preferences
+                                <p className="hidden text-[10.5px] font-medium text-slate-400 dark:text-neutral-500 sm:block -mt-0.5">
+                                    Manage your account, workspace, and security
                                 </p>
 
                             </div>
@@ -2123,24 +2135,51 @@ export default function Settings() {
                     </div>
 
 
-                    {/* MOBILE */}
+                    {/* RIGHT: DEVELOPER HUB, THEME TOGGLE, MOBILE */}
 
-                    <button
-                        type="button"
-                        onClick={() =>
-                            setMobileMenuOpen(
-                                (previous) =>
-                                    !previous
-                            )
-                        }
-                        className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 md:hidden"
-                    >
+                    <div className="flex items-center gap-2 sm:gap-3">
 
-                        {mobileMenuOpen
-                            ? "Close"
-                            : "Settings Menu"}
+                        <button
+                            type="button"
+                            onClick={() => navigate("/developer")}
+                            className="hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-cyan-500/30 bg-cyan-500/10 dark:bg-cyan-500/15 px-3 py-1.5 text-xs font-bold text-cyan-700 dark:text-cyan-300 transition hover:bg-cyan-500/20 dark:hover:bg-cyan-500/25 hover:border-cyan-500/50"
+                        >
+                            <Code2 size={14} className="text-cyan-600 dark:text-cyan-400" />
+                            <span>Developer Hub</span>
+                        </button>
 
-                    </button>
+                        <button
+                            type="button"
+                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                            className="group relative flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#12141c] text-slate-600 dark:text-neutral-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500/40 dark:hover:border-cyan-500/40 shadow-sm transition-all duration-200"
+                            title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
+                            aria-label="Toggle Theme"
+                        >
+                            {theme === "dark" ? (
+                                <Sun size={16} className="text-amber-400 transition-transform duration-300 group-hover:rotate-45" />
+                            ) : (
+                                <Moon size={16} className="text-indigo-600 transition-transform duration-300 group-hover:-rotate-12" />
+                            )}
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                setMobileMenuOpen(
+                                    (previous) =>
+                                        !previous
+                                )
+                            }
+                            className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 md:hidden"
+                        >
+
+                            {mobileMenuOpen
+                                ? "Close"
+                                : "Settings Menu"}
+
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -2151,7 +2190,7 @@ export default function Settings() {
                 MAIN
             ================================================= */}
 
-            <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <main className="mx-auto w-full max-w-[1760px] px-4 py-6 sm:px-6 lg:px-8 xl:px-10">
 
 
                 {/* MOBILE MENU */}

@@ -1258,7 +1258,7 @@ function AssetDetails() {
             </div>
 
 
-            <div className="relative mx-auto w-full max-w-6xl px-5 py-6 sm:px-8 sm:py-8 lg:px-10">
+            <div className="relative mx-auto w-full max-w-[1720px] px-5 py-6 sm:px-8 sm:py-8 lg:px-10">
 
 
                 {/* =================================

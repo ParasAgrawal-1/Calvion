@@ -1023,7 +1023,7 @@ const MyAssets = () => {
                 MAIN
             ================================================= */}
 
-            <main className="mx-auto max-w-7xl px-5 py-9 sm:px-8 lg:py-11">
+            <main className="mx-auto w-full max-w-[1760px] px-4 py-8 sm:px-6 lg:px-8 xl:px-10">
 
 
                 {/* =================================================

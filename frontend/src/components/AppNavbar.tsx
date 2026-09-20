@@ -9,6 +9,9 @@ import {
     User,
     Users,
     X,
+    Sun,
+    Moon,
+    Code2,
 } from "lucide-react";
 
 import {
@@ -22,6 +25,7 @@ import {
 } from "react-router-dom";
 
 import api from "../services/api";
+import { useTheme } from "../context/ThemeContext";
 
 
 /* =========================================================
@@ -180,6 +184,9 @@ export default function AppNavbar({
 
     const navigate =
         useNavigate();
+
+    const { theme, setTheme } =
+        useTheme();
 
 
     /* =====================================================
@@ -719,9 +726,11 @@ export default function AppNavbar({
 
     return (
 
-        <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl dark:border-neutral-800 dark:bg-black/95">
+        <header className="sticky top-0 z-50 border-b border-slate-200/80 dark:border-white/[0.08] bg-white/85 dark:bg-[#07090e]/90 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-colors duration-200">
+            {/* Micro accent gradient line on very top */}
+            <div className="h-[2px] w-full bg-gradient-to-r from-cyan-500/0 via-cyan-500/70 to-blue-600/0" />
 
-            <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto flex h-16 w-full max-w-[1920px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
 
 
                 {/* =================================================
@@ -738,34 +747,27 @@ export default function AppNavbar({
                     className="group flex shrink-0 items-center gap-3"
                 >
 
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 transition duration-200 group-hover:scale-105">
-
-                        <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200 transition duration-200 group-hover:scale-105">
+                    <div className="relative group flex h-9 w-9 shrink-0 items-center justify-center rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 shadow-sm shadow-cyan-500/25 transition duration-200 group-hover:scale-105">
+                        <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-white dark:bg-[#0c0e14] overflow-hidden p-1 transition duration-200">
                             <img
                                 src="/calvion-icon.png"
                                 alt="Calvion"
-                                className="h-8 w-8 object-contain"
+                                className="h-full w-full object-contain"
                             />
                         </div>
-
                     </div>
 
-
                     <div className="text-left">
-
-                        <div className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">
-
+                        <div className="text-base font-black tracking-tight text-slate-900 dark:text-white flex items-center">
                             Calvion
-
+                            <span className="ml-1.5 font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent text-xs uppercase tracking-wider">
+                                Cloud
+                            </span>
                         </div>
 
-
-                        <div className="hidden text-[11px] font-medium text-slate-400 dark:text-neutral-500 sm:block">
-
+                        <div className="hidden text-[10.5px] font-medium text-slate-400 dark:text-neutral-500 sm:block -mt-0.5">
                             Digital Asset Manager
-
                         </div>
-
                     </div>
 
                 </button>
@@ -861,7 +863,43 @@ export default function AppNavbar({
 
                         </button>
 
+                        {/* DEVELOPER HUB */}
+                        <button
+                            type="button"
+                            onClick={() =>
+                                goTo(
+                                    "/developer"
+                                )
+                            }
+                            className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:text-neutral-400 dark:hover:bg-neutral-800/70 dark:hover:text-white"
+                        >
+                            <Code2
+                                size={16}
+                                className="text-cyan-500"
+                            />
+                            <span>Developer Hub</span>
+                            <span className="rounded-full bg-cyan-500/15 border border-cyan-500/30 px-1.5 py-0.2 text-[9.5px] font-bold text-cyan-600 dark:text-cyan-400">
+                                New
+                            </span>
+                        </button>
+
                     </nav>
+
+
+                    {/* THEME TOGGLE (Sun / Moon) */}
+                    <button
+                        type="button"
+                        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                        className="group relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#12141c] text-slate-600 dark:text-neutral-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500/40 dark:hover:border-cyan-500/40 shadow-sm transition-all duration-200"
+                        title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
+                        aria-label="Toggle Theme"
+                    >
+                        {theme === "dark" ? (
+                            <Sun size={17} className="text-amber-400 transition-transform duration-300 group-hover:rotate-45" />
+                        ) : (
+                            <Moon size={17} className="text-indigo-600 transition-transform duration-300 group-hover:-rotate-12" />
+                        )}
+                    </button>
 
 
                     {/* =================================================

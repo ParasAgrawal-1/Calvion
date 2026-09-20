@@ -183,37 +183,11 @@ function Home() {
                 HEADER
             ===================================================== */}
 
-            <header
-                className="
-                    sticky
-                    top-0
-                    z-50
-                    border-b
-                    border-slate-200/80
-                    dark:border-neutral-800
-                    bg-white/90
-                    dark:bg-[#06070a]/90
-                    backdrop-blur-xl
-                    transition-colors
-                    duration-200
-                "
-            >
+            <header className="sticky top-0 z-50 border-b border-slate-200/80 dark:border-white/[0.08] bg-white/85 dark:bg-[#07090e]/90 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-colors duration-200">
+                {/* Micro accent gradient line on very top */}
+                <div className="h-[2px] w-full bg-gradient-to-r from-cyan-500/0 via-cyan-500/70 to-blue-600/0" />
 
-                <div
-                    className="
-                        mx-auto
-                        flex
-                        h-[72px]
-                        w-full
-                        max-w-[1400px]
-                        items-center
-                        justify-between
-                        px-5
-                        sm:px-8
-                        lg:px-10
-                    "
-                >
-
+                <div className="mx-auto flex h-16 w-full max-w-[1920px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
 
                     {/* ================= LOGO ================= */}
 
@@ -221,57 +195,24 @@ function Home() {
                         type="button"
                         onClick={() => navigate("/")}
                         aria-label="Go to Calvion home"
-                        className="
-                            group
-                            flex
-                            shrink-0
-                            items-center
-                            gap-3
-                        "
+                        className="group flex shrink-0 items-center gap-3"
                     >
 
-                        <div
-                            className="
-                                flex
-                                h-10
-                                w-10
-                                items-center
-                                justify-center
-                                rounded-xl
-                                bg-gradient-to-br
-                                from-blue-500
-                                to-indigo-600
-                                text-white
-                                shadow-md
-                                shadow-blue-500/20
-                                transition
-                                duration-200
-                                group-hover:-translate-y-0.5
-                                group-hover:shadow-lg
-                            "
-                        >
-                            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200 dark:ring-neutral-800 transition duration-200 group-hover:scale-105">
+                        <div className="relative group flex h-9 w-9 shrink-0 items-center justify-center rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 shadow-sm shadow-cyan-500/25 transition duration-200 group-hover:scale-105">
+                            <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-white dark:bg-[#0c0e14] overflow-hidden p-1 transition duration-200">
                                 <img
                                     src="/calvion-icon.png"
                                     alt="Calvion"
-                                    className="h-8 w-8 object-contain"
+                                    className="h-full w-full object-contain"
                                 />
                             </div>
-
                         </div>
 
-
-                        <span
-                            className="
-                                text-xl
-                                font-bold
-                                tracking-tight
-                                text-slate-900
-                                dark:text-white
-                                sm:text-2xl
-                            "
-                        >
+                        <span className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white flex items-center">
                             Calvion
+                            <span className="ml-1.5 font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent text-xs uppercase tracking-wider">
+                                Cloud
+                            </span>
                         </span>
 
                     </button>
@@ -574,7 +515,7 @@ function Home() {
                             mx-auto
                             grid
                             w-full
-                            max-w-[1400px]
+                            max-w-[1720px]
                             items-center
                             gap-12
                             px-5
@@ -584,6 +525,7 @@ function Home() {
                             lg:grid-cols-[1.05fr_0.95fr]
                             lg:gap-20
                             lg:px-10
+                            xl:px-12
                             lg:py-24
                         "
                     >
@@ -1194,7 +1136,7 @@ function Home() {
                     <div
                         className="
                             mx-auto
-                            max-w-[1400px]
+                            max-w-[1720px]
                         "
                     >
 
@@ -1389,7 +1331,7 @@ function Home() {
                     "
                 >
 
-                    <div className="mx-auto max-w-[1400px]">
+                    <div className="mx-auto max-w-[1720px]">
 
                         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-12">
 
@@ -1712,7 +1654,7 @@ function Home() {
                         className="
                             relative
                             mx-auto
-                            max-w-[1400px]
+                            max-w-[1720px]
                             overflow-hidden
                             rounded-3xl
                             border
@@ -1903,7 +1845,7 @@ function Home() {
                         flex
                         min-h-[84px]
                         w-full
-                        max-w-[1400px]
+                        max-w-[1720px]
                         flex-col
                         gap-4
                         px-5
@@ -1913,6 +1855,7 @@ function Home() {
                         lg:items-center
                         lg:justify-between
                         lg:px-10
+                        xl:px-12
                     "
                 >
 
