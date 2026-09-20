@@ -16,11 +16,12 @@ body,
 
 body {
     font-family:
-            Inter,
+            "Inter",
             -apple-system,
             BlinkMacSystemFont,
             "Segoe UI",
             sans-serif;
+    letter-spacing: -0.012em;
 
     background: #f8fafc;
     color: #1e293b;

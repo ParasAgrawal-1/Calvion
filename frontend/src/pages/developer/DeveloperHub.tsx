@@ -73,23 +73,7 @@ export const DeveloperHub: React.FC = () => {
                                     />
                                 </div>
                             </div>
-                            <div className="flex flex-col justify-center">
-                                <div className="flex items-center gap-1.5 sm:gap-2">
-                                    <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white flex items-center">
-                                        Calvion
-                                        <span className="ml-1 font-black bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-                                            Developer Hub
-                                        </span>
-                                    </span>
-                                    <span className="inline-flex items-center gap-1 rounded-full bg-cyan-500/10 dark:bg-cyan-400/10 border border-cyan-500/20 px-2 py-0.2 text-[10px] font-bold text-cyan-700 dark:text-cyan-300">
-                                        <span className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse" />
-                                        v1.0
-                                    </span>
-                                </div>
-                                <p className="hidden text-[10.5px] font-medium text-slate-400 dark:text-neutral-400 xl:block -mt-0.5">
-                                    Competitive Coding, In-Browser Sandbox & DSA Prep
-                                </p>
-                            </div>
+
                         </div>
                     </div>
 
@@ -98,15 +82,13 @@ export const DeveloperHub: React.FC = () => {
                         <button
                             type="button"
                             onClick={() => setActiveTab("editor")}
-                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${
-                                activeTab === "editor"
+                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${activeTab === "editor"
                                     ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
                                     : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
-                            }`}
+                                }`}
                         >
-                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${
-                                activeTab === "editor" ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400" : "text-slate-400 dark:text-neutral-500"
-                            }`}>
+                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${activeTab === "editor" ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400" : "text-slate-400 dark:text-neutral-500"
+                                }`}>
                                 <Terminal size={13} />
                             </div>
                             <span>Code Playground</span>
@@ -115,15 +97,13 @@ export const DeveloperHub: React.FC = () => {
                         <button
                             type="button"
                             onClick={() => setActiveTab("platforms")}
-                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${
-                                activeTab === "platforms"
+                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${activeTab === "platforms"
                                     ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
                                     : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
-                            }`}
+                                }`}
                         >
-                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${
-                                activeTab === "platforms" ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : "text-slate-400 dark:text-neutral-500"
-                            }`}>
+                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${activeTab === "platforms" ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : "text-slate-400 dark:text-neutral-500"
+                                }`}>
                                 <Trophy size={13} />
                             </div>
                             <span>Competitive Platforms</span>
@@ -132,15 +112,13 @@ export const DeveloperHub: React.FC = () => {
                         <button
                             type="button"
                             onClick={() => setActiveTab("prep")}
-                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${
-                                activeTab === "prep"
+                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${activeTab === "prep"
                                     ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
                                     : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
-                            }`}
+                                }`}
                         >
-                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${
-                                activeTab === "prep" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-neutral-500"
-                            }`}>
+                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${activeTab === "prep" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-neutral-500"
+                                }`}>
                                 <BookOpen size={13} />
                             </div>
                             <span>Coding Test Prep</span>
@@ -207,11 +185,10 @@ export const DeveloperHub: React.FC = () => {
                     <button
                         type="button"
                         onClick={() => setActiveTab("editor")}
-                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${
-                            activeTab === "editor"
+                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${activeTab === "editor"
                                 ? "bg-slate-100 dark:bg-neutral-800 text-cyan-600 dark:text-cyan-400 shadow-sm font-bold"
                                 : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
-                        }`}
+                            }`}
                     >
                         <Terminal size={14} />
                         <span>Editor</span>
@@ -219,11 +196,10 @@ export const DeveloperHub: React.FC = () => {
                     <button
                         type="button"
                         onClick={() => setActiveTab("platforms")}
-                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${
-                            activeTab === "platforms"
+                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${activeTab === "platforms"
                                 ? "bg-slate-100 dark:bg-neutral-800 text-amber-600 dark:text-amber-400 shadow-sm font-bold"
                                 : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
-                        }`}
+                            }`}
                     >
                         <Trophy size={14} />
                         <span>Platforms</span>
@@ -231,11 +207,10 @@ export const DeveloperHub: React.FC = () => {
                     <button
                         type="button"
                         onClick={() => setActiveTab("prep")}
-                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${
-                            activeTab === "prep"
+                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${activeTab === "prep"
                                 ? "bg-slate-100 dark:bg-neutral-800 text-emerald-600 dark:text-emerald-400 shadow-sm font-bold"
                                 : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
-                        }`}
+                            }`}
                     >
                         <BookOpen size={14} />
                         <span>DSA Prep</span>
