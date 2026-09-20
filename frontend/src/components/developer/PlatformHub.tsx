@@ -6,6 +6,13 @@ import {
     Search,
     Flame,
     Target,
+    ArrowRight,
+    Code2,
+    Award,
+    Terminal,
+    Sparkles,
+    Database,
+    Globe,
 } from "lucide-react";
 
 interface Platform {
@@ -14,7 +21,13 @@ interface Platform {
     category: "Competitive" | "Interview Prep" | "Foundations" | "Data Science";
     difficulty: "All Levels" | "Beginner Friendly" | "Advanced / Hardcore" | "Intermediate";
     description: string;
-    accentColor: string;
+    icon: React.ElementType;
+    iconBg: string;
+    iconText: string;
+    iconBorder: string;
+    hoverBorder: string;
+    actionText: string;
+    actionLabel: string;
     url: string;
     contestsUrl: string;
     problemsUrl: string;
@@ -29,7 +42,13 @@ const PLATFORMS: Platform[] = [
         category: "Interview Prep",
         difficulty: "All Levels",
         description: "The premier platform for technical interviews, DSA, and weekly/bi-weekly rated contests.",
-        accentColor: "from-amber-500 to-orange-600",
+        icon: Code2,
+        iconBg: "bg-amber-500/10",
+        iconText: "text-amber-600 dark:text-amber-400",
+        iconBorder: "border-amber-500/20",
+        hoverBorder: "hover:border-amber-500/40",
+        actionText: "text-amber-600 dark:text-amber-400",
+        actionLabel: "Launch LeetCode",
         url: "https://leetcode.com",
         contestsUrl: "https://leetcode.com/contest/",
         problemsUrl: "https://leetcode.com/problemset/all/",
@@ -42,7 +61,13 @@ const PLATFORMS: Platform[] = [
         category: "Competitive",
         difficulty: "Advanced / Hardcore",
         description: "Global standard for competitive programming, fast rated rounds (Div 1 to Div 4) and Elo ratings.",
-        accentColor: "from-red-500 to-rose-600",
+        icon: Trophy,
+        iconBg: "bg-rose-500/10",
+        iconText: "text-rose-600 dark:text-rose-400",
+        iconBorder: "border-rose-500/20",
+        hoverBorder: "hover:border-rose-500/40",
+        actionText: "text-rose-600 dark:text-rose-400",
+        actionLabel: "Launch Codeforces",
         url: "https://codeforces.com",
         contestsUrl: "https://codeforces.com/contests",
         problemsUrl: "https://codeforces.com/problemset",
@@ -55,7 +80,13 @@ const PLATFORMS: Platform[] = [
         category: "Competitive",
         difficulty: "All Levels",
         description: "Indian & global competitive programming platform featuring Starters, Cook-Off, and Lunchtime rounds.",
-        accentColor: "from-amber-700 to-yellow-800",
+        icon: Award,
+        iconBg: "bg-orange-500/10",
+        iconText: "text-orange-600 dark:text-orange-400",
+        iconBorder: "border-orange-500/20",
+        hoverBorder: "hover:border-orange-500/40",
+        actionText: "text-orange-600 dark:text-orange-400",
+        actionLabel: "Launch CodeChef",
         url: "https://www.codechef.com",
         contestsUrl: "https://www.codechef.com/contests",
         problemsUrl: "https://www.codechef.com/practice",
@@ -67,7 +98,13 @@ const PLATFORMS: Platform[] = [
         category: "Interview Prep",
         difficulty: "Beginner Friendly",
         description: "Ideal for beginners learning language fundamentals, interview preparation kits, and company screening tests.",
-        accentColor: "from-emerald-500 to-green-600",
+        icon: Terminal,
+        iconBg: "bg-emerald-500/10",
+        iconText: "text-emerald-600 dark:text-emerald-400",
+        iconBorder: "border-emerald-500/20",
+        hoverBorder: "hover:border-emerald-500/40",
+        actionText: "text-emerald-600 dark:text-emerald-400",
+        actionLabel: "Launch HackerRank",
         url: "https://www.hackerrank.com",
         contestsUrl: "https://www.hackerrank.com/contests",
         problemsUrl: "https://www.hackerrank.com/domains",
@@ -79,7 +116,13 @@ const PLATFORMS: Platform[] = [
         category: "Foundations",
         difficulty: "All Levels",
         description: "Comprehensive tutorials, computer science subjects, core CS concepts, and Problem of the Day (POTD).",
-        accentColor: "from-green-600 to-teal-700",
+        icon: Sparkles,
+        iconBg: "bg-teal-500/10",
+        iconText: "text-teal-600 dark:text-teal-400",
+        iconBorder: "border-teal-500/20",
+        hoverBorder: "hover:border-teal-500/40",
+        actionText: "text-teal-600 dark:text-teal-400",
+        actionLabel: "Launch GeeksforGeeks",
         url: "https://www.geeksforgeeks.org",
         contestsUrl: "https://practice.geeksforgeeks.org/events",
         problemsUrl: "https://practice.geeksforgeeks.org/explore",
@@ -92,7 +135,13 @@ const PLATFORMS: Platform[] = [
         category: "Competitive",
         difficulty: "Intermediate",
         description: "High quality Japanese competitive programming platform known for elegant math and algorithmic problems.",
-        accentColor: "from-slate-700 to-zinc-900",
+        icon: Target,
+        iconBg: "bg-indigo-500/10",
+        iconText: "text-indigo-600 dark:text-indigo-400",
+        iconBorder: "border-indigo-500/20",
+        hoverBorder: "hover:border-indigo-500/40",
+        actionText: "text-indigo-600 dark:text-indigo-400",
+        actionLabel: "Launch AtCoder",
         url: "https://atcoder.jp",
         contestsUrl: "https://atcoder.jp/contests/",
         problemsUrl: "https://kenkoooo.com/atcoder/#/table/",
@@ -104,7 +153,13 @@ const PLATFORMS: Platform[] = [
         category: "Foundations",
         difficulty: "Intermediate",
         description: "The gold-standard curated collection of 300 classic algorithmic problems covering DP, Trees, and Graphs.",
-        accentColor: "from-blue-600 to-cyan-700",
+        icon: Database,
+        iconBg: "bg-blue-500/10",
+        iconText: "text-blue-600 dark:text-blue-400",
+        iconBorder: "border-blue-500/20",
+        hoverBorder: "hover:border-blue-500/40",
+        actionText: "text-blue-600 dark:text-blue-400",
+        actionLabel: "Launch CSES Set",
         url: "https://cses.fi/problemset/",
         contestsUrl: "https://cses.fi",
         problemsUrl: "https://cses.fi/problemset/list/",
@@ -117,7 +172,13 @@ const PLATFORMS: Platform[] = [
         category: "Data Science",
         difficulty: "Intermediate",
         description: "The world's largest data science & machine learning competition platform with notebooks and datasets.",
-        accentColor: "from-sky-500 to-blue-600",
+        icon: Globe,
+        iconBg: "bg-cyan-500/10",
+        iconText: "text-cyan-600 dark:text-cyan-400",
+        iconBorder: "border-cyan-500/20",
+        hoverBorder: "hover:border-cyan-500/40",
+        actionText: "text-cyan-600 dark:text-cyan-400",
+        actionLabel: "Launch Kaggle ML",
         url: "https://www.kaggle.com",
         contestsUrl: "https://www.kaggle.com/competitions",
         problemsUrl: "https://www.kaggle.com/datasets",
@@ -148,7 +209,7 @@ export const PlatformHub: React.FC = () => {
                     <div className="max-w-2xl">
                         <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3 py-1 text-xs font-bold text-cyan-600 dark:text-cyan-400 mb-3">
                             <Trophy size={13} />
-                            <span>Competitive Coding & Interview Launchpad</span>
+                            <span>Competitive Coding &amp; Interview Launchpad</span>
                         </div>
                         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                             Connect to the World&apos;s Top Coding Arenas
@@ -217,95 +278,152 @@ export const PlatformHub: React.FC = () => {
                 </div>
             </div>
 
-            {/* PLATFORMS GRID */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
-                {filteredPlatforms.map((p) => (
-                    <div
-                        key={p.id}
-                        className="group flex flex-col justify-between rounded-3xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-cyan-500/40 hover:shadow-xl dark:hover:shadow-cyan-950/20"
-                    >
-                        <div>
-                            {/* HEADER */}
-                            <div className="flex items-start justify-between gap-3 mb-3">
-                                <div className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${p.accentColor} text-white shadow-md shadow-slate-900/10 font-black text-sm`}>
-                                    {p.name.substring(0, 2).toUpperCase()}
-                                </div>
-                                {p.badge && (
-                                    <span className="rounded-full bg-cyan-500/10 border border-cyan-500/20 px-2.5 py-0.5 text-[10px] font-bold text-cyan-600 dark:text-cyan-400">
-                                        {p.badge}
-                                    </span>
-                                )}
-                            </div>
-
-                            {/* TITLE & CATEGORY */}
-                            <h3 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-1.5">
-                                <span>{p.name}</span>
-                            </h3>
-
-                            <div className="mt-1 flex items-center gap-2">
-                                <span className="rounded-md bg-slate-100 dark:bg-neutral-900 px-2 py-0.5 text-[10px] font-semibold text-slate-600 dark:text-neutral-300">
-                                    {p.category}
-                                </span>
-                                <span className="text-[10px] text-slate-400 dark:text-neutral-500">•</span>
-                                <span className="text-[10px] font-medium text-slate-500 dark:text-neutral-400">
-                                    {p.difficulty}
-                                </span>
-                            </div>
-
-                            {/* DESCRIPTION */}
-                            <p className="mt-3 text-xs leading-relaxed text-slate-600 dark:text-neutral-400 line-clamp-3">
-                                {p.description}
-                            </p>
-
-                            {/* FEATURE TAGS */}
-                            <div className="mt-4 flex flex-wrap gap-1.5">
-                                {p.features.map((feat, idx) => (
-                                    <span
-                                        key={idx}
-                                        className="rounded-lg border border-slate-100 dark:border-neutral-800/80 bg-slate-50 dark:bg-black/60 px-2 py-0.5 text-[10px] font-medium text-slate-600 dark:text-neutral-300"
+            {/* PLATFORMS GRID - HARMONIZED WITH HOME PAGE CARD FORMAT */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+                {filteredPlatforms.map((p) => {
+                    const Icon = p.icon;
+                    return (
+                        <div
+                            key={p.id}
+                            onClick={() => window.open(p.url, "_blank")}
+                            className={`
+                                cursor-pointer
+                                rounded-3xl
+                                border
+                                border-slate-200/80
+                                dark:border-neutral-800
+                                bg-white
+                                dark:bg-[#0c0c0e]
+                                p-6
+                                sm:p-8
+                                flex
+                                flex-col
+                                justify-between
+                                ${p.hoverBorder}
+                                hover:shadow-md
+                                dark:hover:shadow-none
+                                transition
+                                group
+                                shadow-sm
+                                dark:shadow-none
+                            `}
+                        >
+                            <div>
+                                {/* TOP ROW: ICON BADGE & OPTIONAL TAG */}
+                                <div className="flex items-center justify-between mb-5">
+                                    <div
+                                        className={`
+                                            flex
+                                            h-12
+                                            w-12
+                                            items-center
+                                            justify-center
+                                            rounded-2xl
+                                            ${p.iconBg}
+                                            ${p.iconText}
+                                            border
+                                            ${p.iconBorder}
+                                        `}
                                     >
-                                        {feat}
+                                        <Icon size={24} />
+                                    </div>
+
+                                    {p.badge && (
+                                        <span
+                                            className={`
+                                                rounded-full
+                                                ${p.iconBg}
+                                                ${p.iconText}
+                                                border
+                                                ${p.iconBorder}
+                                                px-3
+                                                py-1
+                                                text-[11px]
+                                                font-bold
+                                            `}
+                                        >
+                                            {p.badge}
+                                        </span>
+                                    )}
+                                </div>
+
+                                {/* TITLE */}
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                                    {p.name}
+                                </h3>
+
+                                {/* CATEGORY & DIFFICULTY */}
+                                <div className="mt-1.5 flex items-center gap-2">
+                                    <span className="rounded-md bg-slate-100 dark:bg-neutral-900 px-2 py-0.5 text-[11px] font-semibold text-slate-600 dark:text-neutral-300 border border-slate-200/60 dark:border-neutral-800">
+                                        {p.category}
                                     </span>
-                                ))}
-                            </div>
-                        </div>
+                                    <span className="text-[11px] text-slate-400 dark:text-neutral-500">•</span>
+                                    <span className="text-[11px] font-medium text-slate-500 dark:text-neutral-400">
+                                        {p.difficulty}
+                                    </span>
+                                </div>
 
-                        {/* ACTION BUTTONS */}
-                        <div className="mt-6 pt-4 border-t border-slate-100 dark:border-neutral-800/80 flex items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                                <a
-                                    href={p.problemsUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-cyan-600 dark:text-neutral-400 dark:hover:text-cyan-400 transition"
-                                >
-                                    <Target size={12} />
-                                    <span>Problems</span>
-                                </a>
-                                <span className="text-slate-300 dark:text-neutral-700">|</span>
-                                <a
-                                    href={p.contestsUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-cyan-600 dark:text-neutral-400 dark:hover:text-cyan-400 transition"
-                                >
-                                    <Trophy size={12} />
-                                    <span>Contests</span>
-                                </a>
+                                {/* DESCRIPTION */}
+                                <p className="mt-3 text-sm text-slate-600 dark:text-neutral-400 leading-relaxed">
+                                    {p.description}
+                                </p>
+
+                                {/* FEATURE PILLS */}
+                                <div className="mt-4 flex flex-wrap gap-1.5">
+                                    {p.features.map((feat, idx) => (
+                                        <span
+                                            key={idx}
+                                            className="rounded-lg border border-slate-100 dark:border-neutral-800/80 bg-slate-50 dark:bg-black/60 px-2.5 py-1 text-[11px] font-medium text-slate-600 dark:text-neutral-300"
+                                        >
+                                            {feat}
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
 
-                            <a
-                                href={p.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-100 dark:bg-neutral-900 text-slate-700 dark:text-neutral-200 hover:bg-cyan-500 hover:text-white transition shadow-sm"
-                                title={`Open ${p.name}`}
-                            >
-                                <ExternalLink size={14} />
-                            </a>
+                            {/* FOOTER ACTION BAR */}
+                            <div className="mt-6 pt-4 border-t border-slate-100 dark:border-neutral-800/80 flex items-center justify-between">
+                                <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-neutral-400">
+                                    <a
+                                        href={p.problemsUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="hover:text-cyan-600 dark:hover:text-cyan-400 transition"
+                                    >
+                                        Problems
+                                    </a>
+                                    <span className="text-slate-300 dark:text-neutral-700">|</span>
+                                    <a
+                                        href={p.contestsUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="hover:text-cyan-600 dark:hover:text-cyan-400 transition"
+                                    >
+                                        Contests
+                                    </a>
+                                </div>
+
+                                <div
+                                    className={`
+                                        flex
+                                        items-center
+                                        gap-1.5
+                                        text-xs
+                                        ${p.actionText}
+                                        font-bold
+                                        group-hover:translate-x-1
+                                        transition-transform
+                                    `}
+                                >
+                                    <span>{p.actionLabel}</span>
+                                    <ArrowRight size={14} />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
     );

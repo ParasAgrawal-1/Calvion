@@ -311,43 +311,25 @@ function Home() {
                             Security
                         </button>
 
-
                         {/* DEVELOPER HUB */}
-
                         <button
                             type="button"
                             onClick={() =>
-                                navigate("/developer")
+                                navigate(
+                                    "/developer"
+                                )
                             }
-                            className="
-                                inline-flex
-                                items-center
-                                gap-1.5
-                                rounded-xl
-                                border
-                                border-cyan-500/30
-                                bg-cyan-500/10
-                                dark:bg-cyan-500/15
-                                px-3
-                                py-2
-                                text-xs
-                                font-bold
-                                text-cyan-700
-                                dark:text-cyan-300
-                                transition
-                                hover:bg-cyan-500/20
-                                dark:hover:bg-cyan-500/25
-                                hover:border-cyan-500/50
-                                sm:px-3.5
-                            "
+                            className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:text-neutral-400 dark:hover:bg-neutral-800/70 dark:hover:text-white"
                         >
-                            <Code2 size={15} className="text-cyan-600 dark:text-cyan-400" />
+                            <Code2
+                                size={16}
+                                className="text-cyan-500"
+                            />
                             <span>Developer Hub</span>
-                            <span className="hidden sm:inline-block rounded-full bg-cyan-500 px-1.5 py-0.2 text-[9px] font-extrabold text-white">
-                                NEW
+                            <span className="rounded-full bg-cyan-500/15 border border-cyan-500/30 px-1.5 py-0.2 text-[9.5px] font-bold text-cyan-600 dark:text-cyan-400">
+                                New
                             </span>
                         </button>
-
 
                         {/* THEME TOGGLE (Sun / Moon) */}
 
@@ -984,10 +966,10 @@ function Home() {
 
                                     {categories.map(
                                         ({
-                                             title,
-                                             icon: Icon,
-                                             className,
-                                         }) => (
+                                            title,
+                                            icon: Icon,
+                                            className,
+                                        }) => (
 
                                             <div
                                                 key={title}
@@ -1240,16 +1222,16 @@ function Home() {
 
                             {features.map(
                                 ({
-                                     title,
-                                     description,
-                                     icon: Icon,
-                                     iconBg,
-                                     iconText,
-                                     iconBorder,
-                                     hoverBorder,
-                                     actionText,
-                                     action,
-                                 }) => (
+                                    title,
+                                    description,
+                                    icon: Icon,
+                                    iconBg,
+                                    iconText,
+                                    iconBorder,
+                                    hoverBorder,
+                                    actionText,
+                                    action,
+                                }) => (
 
                                     <div
                                         key={title}
