@@ -22,7 +22,10 @@ import {
     Terminal,
     Trophy,
     Sparkles,
+    Sun,
+    Moon,
 } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 
 // =========================================
@@ -116,6 +119,7 @@ const features = [
 function Home() {
 
     const navigate = useNavigate();
+    const { theme, setTheme } = useTheme();
 
     const fullText = "Your Digital Life, Organized.";
 
@@ -172,7 +176,7 @@ function Home() {
 
     return (
 
-        <div className="min-h-screen bg-[#f8fafc] text-slate-900">
+        <div className="min-h-screen bg-[#f8fafc] text-slate-900 dark:bg-[#07090e] dark:text-neutral-100 transition-colors duration-200">
 
 
             {/* =====================================================
@@ -186,8 +190,12 @@ function Home() {
                     z-50
                     border-b
                     border-slate-200/80
-                    bg-white/95
+                    dark:border-white/[0.08]
+                    bg-white/90
+                    dark:bg-[#07090e]/90
                     backdrop-blur-xl
+                    transition-colors
+                    duration-200
                 "
             >
 
@@ -259,6 +267,7 @@ function Home() {
                                 font-bold
                                 tracking-tight
                                 text-slate-900
+                                dark:text-white
                                 sm:text-2xl
                             "
                         >
@@ -294,9 +303,12 @@ function Home() {
                                 text-sm
                                 font-medium
                                 text-slate-600
+                                dark:text-neutral-300
                                 transition
                                 hover:bg-blue-50
+                                dark:hover:bg-neutral-800
                                 hover:text-blue-600
+                                dark:hover:text-cyan-400
                                 md:block
                             "
                         >
@@ -319,9 +331,12 @@ function Home() {
                                 text-sm
                                 font-medium
                                 text-slate-600
+                                dark:text-neutral-300
                                 transition
                                 hover:bg-blue-50
+                                dark:hover:bg-neutral-800
                                 hover:text-blue-600
+                                dark:hover:text-cyan-400
                                 md:block
                             "
                         >
@@ -344,22 +359,64 @@ function Home() {
                                 border
                                 border-cyan-500/30
                                 bg-cyan-500/10
+                                dark:bg-cyan-500/20
                                 px-3
                                 py-2
                                 text-xs
                                 font-bold
                                 text-cyan-700
+                                dark:text-cyan-300
                                 transition
                                 hover:bg-cyan-500/20
+                                dark:hover:bg-cyan-500/30
                                 hover:border-cyan-500/50
                                 sm:px-3.5
                             "
                         >
-                            <Code2 size={15} className="text-cyan-600" />
+                            <Code2 size={15} className="text-cyan-600 dark:text-cyan-400" />
                             <span>Developer Hub</span>
                             <span className="hidden sm:inline-block rounded-full bg-cyan-500 px-1.5 py-0.2 text-[9px] font-extrabold text-white">
                                 NEW
                             </span>
+                        </button>
+
+
+                        {/* THEME TOGGLE (Sun / Moon) */}
+
+                        <button
+                            type="button"
+                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                            className="
+                                group
+                                flex
+                                h-10
+                                w-10
+                                items-center
+                                justify-center
+                                rounded-xl
+                                border
+                                border-slate-200/80
+                                dark:border-white/[0.08]
+                                bg-white
+                                dark:bg-[#12141c]
+                                text-slate-600
+                                dark:text-neutral-300
+                                shadow-sm
+                                transition-all
+                                duration-200
+                                hover:border-cyan-500/50
+                                hover:text-cyan-500
+                                dark:hover:border-cyan-500/50
+                                dark:hover:text-cyan-400
+                            "
+                            title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
+                            aria-label="Toggle Theme"
+                        >
+                            {theme === "dark" ? (
+                                <Sun size={17} className="text-amber-400 transition-transform duration-300 group-hover:rotate-45" />
+                            ) : (
+                                <Moon size={17} className="text-indigo-600 transition-transform duration-300 group-hover:-rotate-12" />
+                            )}
                         </button>
 
 
@@ -380,9 +437,12 @@ function Home() {
                                 text-sm
                                 font-medium
                                 text-slate-600
+                                dark:text-neutral-300
                                 transition
                                 hover:bg-blue-50
+                                dark:hover:bg-neutral-800
                                 hover:text-blue-600
+                                dark:hover:text-white
                                 sm:px-4
                             "
                         >
@@ -1228,17 +1288,24 @@ function Home() {
                     className="
                         scroll-mt-20
                         border-t
-                        border-slate-200
+                        border-slate-200/80
+                        dark:border-white/[0.08]
                         bg-gradient-to-b
-                        from-slate-900
-                        via-black
-                        to-slate-950
-                        text-white
+                        from-slate-50
+                        via-white
+                        to-slate-100/70
+                        dark:from-slate-950
+                        dark:via-black
+                        dark:to-slate-950
+                        text-slate-900
+                        dark:text-white
                         px-5
                         py-16
                         sm:px-8
                         sm:py-20
                         lg:px-10
+                        transition-colors
+                        duration-200
                     "
                 >
 
@@ -1248,7 +1315,7 @@ function Home() {
 
                             <div>
 
-                                <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3.5 py-1 text-xs font-bold text-cyan-400 mb-3">
+                                <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3.5 py-1 text-xs font-bold text-cyan-700 dark:text-cyan-400 mb-3">
 
                                     <Terminal size={14} />
 
@@ -1256,11 +1323,11 @@ function Home() {
 
                                 </div>
 
-                                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
+                                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
                                     Code. Practice. Conquer Tests.
                                 </h2>
 
-                                <p className="mt-3 max-w-2xl text-sm sm:text-base text-neutral-400 leading-relaxed">
+                                <p className="mt-3 max-w-2xl text-sm sm:text-base text-slate-600 dark:text-neutral-400 leading-relaxed">
                                     Take your engineering skills to the next level with our in-browser multi-language code editor, direct launchpad to LeetCode, Codeforces, and HackerRank, plus curated DSA test preparation sheets.
                                 </p>
 
@@ -1282,7 +1349,7 @@ function Home() {
                                 <button
                                     type="button"
                                     onClick={() => navigate("/register")}
-                                    className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-neutral-700 bg-neutral-900/80 px-6 text-sm font-semibold text-neutral-200 hover:bg-neutral-800 transition"
+                                    className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-slate-300 dark:border-neutral-700 bg-white dark:bg-neutral-900/80 px-6 text-sm font-semibold text-slate-700 dark:text-neutral-200 hover:bg-slate-50 dark:hover:bg-neutral-800 transition shadow-sm"
                                 >
                                     <UserPlus size={16} />
                                     <span>Register as Developer</span>
@@ -1301,26 +1368,26 @@ function Home() {
 
                             <div
                                 onClick={() => navigate("/developer")}
-                                className="cursor-pointer rounded-3xl border border-neutral-800 bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-cyan-500/40 transition group shadow-sm"
+                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-cyan-500/40 hover:shadow-md dark:hover:shadow-cyan-950/20 transition group shadow-sm"
                             >
 
                                 <div>
 
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-5">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 mb-5">
                                         <Code2 size={24} />
                                     </div>
 
-                                    <h3 className="text-xl font-bold text-white">
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                                         In-Browser Code Editor
                                     </h3>
 
-                                    <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
+                                    <p className="mt-2 text-sm text-slate-600 dark:text-neutral-400 leading-relaxed">
                                         Write and test code in Python, C++, Java, JavaScript, and Go with custom stdin test inputs, execution console, and instant encrypted backup to your vault.
                                     </p>
 
                                 </div>
 
-                                <div className="mt-6 pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs text-cyan-400 font-bold group-hover:translate-x-1 transition-transform">
+                                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-neutral-800/80 flex items-center justify-between text-xs text-cyan-600 dark:text-cyan-400 font-bold group-hover:translate-x-1 transition-transform">
                                     <span>Launch Code Playground</span>
                                     <ArrowRight size={14} />
                                 </div>
@@ -1332,26 +1399,26 @@ function Home() {
 
                             <div
                                 onClick={() => navigate("/developer")}
-                                className="cursor-pointer rounded-3xl border border-neutral-800 bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-amber-500/40 transition group shadow-sm"
+                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-amber-500/40 hover:shadow-md dark:hover:shadow-amber-950/20 transition group shadow-sm"
                             >
 
                                 <div>
 
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-5">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 mb-5">
                                         <Trophy size={24} />
                                     </div>
 
-                                    <h3 className="text-xl font-bold text-white">
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                                         Competitive Platforms Hub
                                     </h3>
 
-                                    <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
+                                    <p className="mt-2 text-sm text-slate-600 dark:text-neutral-400 leading-relaxed">
                                         One-click access to LeetCode, Codeforces, CodeChef, HackerRank, GeeksforGeeks, and AtCoder with live contest trackers and problem archives.
                                     </p>
 
                                 </div>
 
-                                <div className="mt-6 pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs text-amber-400 font-bold group-hover:translate-x-1 transition-transform">
+                                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-neutral-800/80 flex items-center justify-between text-xs text-amber-600 dark:text-amber-400 font-bold group-hover:translate-x-1 transition-transform">
                                     <span>Explore Coding Platforms</span>
                                     <ArrowRight size={14} />
                                 </div>
@@ -1363,26 +1430,26 @@ function Home() {
 
                             <div
                                 onClick={() => navigate("/developer")}
-                                className="cursor-pointer rounded-3xl border border-neutral-800 bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-emerald-500/40 transition group shadow-sm"
+                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-emerald-500/40 hover:shadow-md dark:hover:shadow-emerald-950/20 transition group shadow-sm"
                             >
 
                                 <div>
 
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-5">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 mb-5">
                                         <Sparkles size={24} />
                                     </div>
 
-                                    <h3 className="text-xl font-bold text-white">
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                                         Coding Test &amp; DSA Prep
                                     </h3>
 
-                                    <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
+                                    <p className="mt-2 text-sm text-slate-600 dark:text-neutral-400 leading-relaxed">
                                         Prepare for technical interviews with Blind 75, NeetCode 150, and SDE Sheet questions. Filter by topic, company tag, and solve directly in the browser.
                                     </p>
 
                                 </div>
 
-                                <div className="mt-6 pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">
+                                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-neutral-800/80 flex items-center justify-between text-xs text-emerald-600 dark:text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">
                                     <span>Start DSA Practice</span>
                                     <ArrowRight size={14} />
                                 </div>
