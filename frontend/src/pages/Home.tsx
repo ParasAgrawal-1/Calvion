@@ -545,17 +545,13 @@ function Home() {
                                     gap-2
                                     rounded-full
                                     border
-                                    border-blue-100
-                                    dark:border-cyan-500/30
-                                    bg-blue-50
-                                    dark:bg-cyan-500/10
+                                    border-cyan-500/30
+                                    bg-cyan-500/10
                                     px-3.5
-                                    py-1.5
+                                    py-1
                                     text-xs
-                                    font-semibold
-                                    uppercase
-                                    tracking-wider
-                                    text-blue-600
+                                    font-bold
+                                    text-cyan-700
                                     dark:text-cyan-400
                                 "
                             >
@@ -565,7 +561,7 @@ function Home() {
                                         h-1.5
                                         w-1.5
                                         rounded-full
-                                        bg-blue-600
+                                        bg-cyan-600
                                         dark:bg-cyan-400
                                     "
                                 />
@@ -581,10 +577,10 @@ function Home() {
                                 className="
                                     min-h-[105px]
                                     text-4xl
-                                    font-bold
+                                    font-extrabold
                                     leading-[1.08]
                                     tracking-tight
-                                    text-slate-950
+                                    text-slate-900
                                     dark:text-white
                                     sm:min-h-[125px]
                                     sm:text-5xl
@@ -659,11 +655,10 @@ function Home() {
                                     mt-5
                                     max-w-xl
                                     text-base
-                                    leading-7
-                                    text-slate-500
-                                    dark:text-neutral-400
                                     sm:text-lg
-                                    sm:leading-8
+                                    text-slate-600
+                                    dark:text-neutral-400
+                                    leading-relaxed
                                 "
                             >
 
@@ -1168,11 +1163,12 @@ function Home() {
                                 className="
                                     mt-3
                                     text-3xl
-                                    font-bold
-                                    tracking-tight
-                                    text-slate-950
-                                    dark:text-white
                                     sm:text-4xl
+                                    lg:text-5xl
+                                    font-extrabold
+                                    tracking-tight
+                                    text-slate-900
+                                    dark:text-white
                                 "
                             >
                                 Everything you need
@@ -1181,11 +1177,14 @@ function Home() {
 
                             <p
                                 className="
-                                    mt-4
-                                    text-base
-                                    leading-7
-                                    text-slate-500
+                                    mt-3
+                                    max-w-2xl
+                                    mx-auto
+                                    text-sm
+                                    sm:text-base
+                                    text-slate-600
                                     dark:text-neutral-400
+                                    leading-relaxed
                                 "
                             >
                                 A simple workspace for managing
@@ -1263,7 +1262,7 @@ function Home() {
                                         <h3
                                             className="
                                                 mt-5
-                                                text-lg
+                                                text-xl
                                                 font-bold
                                                 text-slate-900
                                                 dark:text-white
@@ -1280,9 +1279,9 @@ function Home() {
                                             className="
                                                 mt-2
                                                 text-sm
-                                                leading-6
-                                                text-slate-500
+                                                text-slate-600
                                                 dark:text-neutral-400
+                                                leading-relaxed
                                             "
                                         >
                                             {description}
@@ -1558,11 +1557,12 @@ function Home() {
                             className="
                                 mt-3
                                 text-3xl
-                                font-bold
-                                tracking-tight
-                                text-slate-950
-                                dark:text-white
                                 sm:text-4xl
+                                lg:text-5xl
+                                font-extrabold
+                                tracking-tight
+                                text-slate-900
+                                dark:text-white
                             "
                         >
                             Built with security in mind
@@ -1572,12 +1572,13 @@ function Home() {
                         <p
                             className="
                                 mx-auto
-                                mt-4
+                                mt-3
                                 max-w-2xl
-                                text-base
-                                leading-7
-                                text-slate-500
+                                text-sm
+                                sm:text-base
+                                text-slate-600
                                 dark:text-neutral-400
+                                leading-relaxed
                             "
                         >
                             Authentication, OTP verification and
@@ -1743,11 +1744,12 @@ function Home() {
                                 className="
                                     mt-5
                                     text-3xl
-                                    font-bold
-                                    tracking-tight
-                                    text-slate-950
-                                    dark:text-white
                                     sm:text-4xl
+                                    lg:text-5xl
+                                    font-extrabold
+                                    tracking-tight
+                                    text-slate-900
+                                    dark:text-white
                                 "
                             >
                                 Ready to organize
@@ -1758,13 +1760,13 @@ function Home() {
                             <p
                                 className="
                                     mx-auto
-                                    mt-4
+                                    mt-3
                                     max-w-xl
                                     text-sm
-                                    leading-6
-                                    text-slate-500
-                                    dark:text-neutral-400
                                     sm:text-base
+                                    text-slate-600
+                                    dark:text-neutral-400
+                                    leading-relaxed
                                 "
                             >
                                 Create your Calvion workspace and
