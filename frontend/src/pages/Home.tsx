@@ -36,32 +36,32 @@ const categories = [
     {
         title: "Documents",
         icon: FileText,
-        className: "bg-blue-50 text-blue-600 border-blue-100",
+        className: "bg-blue-50 text-blue-600 border-blue-100 dark:bg-cyan-500/10 dark:text-cyan-400 dark:border-cyan-500/20",
     },
     {
         title: "Certificates",
         icon: Award,
-        className: "bg-amber-50 text-amber-600 border-amber-100",
+        className: "bg-amber-50 text-amber-600 border-amber-100 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20",
     },
     {
         title: "Notes",
         icon: StickyNote,
-        className: "bg-rose-50 text-rose-600 border-rose-100",
+        className: "bg-rose-50 text-rose-600 border-rose-100 dark:bg-rose-500/10 dark:text-rose-400 dark:border-rose-500/20",
     },
     {
         title: "Links",
         icon: LinkIcon,
-        className: "bg-sky-50 text-sky-600 border-sky-100",
+        className: "bg-sky-50 text-sky-600 border-sky-100 dark:bg-sky-500/10 dark:text-sky-400 dark:border-sky-500/20",
     },
     {
         title: "Credentials",
         icon: KeyRound,
-        className: "bg-indigo-50 text-indigo-600 border-indigo-100",
+        className: "bg-indigo-50 text-indigo-600 border-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:border-indigo-500/20",
     },
     {
         title: "Passwords",
         icon: LockKeyhole,
-        className: "bg-slate-100 text-slate-600 border-slate-200",
+        className: "bg-slate-100 text-slate-600 border-slate-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20",
     },
 ];
 
@@ -72,42 +72,42 @@ const features = [
         description:
             "Keep important digital information protected in one centralized workspace.",
         icon: ShieldCheck,
-        className: "bg-blue-50 text-blue-600",
+        className: "bg-blue-50 text-blue-600 dark:bg-cyan-500/10 dark:text-cyan-400 dark:border dark:border-cyan-500/20",
     },
     {
         title: "Smart Organization",
         description:
             "Organize documents, certificates, notes, links and credentials together.",
         icon: FolderOpen,
-        className: "bg-indigo-50 text-indigo-600",
+        className: "bg-indigo-50 text-indigo-600 dark:bg-blue-500/10 dark:text-blue-400 dark:border dark:border-blue-500/20",
     },
     {
         title: "Quick Access",
         description:
             "Find and access your digital assets whenever you need them.",
         icon: Search,
-        className: "bg-sky-50 text-sky-600",
+        className: "bg-sky-50 text-sky-600 dark:bg-sky-500/10 dark:text-sky-400 dark:border dark:border-sky-500/20",
     },
     {
         title: "OTP Verification",
         description:
             "Additional verification helps protect account registration and recovery.",
         icon: LockKeyhole,
-        className: "bg-violet-50 text-violet-600",
+        className: "bg-violet-50 text-violet-600 dark:bg-purple-500/10 dark:text-purple-400 dark:border dark:border-purple-500/20",
     },
     {
         title: "Responsive",
         description:
             "Use Calvion comfortably across desktop, tablet and mobile devices.",
         icon: Smartphone,
-        className: "bg-cyan-50 text-cyan-600",
+        className: "bg-cyan-50 text-cyan-600 dark:bg-amber-500/10 dark:text-amber-400 dark:border dark:border-amber-500/20",
     },
     {
         title: "Centralized Workspace",
         description:
             "Keep your digital information organized and accessible from one place.",
         icon: Database,
-        className: "bg-blue-50 text-blue-600",
+        className: "bg-blue-50 text-blue-600 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border dark:border-emerald-500/20",
     },
 ];
 
@@ -176,7 +176,7 @@ function Home() {
 
     return (
 
-        <div className="min-h-screen bg-[#f8fafc] text-slate-900 dark:bg-[#07090e] dark:text-neutral-100 transition-colors duration-200">
+        <div className="min-h-screen bg-[#f8fafc] text-slate-900 dark:bg-[#06070a] dark:text-neutral-100 transition-colors duration-200">
 
 
             {/* =====================================================
@@ -190,9 +190,9 @@ function Home() {
                     z-50
                     border-b
                     border-slate-200/80
-                    dark:border-white/[0.08]
+                    dark:border-neutral-800
                     bg-white/90
-                    dark:bg-[#07090e]/90
+                    dark:bg-[#06070a]/90
                     backdrop-blur-xl
                     transition-colors
                     duration-200
@@ -250,7 +250,7 @@ function Home() {
                                 group-hover:shadow-lg
                             "
                         >
-                            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200 transition duration-200 group-hover:scale-105">
+                            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200 dark:ring-neutral-800 transition duration-200 group-hover:scale-105">
                                 <img
                                     src="/calvion-icon.png"
                                     alt="Calvion"
@@ -306,7 +306,7 @@ function Home() {
                                 dark:text-neutral-300
                                 transition
                                 hover:bg-blue-50
-                                dark:hover:bg-neutral-800
+                                dark:hover:bg-neutral-800/80
                                 hover:text-blue-600
                                 dark:hover:text-cyan-400
                                 md:block
@@ -334,7 +334,7 @@ function Home() {
                                 dark:text-neutral-300
                                 transition
                                 hover:bg-blue-50
-                                dark:hover:bg-neutral-800
+                                dark:hover:bg-neutral-800/80
                                 hover:text-blue-600
                                 dark:hover:text-cyan-400
                                 md:block
@@ -359,7 +359,7 @@ function Home() {
                                 border
                                 border-cyan-500/30
                                 bg-cyan-500/10
-                                dark:bg-cyan-500/20
+                                dark:bg-cyan-500/15
                                 px-3
                                 py-2
                                 text-xs
@@ -368,7 +368,7 @@ function Home() {
                                 dark:text-cyan-300
                                 transition
                                 hover:bg-cyan-500/20
-                                dark:hover:bg-cyan-500/30
+                                dark:hover:bg-cyan-500/25
                                 hover:border-cyan-500/50
                                 sm:px-3.5
                             "
@@ -396,9 +396,9 @@ function Home() {
                                 rounded-xl
                                 border
                                 border-slate-200/80
-                                dark:border-white/[0.08]
+                                dark:border-neutral-800
                                 bg-white
-                                dark:bg-[#12141c]
+                                dark:bg-[#0c0c0e]
                                 text-slate-600
                                 dark:text-neutral-300
                                 shadow-sm
@@ -440,7 +440,7 @@ function Home() {
                                 dark:text-neutral-300
                                 transition
                                 hover:bg-blue-50
-                                dark:hover:bg-neutral-800
+                                dark:hover:bg-neutral-800/80
                                 hover:text-blue-600
                                 dark:hover:text-white
                                 sm:px-4
@@ -473,21 +473,27 @@ function Home() {
                                 bg-gradient-to-r
                                 from-blue-600
                                 to-indigo-600
+                                dark:from-cyan-500
+                                dark:to-blue-600
                                 px-4
                                 text-sm
                                 font-semibold
                                 text-white
                                 shadow-md
                                 shadow-blue-500/20
+                                dark:shadow-cyan-500/20
                                 transition
                                 duration-200
                                 hover:-translate-y-0.5
                                 hover:from-blue-700
                                 hover:to-indigo-700
+                                dark:hover:from-cyan-600
+                                dark:hover:to-blue-700
                                 hover:shadow-lg
                                 focus:outline-none
                                 focus:ring-4
                                 focus:ring-blue-100
+                                dark:focus:ring-cyan-950
                                 sm:px-5
                             "
                         >
@@ -520,9 +526,9 @@ function Home() {
                         overflow-hidden
                         border-b
                         border-slate-200/70
-                        dark:border-neutral-800/80
+                        dark:border-neutral-800
                         bg-white
-                        dark:bg-[#07090e]
+                        dark:bg-[#06070a]
                         transition-colors
                         duration-200
                     "
@@ -541,7 +547,7 @@ function Home() {
                             w-[500px]
                             rounded-full
                             bg-blue-100/70
-                            dark:bg-blue-600/10
+                            dark:bg-cyan-600/10
                             blur-3xl
                         "
                     />
@@ -556,7 +562,7 @@ function Home() {
                             w-[450px]
                             rounded-full
                             bg-indigo-100/60
-                            dark:bg-indigo-600/10
+                            dark:bg-blue-600/10
                             blur-3xl
                         "
                     />
@@ -599,9 +605,9 @@ function Home() {
                                     rounded-full
                                     border
                                     border-blue-100
-                                    dark:border-blue-500/20
+                                    dark:border-cyan-500/30
                                     bg-blue-50
-                                    dark:bg-blue-500/10
+                                    dark:bg-cyan-500/10
                                     px-3.5
                                     py-1.5
                                     text-xs
@@ -609,7 +615,7 @@ function Home() {
                                     uppercase
                                     tracking-wider
                                     text-blue-600
-                                    dark:text-blue-400
+                                    dark:text-cyan-400
                                 "
                             >
 
@@ -619,7 +625,7 @@ function Home() {
                                         w-1.5
                                         rounded-full
                                         bg-blue-600
-                                        dark:bg-blue-400
+                                        dark:bg-cyan-400
                                     "
                                 />
 
@@ -665,6 +671,9 @@ function Home() {
                                                 from-blue-600
                                                 via-indigo-600
                                                 to-violet-600
+                                                dark:from-cyan-400
+                                                dark:via-blue-400
+                                                dark:to-indigo-400
                                                 bg-clip-text
                                                 text-transparent
                                             "
@@ -693,6 +702,7 @@ function Home() {
                                         ml-1
                                         animate-pulse
                                         text-blue-600
+                                        dark:text-cyan-400
                                     "
                                 >
                                     |
@@ -750,21 +760,27 @@ function Home() {
                                         bg-gradient-to-r
                                         from-blue-600
                                         to-indigo-600
+                                        dark:from-cyan-500
+                                        dark:to-blue-600
                                         px-6
                                         text-sm
                                         font-semibold
                                         text-white
                                         shadow-md
                                         shadow-blue-500/20
+                                        dark:shadow-cyan-500/25
                                         transition
                                         duration-200
                                         hover:-translate-y-0.5
                                         hover:from-blue-700
                                         hover:to-indigo-700
+                                        dark:hover:from-cyan-600
+                                        dark:hover:to-blue-700
                                         hover:shadow-lg
                                         focus:outline-none
                                         focus:ring-4
                                         focus:ring-blue-100
+                                        dark:focus:ring-cyan-950
                                     "
                                 >
 
@@ -789,9 +805,9 @@ function Home() {
                                         rounded-xl
                                         border
                                         border-slate-200
-                                        dark:border-neutral-800
+                                        dark:border-neutral-700
                                         bg-white
-                                        dark:bg-neutral-900
+                                        dark:bg-neutral-900/80
                                         px-6
                                         text-sm
                                         font-semibold
@@ -800,7 +816,7 @@ function Home() {
                                         shadow-sm
                                         transition
                                         hover:border-blue-200
-                                        dark:hover:border-neutral-700
+                                        dark:hover:border-neutral-600
                                         hover:bg-blue-50
                                         dark:hover:bg-neutral-800
                                         hover:text-blue-600
@@ -830,7 +846,7 @@ function Home() {
                                         border
                                         border-cyan-500/30
                                         bg-cyan-500/10
-                                        dark:bg-cyan-500/20
+                                        dark:bg-cyan-500/15
                                         px-5
                                         text-sm
                                         font-bold
@@ -839,7 +855,7 @@ function Home() {
                                         shadow-sm
                                         transition
                                         hover:bg-cyan-500/20
-                                        dark:hover:bg-cyan-500/30
+                                        dark:hover:bg-cyan-500/25
                                         hover:border-cyan-500/50
                                     "
                                 >
@@ -882,7 +898,7 @@ function Home() {
 
                                         <CheckCircle2
                                             size={16}
-                                            className="text-blue-600 dark:text-blue-400"
+                                            className="text-blue-600 dark:text-cyan-400"
                                         />
 
                                         {item}
@@ -908,7 +924,7 @@ function Home() {
                                     border-slate-200
                                     dark:border-neutral-800
                                     bg-white
-                                    dark:bg-[#0c0e16]
+                                    dark:bg-[#0c0c0e]
                                     p-5
                                     shadow-[0_25px_70px_rgba(37,99,235,0.10)]
                                     dark:shadow-2xl
@@ -969,9 +985,12 @@ function Home() {
                                             justify-center
                                             rounded-xl
                                             bg-blue-50
-                                            dark:bg-blue-500/10
+                                            dark:bg-cyan-500/10
+                                            border
+                                            border-transparent
+                                            dark:border-cyan-500/20
                                             text-blue-600
-                                            dark:text-blue-400
+                                            dark:text-cyan-400
                                         "
                                     >
 
@@ -1011,15 +1030,15 @@ function Home() {
                                                     border-slate-100
                                                     dark:border-neutral-800
                                                     bg-slate-50/70
-                                                    dark:bg-[#12151e]
+                                                    dark:bg-[#121318]
                                                     p-3.5
                                                     transition
                                                     duration-200
                                                     hover:-translate-y-0.5
                                                     hover:border-blue-100
-                                                    dark:hover:border-neutral-700
+                                                    dark:hover:border-cyan-500/30
                                                     hover:bg-white
-                                                    dark:hover:bg-[#161a26]
+                                                    dark:hover:bg-[#181a22]
                                                     hover:shadow-md
                                                 "
                                             >
@@ -1077,8 +1096,8 @@ function Home() {
                                         bg-gradient-to-r
                                         from-blue-50
                                         to-indigo-50
-                                        dark:from-neutral-900/80
-                                        dark:to-neutral-900/80
+                                        dark:from-[#121318]
+                                        dark:to-[#121318]
                                         border
                                         border-transparent
                                         dark:border-neutral-800
@@ -1097,7 +1116,7 @@ function Home() {
 
                                         <ShieldCheck
                                             size={17}
-                                            className="text-blue-600 dark:text-blue-400"
+                                            className="text-blue-600 dark:text-cyan-400"
                                         />
 
                                         <span
@@ -1105,7 +1124,7 @@ function Home() {
                                                 text-xs
                                                 font-semibold
                                                 text-blue-600
-                                                dark:text-blue-400
+                                                dark:text-cyan-400
                                             "
                                         >
                                             One secure workspace
@@ -1116,7 +1135,7 @@ function Home() {
 
                                     <ArrowRight
                                         size={16}
-                                        className="text-blue-600 dark:text-blue-400"
+                                        className="text-blue-600 dark:text-cyan-400"
                                     />
 
                                 </div>
@@ -1138,8 +1157,8 @@ function Home() {
                                     bg-gradient-to-br
                                     from-blue-100
                                     to-indigo-100
-                                    dark:from-blue-950/20
-                                    dark:to-indigo-950/20
+                                    dark:from-cyan-950/20
+                                    dark:to-blue-950/20
                                 "
                             />
 
@@ -1159,7 +1178,7 @@ function Home() {
                     className="
                         scroll-mt-20
                         bg-[#f8fafc]
-                        dark:bg-[#06080e]
+                        dark:bg-[#06070a]
                         px-5
                         py-16
                         sm:px-8
@@ -1196,7 +1215,7 @@ function Home() {
                                     uppercase
                                     tracking-[0.18em]
                                     text-blue-600
-                                    dark:text-blue-400
+                                    dark:text-cyan-400
                                 "
                             >
                                 Why Calvion
@@ -1260,20 +1279,20 @@ function Home() {
                                             group
                                             rounded-2xl
                                             border
-                                            border-slate-200
+                                            border-slate-200/80
                                             dark:border-neutral-800
                                             bg-white
-                                            dark:bg-[#0c0e16]
+                                            dark:bg-[#0c0c0e]
                                             p-6
                                             shadow-sm
                                             transition
                                             duration-300
                                             hover:-translate-y-1
                                             hover:border-blue-200
-                                            dark:hover:border-neutral-700
+                                            dark:hover:border-cyan-500/40
                                             hover:shadow-xl
                                             hover:shadow-blue-100/40
-                                            dark:hover:shadow-black/50
+                                            dark:hover:shadow-cyan-950/20
                                         "
                                     >
 
@@ -1532,9 +1551,9 @@ function Home() {
                         scroll-mt-20
                         border-y
                         border-slate-200
-                        dark:border-neutral-800/80
+                        dark:border-neutral-800
                         bg-white
-                        dark:bg-[#07090e]
+                        dark:bg-[#06070a]
                         px-5
                         py-16
                         sm:px-8
@@ -1563,12 +1582,12 @@ function Home() {
                                 justify-center
                                 rounded-2xl
                                 bg-blue-50
-                                dark:bg-blue-500/10
+                                dark:bg-cyan-500/10
                                 text-blue-600
-                                dark:text-blue-400
+                                dark:text-cyan-400
                                 ring-1
                                 ring-blue-100
-                                dark:ring-blue-500/20
+                                dark:ring-cyan-500/20
                             "
                         >
 
@@ -1585,7 +1604,7 @@ function Home() {
                                 uppercase
                                 tracking-[0.18em]
                                 text-blue-600
-                                dark:text-blue-400
+                                dark:text-cyan-400
                             "
                         >
                             Security First
@@ -1648,7 +1667,7 @@ function Home() {
                                         border-blue-100
                                         dark:border-neutral-800
                                         bg-blue-50
-                                        dark:bg-neutral-900/80
+                                        dark:bg-[#0c0c0e]
                                         px-4
                                         py-2
                                         text-sm
@@ -1676,7 +1695,7 @@ function Home() {
                 <section
                     className="
                         bg-slate-50
-                        dark:bg-[#06080e]
+                        dark:bg-[#06070a]
                         px-5
                         py-16
                         sm:px-8
@@ -1701,9 +1720,9 @@ function Home() {
                             from-blue-50
                             via-white
                             to-indigo-50
-                            dark:from-[#0d121e]
-                            dark:via-[#090d16]
-                            dark:to-[#0d121e]
+                            dark:from-[#0c0c0e]
+                            dark:via-[#0c0c0e]
+                            dark:to-[#0c0c0e]
                             px-6
                             py-14
                             text-center
@@ -1727,7 +1746,7 @@ function Home() {
                                 w-64
                                 rounded-full
                                 bg-blue-100/80
-                                dark:bg-blue-600/10
+                                dark:bg-cyan-600/10
                                 blur-3xl
                             "
                         />
@@ -1742,7 +1761,7 @@ function Home() {
                                 w-64
                                 rounded-full
                                 bg-indigo-100/70
-                                dark:bg-indigo-600/10
+                                dark:bg-blue-600/10
                                 blur-3xl
                             "
                         />
@@ -1761,13 +1780,13 @@ function Home() {
                                     justify-center
                                     rounded-2xl
                                     bg-white
-                                    dark:bg-neutral-800
+                                    dark:bg-[#121318]
                                     text-blue-600
                                     dark:text-cyan-400
                                     shadow-sm
                                     ring-1
                                     ring-blue-100
-                                    dark:ring-neutral-700
+                                    dark:ring-neutral-800
                                 "
                             >
 
@@ -1825,16 +1844,21 @@ function Home() {
                                     bg-gradient-to-r
                                     from-blue-600
                                     to-indigo-600
+                                    dark:from-cyan-500
+                                    dark:to-blue-600
                                     px-6
                                     text-sm
                                     font-semibold
                                     text-white
                                     shadow-md
                                     shadow-blue-500/20
+                                    dark:shadow-cyan-500/25
                                     transition
                                     hover:-translate-y-0.5
                                     hover:from-blue-700
                                     hover:to-indigo-700
+                                    dark:hover:from-cyan-600
+                                    dark:hover:to-blue-700
                                     hover:shadow-lg
                                 "
                             >
@@ -1864,7 +1888,7 @@ function Home() {
                     border-slate-200
                     dark:border-neutral-800
                     bg-white
-                    dark:bg-[#06080e]
+                    dark:bg-[#06070a]
                     transition-colors
                     duration-200
                 "
@@ -1915,6 +1939,8 @@ function Home() {
                                 bg-gradient-to-br
                                 from-blue-600
                                 to-indigo-600
+                                dark:from-cyan-500
+                                dark:to-blue-600
                                 text-white
                             "
                         >
