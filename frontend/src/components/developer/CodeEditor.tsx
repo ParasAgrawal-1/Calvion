@@ -32,6 +32,7 @@ import {
     Zap,
     BookOpen,
     Tag,
+    Search,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
@@ -285,7 +286,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     const [showShortcutsModal, setShowShortcutsModal] = useState<boolean>(false);
     const [showSettingsMenu, setShowSettingsMenu] = useState<boolean>(false);
     const [showTemplateMenu, setShowTemplateMenu] = useState<boolean>(false);
-    const [showProblemMenu, setShowProblemMenu] = useState<boolean>(false);
+    const [showProblemModal, setShowProblemModal] = useState<boolean>(false);
+    const [problemSearch, setProblemSearch] = useState<string>("");
+    const [difficultyFilter, setDifficultyFilter] = useState<"All" | "Easy" | "Medium" | "Hard">("All");
 
     // Multi-test case state
     const [testCases, setTestCases] = useState<TestCase[]>([
@@ -688,6 +691,17 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         }, 500);
     };
 
+    const filteredProblems = PROBLEMS.filter((p) => {
+        const q = problemSearch.toLowerCase().trim();
+        const matchesSearch =
+            !q ||
+            p.title.toLowerCase().includes(q) ||
+            p.topic.toLowerCase().includes(q) ||
+            p.companies.some((c) => c.toLowerCase().includes(q));
+        const matchesDiff = difficultyFilter === "All" || p.difficulty === difficultyFilter;
+        return matchesSearch && matchesDiff;
+    });
+
     return (
         <div
             className={`flex flex-col rounded-3xl border border-neutral-800 bg-[#09090b] text-neutral-100 shadow-2xl overflow-hidden transition-all duration-300 ${
@@ -738,73 +752,37 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
                 {/* RIGHT: COMPACT TOOLBAR CONTROLS */}
                 <div className="flex items-center flex-wrap gap-2">
-                    {/* PROBLEM SELECTOR DROPDOWN */}
-                    <div className="relative">
+                    {/* PROBLEM SELECTOR BUTTON */}
+                    <div className="flex items-center">
                         <button
                             type="button"
-                            onClick={() => setShowProblemMenu(!showProblemMenu)}
+                            onClick={() => setShowProblemModal(true)}
                             className={`flex h-8 items-center gap-1.5 rounded-xl border px-3 text-xs font-semibold transition ${
                                 selectedProblem
-                                    ? "border-cyan-500/40 bg-cyan-950/30 text-cyan-300"
-                                    : "border-neutral-800 bg-neutral-900 text-neutral-300 hover:border-neutral-700"
+                                    ? "border-cyan-500/40 bg-cyan-950/30 text-cyan-300 hover:bg-cyan-900/40"
+                                    : "border-neutral-800 bg-neutral-900 text-neutral-300 hover:border-neutral-700 hover:text-white"
                             }`}
+                            title="Browse & load coding challenges"
                         >
                             <BookOpen size={13} className="text-cyan-400" />
-                            <span className="hidden sm:inline">
-                                {selectedProblem ? "Challenge Active" : "Pick Problem"}
+                            <span className="max-w-[140px] sm:max-w-[180px] truncate">
+                                {selectedProblem ? `${selectedProblem.id}. ${selectedProblem.title}` : "Pick Problem"}
                             </span>
-                            <ChevronDown size={12} className="opacity-70" />
+                            {selectedProblem ? (
+                                <span
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleSetProblem(null);
+                                    }}
+                                    className="ml-1 rounded-full p-0.5 hover:bg-rose-500/20 hover:text-rose-400 text-neutral-400 font-bold transition"
+                                    title="Clear problem and blank sandbox"
+                                >
+                                    <X size={11} />
+                                </span>
+                            ) : (
+                                <ChevronDown size={12} className="opacity-70" />
+                            )}
                         </button>
-
-                        {showProblemMenu && (
-                            <div className="absolute left-0 sm:right-0 sm:left-auto top-full mt-2 w-72 max-h-80 overflow-y-auto rounded-2xl border border-neutral-800 bg-[#0e0e12] p-2 shadow-2xl z-50">
-                                <div className="px-2 py-1.5 text-[11px] font-bold uppercase tracking-wider text-neutral-400 border-b border-neutral-800 mb-1 flex items-center justify-between">
-                                    <span>Curated Coding Challenges</span>
-                                    {selectedProblem && (
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                handleSetProblem(null);
-                                                setShowProblemMenu(false);
-                                            }}
-                                            className="text-cyan-400 hover:underline capitalize"
-                                        >
-                                            Clear
-                                        </button>
-                                    )}
-                                </div>
-                                {PROBLEMS.map((prob) => (
-                                    <button
-                                        key={prob.id}
-                                        type="button"
-                                        onClick={() => {
-                                            handleSetProblem(prob);
-                                            setShowProblemMenu(false);
-                                        }}
-                                        className={`w-full flex items-center justify-between rounded-xl px-2.5 py-2 text-left text-xs transition ${
-                                            selectedProblem?.id === prob.id
-                                                ? "bg-cyan-500/10 text-cyan-300 font-bold"
-                                                : "text-neutral-300 hover:bg-neutral-800"
-                                        }`}
-                                    >
-                                        <span className="truncate">
-                                            {prob.id}. {prob.title}
-                                        </span>
-                                        <span
-                                            className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                                                prob.difficulty === "Easy"
-                                                    ? "text-emerald-400 bg-emerald-500/10"
-                                                    : prob.difficulty === "Medium"
-                                                    ? "text-amber-400 bg-amber-500/10"
-                                                    : "text-rose-400 bg-rose-500/10"
-                                            }`}
-                                        >
-                                            {prob.difficulty}
-                                        </span>
-                                    </button>
-                                ))}
-                            </div>
-                        )}
                     </div>
 
                     {/* LANGUAGE SELECTOR */}
@@ -839,7 +817,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                         </button>
 
                         {showTemplateMenu && (
-                            <div className="absolute right-0 top-full mt-2 w-64 rounded-2xl border border-neutral-800 bg-[#0e0e12] p-2 shadow-2xl z-50">
+                            <>
+                                <div className="fixed inset-0 z-40" onClick={() => setShowTemplateMenu(false)} />
+                                <div className="absolute right-0 top-full mt-2 w-64 rounded-2xl border border-neutral-800 bg-[#0e0e12] p-2 shadow-2xl z-50">
                                 <div className="px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-neutral-400 border-b border-neutral-800 mb-1">
                                     {language.toUpperCase()} Starter Snippets
                                 </div>
@@ -861,6 +841,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                     </button>
                                 ))}
                             </div>
+                            </>
                         )}
                     </div>
 
@@ -913,74 +894,77 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                         </button>
 
                         {showSettingsMenu && (
-                            <div className="absolute right-0 top-full mt-2 w-56 rounded-2xl border border-neutral-800 bg-[#0e0e12] p-3 shadow-2xl z-50 text-xs space-y-2.5">
-                                <div className="font-bold text-neutral-300 border-b border-neutral-800 pb-1.5">
-                                    Editor Settings
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <span className="text-neutral-400">Word Wrap</span>
-                                    <button
-                                        type="button"
-                                        onClick={() => setWordWrap(!wordWrap)}
-                                        className={`px-2 py-0.5 rounded-lg font-semibold text-[11px] ${
-                                            wordWrap ? "bg-cyan-500/20 text-cyan-300" : "bg-neutral-800 text-neutral-400"
-                                        }`}
-                                    >
-                                        {wordWrap ? "ON" : "OFF"}
-                                    </button>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <span className="text-neutral-400">Minimap</span>
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowMinimap(!showMinimap)}
-                                        className={`px-2 py-0.5 rounded-lg font-semibold text-[11px] ${
-                                            showMinimap ? "bg-cyan-500/20 text-cyan-300" : "bg-neutral-800 text-neutral-400"
-                                        }`}
-                                    >
-                                        {showMinimap ? "ON" : "OFF"}
-                                    </button>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <span className="text-neutral-400">Font Size</span>
-                                    <div className="flex items-center gap-1 bg-neutral-900 rounded-lg p-0.5">
+                            <>
+                                <div className="fixed inset-0 z-40" onClick={() => setShowSettingsMenu(false)} />
+                                <div className="absolute right-0 top-full mt-2 w-56 rounded-2xl border border-neutral-800 bg-[#0e0e12] p-3 shadow-2xl z-50 text-xs space-y-2.5">
+                                    <div className="font-bold text-neutral-300 border-b border-neutral-800 pb-1.5">
+                                        Editor Settings
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-neutral-400">Word Wrap</span>
                                         <button
                                             type="button"
-                                            onClick={() => setFontSize((f) => Math.max(11, f - 1))}
-                                            className="px-1.5 hover:text-white"
+                                            onClick={() => setWordWrap(!wordWrap)}
+                                            className={`px-2 py-0.5 rounded-lg font-semibold text-[11px] ${
+                                                wordWrap ? "bg-cyan-500/20 text-cyan-300" : "bg-neutral-800 text-neutral-400"
+                                            }`}
                                         >
-                                            -
-                                        </button>
-                                        <span className="px-1 text-[10px] text-cyan-300">{fontSize}px</span>
-                                        <button
-                                            type="button"
-                                            onClick={() => setFontSize((f) => Math.min(22, f + 1))}
-                                            className="px-1.5 hover:text-white"
-                                        >
-                                            +
+                                            {wordWrap ? "ON" : "OFF"}
                                         </button>
                                     </div>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <span className="text-neutral-400">Tab Size</span>
-                                    <div className="flex items-center gap-1">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-neutral-400">Minimap</span>
                                         <button
                                             type="button"
-                                            onClick={() => setTabSize(2)}
-                                            className={`px-2 py-0.5 rounded-lg text-[10px] ${tabSize === 2 ? "bg-cyan-500/20 text-cyan-300 font-bold" : "bg-neutral-800 text-neutral-400"}`}
+                                            onClick={() => setShowMinimap(!showMinimap)}
+                                            className={`px-2 py-0.5 rounded-lg font-semibold text-[11px] ${
+                                                showMinimap ? "bg-cyan-500/20 text-cyan-300" : "bg-neutral-800 text-neutral-400"
+                                            }`}
                                         >
-                                            2
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => setTabSize(4)}
-                                            className={`px-2 py-0.5 rounded-lg text-[10px] ${tabSize === 4 ? "bg-cyan-500/20 text-cyan-300 font-bold" : "bg-neutral-800 text-neutral-400"}`}
-                                        >
-                                            4
+                                            {showMinimap ? "ON" : "OFF"}
                                         </button>
                                     </div>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-neutral-400">Font Size</span>
+                                        <div className="flex items-center gap-1 bg-neutral-900 rounded-lg p-0.5">
+                                            <button
+                                                type="button"
+                                                onClick={() => setFontSize((f) => Math.max(11, f - 1))}
+                                                className="px-1.5 hover:text-white"
+                                            >
+                                                -
+                                            </button>
+                                            <span className="px-1 text-[10px] text-cyan-300">{fontSize}px</span>
+                                            <button
+                                                type="button"
+                                                onClick={() => setFontSize((f) => Math.min(22, f + 1))}
+                                                className="px-1.5 hover:text-white"
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-neutral-400">Tab Size</span>
+                                        <div className="flex items-center gap-1">
+                                            <button
+                                                type="button"
+                                                onClick={() => setTabSize(2)}
+                                                className={`px-2 py-0.5 rounded-lg text-[10px] ${tabSize === 2 ? "bg-cyan-500/20 text-cyan-300 font-bold" : "bg-neutral-800 text-neutral-400"}`}
+                                            >
+                                                2
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => setTabSize(4)}
+                                                className={`px-2 py-0.5 rounded-lg text-[10px] ${tabSize === 4 ? "bg-cyan-500/20 text-cyan-300 font-bold" : "bg-neutral-800 text-neutral-400"}`}
+                                            >
+                                                4
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </>
                         )}
                     </div>
 
@@ -1722,6 +1706,153 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                             >
                                 Got it
                             </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* CODING PROBLEMS BROWSER MODAL */}
+            {showProblemModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+                    <div className="relative w-full max-w-2xl max-h-[85vh] flex flex-col rounded-3xl border border-neutral-800 bg-[#0e0e12] p-5 shadow-2xl overflow-hidden">
+                        {/* Modal Header */}
+                        <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
+                            <div className="flex items-center gap-2.5">
+                                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
+                                    <BookOpen size={16} />
+                                </div>
+                                <div>
+                                    <h3 className="text-sm font-bold text-white">Coding Challenges Library</h3>
+                                    <p className="text-[11px] text-neutral-400">Select a problem to load starter code and specifications</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                {selectedProblem && (
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            handleSetProblem(null);
+                                            setShowProblemModal(false);
+                                        }}
+                                        className="rounded-xl border border-neutral-800 bg-neutral-900 px-2.5 py-1 text-xs text-neutral-300 hover:text-rose-400 transition"
+                                    >
+                                        Clear &amp; Blank Sandbox
+                                    </button>
+                                )}
+                                <button
+                                    type="button"
+                                    onClick={() => setShowProblemModal(false)}
+                                    className="rounded-lg p-1 text-neutral-400 hover:text-white hover:bg-neutral-800 transition"
+                                >
+                                    <X size={18} />
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Search & Filters */}
+                        <div className="py-3 space-y-2 border-b border-neutral-800">
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    value={problemSearch}
+                                    onChange={(e) => setProblemSearch(e.target.value)}
+                                    placeholder="Search by title, topic (e.g. Arrays, Graph), or company (e.g. Google)..."
+                                    className="w-full rounded-xl border border-neutral-800 bg-neutral-900/90 px-3.5 py-2 pl-9 text-xs text-neutral-200 outline-none focus:border-cyan-500 transition placeholder:text-neutral-500"
+                                />
+                                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" />
+                            </div>
+                            <div className="flex items-center gap-1.5 overflow-x-auto text-xs">
+                                {(["All", "Easy", "Medium", "Hard"] as const).map((diff) => (
+                                    <button
+                                        key={diff}
+                                        type="button"
+                                        onClick={() => setDifficultyFilter(diff)}
+                                        className={`rounded-xl px-3 py-1 font-semibold transition ${
+                                            difficultyFilter === diff
+                                                ? diff === "Easy"
+                                                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                                                    : diff === "Medium"
+                                                    ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+                                                    : diff === "Hard"
+                                                    ? "bg-rose-500/20 text-rose-400 border border-rose-500/30"
+                                                    : "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
+                                                : "bg-neutral-900 text-neutral-400 hover:text-neutral-200"
+                                        }`}
+                                    >
+                                        {diff}
+                                    </button>
+                                ))}
+                                <span className="ml-auto text-[11px] text-neutral-500">
+                                    {filteredProblems.length} available
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Problems List */}
+                        <div className="flex-1 overflow-y-auto py-2 space-y-1.5 pr-1 max-h-[50vh]">
+                            {filteredProblems.length === 0 ? (
+                                <div className="py-10 text-center text-xs text-neutral-500">
+                                    No problems match your search filter.
+                                </div>
+                            ) : (
+                                filteredProblems.map((prob) => {
+                                    const isSelected = selectedProblem?.id === prob.id;
+                                    return (
+                                        <button
+                                            key={prob.id}
+                                            type="button"
+                                            onClick={() => {
+                                                handleSetProblem(prob);
+                                                setShowProblemModal(false);
+                                            }}
+                                            className={`w-full flex items-center justify-between rounded-2xl p-3 text-left transition border ${
+                                                isSelected
+                                                    ? "border-cyan-500/50 bg-cyan-950/20 text-white"
+                                                    : "border-neutral-850 bg-neutral-900/50 hover:bg-neutral-800/80 text-neutral-200"
+                                            }`}
+                                        >
+                                            <div className="space-y-1 min-w-0 pr-3">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="font-bold text-xs">
+                                                        {prob.id}. {prob.title}
+                                                    </span>
+                                                    <span
+                                                        className={`rounded-full px-2 py-0.2 text-[10px] font-bold ${
+                                                            prob.difficulty === "Easy"
+                                                                ? "bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/30"
+                                                                : prob.difficulty === "Medium"
+                                                                ? "bg-amber-500/10 text-amber-400 ring-1 ring-amber-500/30"
+                                                                : "bg-rose-500/10 text-rose-400 ring-1 ring-rose-500/30"
+                                                        }`}
+                                                    >
+                                                        {prob.difficulty}
+                                                    </span>
+                                                </div>
+                                                <div className="flex items-center gap-2 text-[11px] text-neutral-400">
+                                                    <span>{prob.topic}</span>
+                                                    <span>•</span>
+                                                    <span>{prob.sheet}</span>
+                                                    <span className="hidden sm:inline">•</span>
+                                                    <span className="hidden sm:inline text-neutral-500">
+                                                        {prob.companies.slice(0, 3).join(", ")}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="shrink-0">
+                                                <span
+                                                    className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${
+                                                        isSelected
+                                                            ? "bg-cyan-500 text-black font-bold"
+                                                            : "bg-neutral-800 text-neutral-300 hover:bg-cyan-500 hover:text-black"
+                                                    } transition`}
+                                                >
+                                                    {isSelected ? "Active" : "Load"}
+                                                </span>
+                                            </div>
+                                        </button>
+                                    );
+                                })
+                            )}
                         </div>
                     </div>
                 </div>
