@@ -196,27 +196,15 @@ export const DeveloperHub: React.FC = () => {
             </header>
 
             {/* MAIN CONTENT AREA */}
-            <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <main className="mx-auto max-w-[1700px] px-3 py-4 sm:px-6 lg:px-8">
                 {activeTab === "editor" && (
-                    <div className="space-y-6">
-                        {selectedProblem && (
-                            <div className="flex items-center justify-between rounded-2xl border border-cyan-500/30 bg-cyan-500/10 px-4 py-3 text-xs font-medium text-cyan-700 dark:text-cyan-300">
-                                <span>
-                                    Loaded problem: <strong>{selectedProblem.id}. {selectedProblem.title}</strong> ({selectedProblem.topic})
-                                </span>
-                                <button
-                                    type="button"
-                                    onClick={() => setSelectedProblem(null)}
-                                    className="hover:underline font-bold"
-                                >
-                                    Clear &amp; Blank Sandbox
-                                </button>
-                            </div>
-                        )}
+                    <div className="space-y-4">
                         <CodeEditor
                             initialCode={selectedProblem ? selectedProblem.starterCode.python : undefined}
                             initialLanguage="python"
                             problemTitle={selectedProblem ? `${selectedProblem.id}. ${selectedProblem.title}` : undefined}
+                            activeProblem={selectedProblem}
+                            onSelectProblem={setSelectedProblem}
                         />
                     </div>
                 )}

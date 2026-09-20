@@ -25,7 +25,7 @@ export interface CodingProblem {
     };
 }
 
-const PROBLEMS: CodingProblem[] = [
+export const PROBLEMS: CodingProblem[] = [
     {
         id: 1,
         title: "Two Sum",
