@@ -703,41 +703,57 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                 }`}
         >
             {/* TOP HEADER CONTROLS */}
-            <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-slate-200 dark:border-neutral-800/90 bg-slate-50/90 dark:bg-[#0c0c0f] px-3 py-2 sm:px-4 shrink-0">
-                {/* LEFT: TITLE & PROBLEM STATUS */}
-                <div className="flex items-center gap-2.5">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 text-cyan-500 dark:text-cyan-400 ring-1 ring-cyan-500/30 shadow-sm">
-                        <Code2 size={17} />
-                    </div>
-                    <div>
-                        <div className="flex items-center gap-2">
-                            <span className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white tracking-tight">
-                                {selectedProblem
-                                    ? `${selectedProblem.id}. ${selectedProblem.title}`
-                                    : problemTitle || "Calvion IDE Studio"}
-                            </span>
-                            {selectedProblem ? (
-                                <span
-                                    className={`rounded-full px-2 py-0.2 text-[10px] font-bold ring-1 ${selectedProblem.difficulty === "Easy"
-                                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-emerald-500/30"
-                                            : selectedProblem.difficulty === "Medium"
-                                                ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-amber-500/30"
-                                                : "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-rose-500/30"
-                                        }`}
-                                >
-                                    {selectedProblem.difficulty}
-                                </span>
-                            ) : (
-                                <span className="rounded-full bg-cyan-500/10 px-2 py-0.2 text-[10px] font-bold text-cyan-600 dark:text-cyan-400 ring-1 ring-cyan-500/30">
-                                    Sandbox
-                                </span>
-                            )}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-neutral-800/90 bg-slate-50/90 dark:bg-[#0c0c0f] px-2.5 py-2 sm:px-4 shrink-0">
+                {/* TOP ROW: TITLE ON LEFT, QUICK RUN ON RIGHT (MOBILE) */}
+                <div className="flex items-center justify-between gap-2 w-full sm:w-auto">
+                    {/* LEFT: TITLE & PROBLEM STATUS */}
+                    <div className="flex items-center gap-2 min-w-0">
+                        <div className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 text-cyan-500 dark:text-cyan-400 ring-1 ring-cyan-500/30 shadow-sm">
+                            <Code2 size={15} />
                         </div>
+                        <div className="min-w-0">
+                            <div className="flex items-center gap-1.5">
+                                <span className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white tracking-tight truncate max-w-[150px] xs:max-w-[210px] sm:max-w-none">
+                                    {selectedProblem
+                                        ? `${selectedProblem.id}. ${selectedProblem.title}`
+                                        : problemTitle || "Calvion IDE Studio"}
+                                </span>
+                                {selectedProblem ? (
+                                    <span
+                                        className={`shrink-0 rounded-full px-1.5 py-0.2 text-[9.5px] font-bold ring-1 ${selectedProblem.difficulty === "Easy"
+                                                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-emerald-500/30"
+                                                : selectedProblem.difficulty === "Medium"
+                                                    ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-amber-500/30"
+                                                    : "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-rose-500/30"
+                                            }`}
+                                    >
+                                        {selectedProblem.difficulty}
+                                    </span>
+                                ) : (
+                                    <span className="shrink-0 rounded-full bg-cyan-500/10 px-1.5 py-0.2 text-[9.5px] font-bold text-cyan-600 dark:text-cyan-400 ring-1 ring-cyan-500/30">
+                                        Sandbox
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* MOBILE QUICK RUN BUTTON */}
+                    <div className="flex sm:hidden items-center gap-1.5 shrink-0">
+                        <button
+                            type="button"
+                            onClick={handleRunCode}
+                            disabled={isRunning}
+                            className="inline-flex h-7 items-center gap-1 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 px-2.5 text-xs font-extrabold text-white shadow-sm shadow-emerald-500/25 active:scale-95 disabled:opacity-50 transition"
+                        >
+                            <Play size={11} className={isRunning ? "animate-spin" : "fill-current"} />
+                            <span>{isRunning ? "..." : "Run"}</span>
+                        </button>
                     </div>
                 </div>
 
-                {/* RIGHT: COMPACT TOOLBAR CONTROLS */}
-                <div className="flex items-center flex-wrap gap-1.5 sm:gap-2">
+                {/* SCROLLABLE TOOLBAR (HORIZONTALLY SCROLLABLE ON MOBILE, INLINE ON DESKTOP) */}
+                <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none pb-0.5 sm:pb-0 w-full sm:w-auto">
                     {/* PROBLEM SELECTOR BUTTON */}
                     <button
                         type="button"
@@ -1033,7 +1049,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                         type="button"
                         onClick={handleRunCode}
                         disabled={isRunning}
-                        className="inline-flex h-8 items-center gap-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 px-3.5 text-xs font-extrabold text-white shadow-md shadow-emerald-500/25 hover:from-emerald-400 hover:to-teal-500 active:scale-95 disabled:opacity-50 transition"
+                        className="hidden sm:inline-flex h-8 items-center gap-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 px-3.5 text-xs font-extrabold text-white shadow-md shadow-emerald-500/25 hover:from-emerald-400 hover:to-teal-500 active:scale-95 disabled:opacity-50 transition"
                     >
                         <Play size={12} className={isRunning ? "animate-spin" : "fill-current"} />
                         <span>{isRunning ? "Running..." : "Run"}</span>

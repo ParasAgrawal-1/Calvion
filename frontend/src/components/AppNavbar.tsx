@@ -12,6 +12,8 @@ import {
     Sun,
     Moon,
     Code2,
+    Menu,
+    Plus,
 } from "lucide-react";
 
 import {
@@ -199,6 +201,11 @@ export default function AppNavbar({
     ] =
         useState(false);
 
+    const [
+        mobileMenuOpen,
+        setMobileMenuOpen,
+    ] =
+        useState(false);
 
     const menuRef =
         useRef<HTMLDivElement>(
@@ -535,6 +542,10 @@ export default function AppNavbar({
             false
         );
 
+        setMobileMenuOpen(
+            false
+        );
+
         setShowNotifications(
             false
         );
@@ -725,7 +736,7 @@ export default function AppNavbar({
     ===================================================== */
 
     return (
-
+        <>
         <header className="sticky top-0 z-50 border-b border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#07090e] shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-colors duration-200">
             <div className="mx-auto flex h-16 w-full max-w-[1920px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
 
@@ -1513,10 +1524,180 @@ export default function AppNavbar({
 
                     </div>
 
+                    {/* MOBILE HAMBURGER TOGGLE */}
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setMobileMenuOpen(!mobileMenuOpen);
+                            setShowNotifications(false);
+                            setMenuOpen(false);
+                        }}
+                        className="flex md:hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#12141c] text-slate-600 dark:text-neutral-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition shadow-sm"
+                        aria-label="Toggle navigation menu"
+                    >
+                        {mobileMenuOpen ? <X size={19} /> : <Menu size={19} />}
+                    </button>
+
                 </div>
 
             </div>
 
+            {/* MOBILE SLIDE-DOWN DRAWER */}
+            {mobileMenuOpen && (
+                <div className="md:hidden border-t border-slate-200/80 dark:border-neutral-800 bg-white/95 dark:bg-[#07090e]/95 backdrop-blur-md px-4 py-4 space-y-2 shadow-xl animate-in slide-in-from-top-2 duration-200">
+                    <div className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 dark:bg-neutral-900/80 mb-3 border border-slate-200/60 dark:border-neutral-800">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold shadow-sm">
+                            {getInitials(userName)}
+                        </div>
+                        <div className="min-w-0">
+                            <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{userName}</p>
+                            <p className="text-[11px] text-slate-400 dark:text-neutral-500">Personal Workspace</p>
+                        </div>
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={() => goTo("/dashboard")}
+                        className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition ${
+                            activePage === "dashboard"
+                                ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20"
+                                : "text-slate-700 dark:text-neutral-300 hover:bg-slate-100 dark:hover:bg-neutral-900"
+                        }`}
+                    >
+                        <LayoutDashboard size={18} />
+                        <span>Dashboard</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => goTo("/assets")}
+                        className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition ${
+                            activePage === "assets"
+                                ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20"
+                                : "text-slate-700 dark:text-neutral-300 hover:bg-slate-100 dark:hover:bg-neutral-900"
+                        }`}
+                    >
+                        <Folder size={18} />
+                        <span>My Assets</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => goTo("/shared-assets")}
+                        className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition ${
+                            activePage === "shared"
+                                ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20"
+                                : "text-slate-700 dark:text-neutral-300 hover:bg-slate-100 dark:hover:bg-neutral-900"
+                        }`}
+                    >
+                        <Users size={18} />
+                        <span>Shared With Me</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => goTo("/developer")}
+                        className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-neutral-300 hover:bg-slate-100 dark:hover:bg-neutral-900 transition"
+                    >
+                        <div className="flex items-center gap-3">
+                            <Code2 size={18} className="text-cyan-500" />
+                            <span>Developer Hub</span>
+                        </div>
+                        <span className="rounded-full bg-cyan-500/15 border border-cyan-500/30 px-2 py-0.5 text-[10px] font-bold text-cyan-600 dark:text-cyan-400">
+                            New
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => goTo("/settings")}
+                        className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-neutral-300 hover:bg-slate-100 dark:hover:bg-neutral-900 transition"
+                    >
+                        <Settings size={18} />
+                        <span>Settings</span>
+                    </button>
+
+                    <div className="pt-2 border-t border-slate-100 dark:border-neutral-800">
+                        <button
+                            type="button"
+                            onClick={handleLogout}
+                            className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition"
+                        >
+                            <LogOut size={18} />
+                            <span>Sign Out</span>
+                        </button>
+                    </div>
+                </div>
+            )}
+
         </header>
+
+        {/* =================================================
+            MOBILE BOTTOM NAVIGATION BAR
+        ================================================= */}
+        <nav
+            aria-label="Mobile Bottom Navigation"
+            className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-[#07090e]/95 backdrop-blur-lg border-t border-slate-200/80 dark:border-neutral-800 flex items-center justify-around h-16 px-2 shadow-lg"
+        >
+            <button
+                type="button"
+                onClick={() => goTo("/dashboard")}
+                className={`flex flex-col items-center justify-center gap-1 w-16 py-1 transition ${
+                    activePage === "dashboard"
+                        ? "text-cyan-600 dark:text-cyan-400 font-bold"
+                        : "text-slate-500 dark:text-neutral-400 hover:text-slate-800 dark:hover:text-white"
+                }`}
+            >
+                <LayoutDashboard size={20} />
+                <span className="text-[10px]">Dashboard</span>
+            </button>
+
+            <button
+                type="button"
+                onClick={() => goTo("/assets")}
+                className={`flex flex-col items-center justify-center gap-1 w-16 py-1 transition ${
+                    activePage === "assets"
+                        ? "text-cyan-600 dark:text-cyan-400 font-bold"
+                        : "text-slate-500 dark:text-neutral-400 hover:text-slate-800 dark:hover:text-white"
+                }`}
+            >
+                <Folder size={20} />
+                <span className="text-[10px]">Assets</span>
+            </button>
+
+            <button
+                type="button"
+                onClick={() => goTo("/add-asset")}
+                className="flex flex-col items-center justify-center -mt-5"
+            >
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/30 active:scale-95 transition">
+                    <Plus size={22} strokeWidth={2.5} />
+                </div>
+                <span className="text-[10px] font-bold text-slate-700 dark:text-neutral-300 mt-1">Add</span>
+            </button>
+
+            <button
+                type="button"
+                onClick={() => goTo("/shared-assets")}
+                className={`flex flex-col items-center justify-center gap-1 w-16 py-1 transition ${
+                    activePage === "shared"
+                        ? "text-cyan-600 dark:text-cyan-400 font-bold"
+                        : "text-slate-500 dark:text-neutral-400 hover:text-slate-800 dark:hover:text-white"
+                }`}
+            >
+                <Users size={20} />
+                <span className="text-[10px]">Shared</span>
+            </button>
+
+            <button
+                type="button"
+                onClick={() => goTo("/developer")}
+                className="flex flex-col items-center justify-center gap-1 w-16 py-1 text-slate-500 dark:text-neutral-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition"
+            >
+                <Code2 size={20} />
+                <span className="text-[10px]">Dev Hub</span>
+            </button>
+        </nav>
+        </>
     );
 }

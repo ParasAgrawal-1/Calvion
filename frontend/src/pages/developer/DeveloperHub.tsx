@@ -48,7 +48,7 @@ export const DeveloperHub: React.FC = () => {
 
                 <div className="mx-auto flex h-16 max-w-[1920px] items-center justify-between px-3 sm:px-5 lg:px-7">
                     {/* LEFT: BACK BUTTON & BRAND */}
-                    <div className="flex items-center gap-2.5 sm:gap-3.5">
+                    <div className="flex items-center gap-2 sm:gap-3">
                         <button
                             type="button"
                             onClick={() => navigate("/")}
@@ -58,6 +58,22 @@ export const DeveloperHub: React.FC = () => {
                             <ArrowLeft size={13} className="text-slate-400 dark:text-neutral-400 group-hover:text-cyan-500 group-hover:-translate-x-0.5 transition-all duration-200" />
                             <span className="hidden sm:inline">Home</span>
                         </button>
+
+                        <div className="h-5 w-px bg-slate-200/80 dark:bg-neutral-800" />
+
+                        <div className="flex items-center gap-2">
+                            <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-xl p-[1px] bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 shadow-sm shadow-cyan-500/25">
+                                <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-white dark:bg-[#0c0e14] overflow-hidden p-1">
+                                    <img src="/calvion-icon.png" alt="Calvion" className="h-full w-full object-contain" />
+                                </div>
+                            </div>
+                            <span className="text-xs sm:text-sm font-black tracking-tight text-slate-900 dark:text-white flex items-center">
+                                Calvion
+                                <span className="ml-1 font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent text-[10px] sm:text-[11px] uppercase tracking-wider">
+                                    Dev
+                                </span>
+                            </span>
+                        </div>
                     </div>
 
                     {/* CENTER: TAB NAVIGATION */}
@@ -205,8 +221,8 @@ export const DeveloperHub: React.FC = () => {
             <main
                 className={
                     activeTab === "editor"
-                        ? "mx-auto max-w-[1920px] px-2 py-2 sm:px-4 sm:py-2.5 h-[calc(100vh-4.25rem)] flex flex-col overflow-hidden"
-                        : "mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8"
+                        ? "mx-auto max-w-[1920px] px-2 py-2 sm:px-4 sm:py-2.5 h-[calc(100dvh-7.5rem)] md:h-[calc(100vh-4.25rem)] flex flex-col overflow-hidden"
+                        : "mx-auto max-w-7xl px-4 py-6 pb-24 sm:px-6 sm:pb-8 lg:px-8"
                 }
             >
                 {activeTab === "editor" && (

@@ -1023,7 +1023,7 @@ const MyAssets = () => {
                 MAIN
             ================================================= */}
 
-            <main className="mx-auto w-full max-w-[1760px] px-4 py-8 sm:px-6 lg:px-8 xl:px-10">
+            <main className="mx-auto w-full max-w-[1760px] px-4 py-6 pb-24 sm:px-6 lg:px-8 xl:px-10 md:pb-12">
 
 
                 {/* =================================================
@@ -1072,7 +1072,7 @@ const MyAssets = () => {
                         </div>
 
 
-                        <h1 className="text-[42px] font-bold leading-tight tracking-[-1.5px] text-slate-950 sm:text-5xl dark:text-white">
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-slate-950 dark:text-white">
 
                             My Assets
 

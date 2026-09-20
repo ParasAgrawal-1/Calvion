@@ -319,14 +319,15 @@ function Home() {
                                     "/developer"
                                 )
                             }
-                            className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:text-neutral-400 dark:hover:bg-neutral-800/70 dark:hover:text-white"
+                            className="inline-flex items-center gap-1.5 sm:gap-2 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:text-neutral-400 dark:hover:bg-neutral-800/70 dark:hover:text-white"
                         >
                             <Code2
-                                size={16}
+                                size={15}
                                 className="text-cyan-500"
                             />
-                            <span>Developer Hub</span>
-                            <span className="rounded-full bg-cyan-500/15 border border-cyan-500/30 px-1.5 py-0.2 text-[9.5px] font-bold text-cyan-600 dark:text-cyan-400">
+                            <span className="hidden sm:inline">Developer Hub</span>
+                            <span className="sm:hidden">Dev</span>
+                            <span className="rounded-full bg-cyan-500/15 border border-cyan-500/30 px-1.5 py-0.2 text-[9px] sm:text-[9.5px] font-bold text-cyan-600 dark:text-cyan-400">
                                 New
                             </span>
                         </button>
@@ -339,8 +340,10 @@ function Home() {
                             className="
                                 group
                                 flex
-                                h-10
-                                w-10
+                                h-9
+                                w-9
+                                sm:h-10
+                                sm:w-10
                                 items-center
                                 justify-center
                                 rounded-xl
@@ -363,9 +366,9 @@ function Home() {
                             aria-label="Toggle Theme"
                         >
                             {theme === "dark" ? (
-                                <Sun size={17} className="text-amber-400 transition-transform duration-300 group-hover:rotate-45" />
+                                <Sun size={16} className="text-amber-400 transition-transform duration-300 group-hover:rotate-45" />
                             ) : (
-                                <Moon size={17} className="text-indigo-600 transition-transform duration-300 group-hover:-rotate-12" />
+                                <Moon size={16} className="text-indigo-600 transition-transform duration-300 group-hover:-rotate-12" />
                             )}
                         </button>
 
@@ -380,11 +383,11 @@ function Home() {
                             className="
                                 inline-flex
                                 items-center
-                                gap-2
+                                gap-1.5
                                 rounded-lg
-                                px-3
-                                py-2.5
-                                text-sm
+                                px-2.5
+                                py-1.5
+                                text-xs
                                 font-medium
                                 text-slate-600
                                 dark:text-neutral-300
@@ -394,10 +397,12 @@ function Home() {
                                 hover:text-blue-600
                                 dark:hover:text-white
                                 sm:px-4
+                                sm:py-2.5
+                                sm:text-sm
                             "
                         >
 
-                            <LogIn size={17} />
+                            <LogIn size={15} />
 
                             <span>
                                 Sign In
@@ -415,18 +420,22 @@ function Home() {
                             }
                             className="
                                 inline-flex
-                                h-10
+                                h-9
+                                sm:h-10
                                 items-center
                                 justify-center
-                                gap-2
+                                gap-1.5
+                                sm:gap-2
                                 rounded-xl
                                 bg-gradient-to-r
                                 from-blue-600
                                 to-indigo-600
                                 dark:from-cyan-500
                                 dark:to-blue-600
-                                px-4
-                                text-sm
+                                px-3
+                                sm:px-5
+                                text-xs
+                                sm:text-sm
                                 font-semibold
                                 text-white
                                 shadow-md
@@ -444,11 +453,10 @@ function Home() {
                                 focus:ring-4
                                 focus:ring-blue-100
                                 dark:focus:ring-cyan-950
-                                sm:px-5
                             "
                         >
 
-                            <UserPlus size={17} />
+                            <UserPlus size={15} />
 
                             <span>
                                 Get Started
@@ -591,10 +599,10 @@ function Home() {
 
                             <h1
                                 className="
-                                    min-h-[105px]
-                                    text-4xl
+                                    min-h-[85px]
+                                    text-3xl
                                     font-bold
-                                    leading-[1.08]
+                                    leading-[1.12]
                                     tracking-tight
                                     text-slate-950
                                     dark:text-white

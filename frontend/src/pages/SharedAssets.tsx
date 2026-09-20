@@ -751,7 +751,7 @@ export default function SharedAssets() {
                 MAIN
             ================================================= */}
 
-            <main className="mx-auto w-full max-w-[1760px] px-4 py-8 sm:px-6 lg:px-8 xl:px-10">
+            <main className="mx-auto w-full max-w-[1760px] px-4 py-6 pb-24 sm:px-6 lg:px-8 xl:px-10 md:pb-12">
 
 
                 {/* =================================================
