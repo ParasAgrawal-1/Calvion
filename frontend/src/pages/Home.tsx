@@ -927,7 +927,7 @@ function Home() {
                                     dark:bg-[#0c0c0e]
                                     p-5
                                     shadow-[0_25px_70px_rgba(37,99,235,0.10)]
-                                    dark:shadow-2xl
+                                    dark:shadow-none
                                     sm:p-7
                                     transition-colors
                                     duration-200
@@ -1040,6 +1040,7 @@ function Home() {
                                                     hover:bg-white
                                                     dark:hover:bg-[#181a22]
                                                     hover:shadow-md
+                                                    dark:hover:shadow-none
                                                 "
                                             >
 
@@ -1285,6 +1286,7 @@ function Home() {
                                             dark:bg-[#0c0c0e]
                                             p-6
                                             shadow-sm
+                                            dark:shadow-none
                                             transition
                                             duration-300
                                             hover:-translate-y-1
@@ -1292,7 +1294,7 @@ function Home() {
                                             dark:hover:border-cyan-500/40
                                             hover:shadow-xl
                                             hover:shadow-blue-100/40
-                                            dark:hover:shadow-cyan-950/20
+                                            dark:hover:shadow-none
                                         "
                                     >
 
@@ -1446,7 +1448,7 @@ function Home() {
 
                             <div
                                 onClick={() => navigate("/developer")}
-                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-cyan-500/40 hover:shadow-md dark:hover:shadow-cyan-950/20 transition group shadow-sm"
+                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-cyan-500/40 hover:shadow-md dark:hover:shadow-none transition group shadow-sm dark:shadow-none"
                             >
 
                                 <div>
@@ -1477,7 +1479,7 @@ function Home() {
 
                             <div
                                 onClick={() => navigate("/developer")}
-                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-amber-500/40 hover:shadow-md dark:hover:shadow-amber-950/20 transition group shadow-sm"
+                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-amber-500/40 hover:shadow-md dark:hover:shadow-none transition group shadow-sm dark:shadow-none"
                             >
 
                                 <div>
@@ -1508,7 +1510,7 @@ function Home() {
 
                             <div
                                 onClick={() => navigate("/developer")}
-                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-emerald-500/40 hover:shadow-md dark:hover:shadow-emerald-950/20 transition group shadow-sm"
+                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-emerald-500/40 hover:shadow-md dark:hover:shadow-none transition group shadow-sm dark:shadow-none"
                             >
 
                                 <div>
@@ -1728,7 +1730,7 @@ function Home() {
                             text-center
                             shadow-xl
                             shadow-blue-100/50
-                            dark:shadow-2xl
+                            dark:shadow-none
                             sm:px-12
                             sm:py-16
                             transition-colors
@@ -1784,6 +1786,7 @@ function Home() {
                                     text-blue-600
                                     dark:text-cyan-400
                                     shadow-sm
+                                    dark:shadow-none
                                     ring-1
                                     ring-blue-100
                                     dark:ring-neutral-800
