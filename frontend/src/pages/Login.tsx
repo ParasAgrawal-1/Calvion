@@ -1,4 +1,4 @@
-import {type FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 import {
     Eye,
     EyeOff,
@@ -381,12 +381,15 @@ export default function Login() {
                             Don't have an account?
                         </span>
 
-                        <Link
-                            to="/register"
+
+                        <button
+                            type="button"
+                            onClick={() => navigate("/register")}
                             className="rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-slate-50/80 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] px-3.5 py-1.5 text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-white transition-all duration-200 shadow-sm"
                         >
                             Register
-                        </Link>
+                        </button>
+
                     </div>
 
                 </div>

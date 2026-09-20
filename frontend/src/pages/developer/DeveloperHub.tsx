@@ -60,21 +60,6 @@ export const DeveloperHub: React.FC = () => {
                             <ArrowLeft size={13} className="text-slate-400 dark:text-neutral-400 group-hover:text-cyan-500 group-hover:-translate-x-0.5 transition-all duration-200" />
                             <span className="hidden sm:inline">Home</span>
                         </button>
-
-                        <div className="h-5 w-px bg-slate-200/80 dark:bg-neutral-800" />
-
-                        <div className="flex items-center gap-2.5">
-                            <div className="relative group flex h-9 w-9 shrink-0 items-center justify-center rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 shadow-sm shadow-cyan-500/25">
-                                <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-white dark:bg-[#0c0e14] overflow-hidden p-1 transition duration-200">
-                                    <img
-                                        src="/calvion-icon.png"
-                                        alt="Calvion"
-                                        className="h-full w-full object-contain"
-                                    />
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
 
                     {/* CENTER: TAB NAVIGATION */}
@@ -83,8 +68,8 @@ export const DeveloperHub: React.FC = () => {
                             type="button"
                             onClick={() => setActiveTab("editor")}
                             className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${activeTab === "editor"
-                                    ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
-                                    : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
+                                ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
+                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
                                 }`}
                         >
                             <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${activeTab === "editor" ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400" : "text-slate-400 dark:text-neutral-500"
@@ -98,8 +83,8 @@ export const DeveloperHub: React.FC = () => {
                             type="button"
                             onClick={() => setActiveTab("platforms")}
                             className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${activeTab === "platforms"
-                                    ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
-                                    : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
+                                ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
+                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
                                 }`}
                         >
                             <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${activeTab === "platforms" ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : "text-slate-400 dark:text-neutral-500"
@@ -113,8 +98,8 @@ export const DeveloperHub: React.FC = () => {
                             type="button"
                             onClick={() => setActiveTab("prep")}
                             className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${activeTab === "prep"
-                                    ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
-                                    : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
+                                ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
+                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
                                 }`}
                         >
                             <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${activeTab === "prep" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-neutral-500"
@@ -186,8 +171,8 @@ export const DeveloperHub: React.FC = () => {
                         type="button"
                         onClick={() => setActiveTab("editor")}
                         className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${activeTab === "editor"
-                                ? "bg-slate-100 dark:bg-neutral-800 text-cyan-600 dark:text-cyan-400 shadow-sm font-bold"
-                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
+                            ? "bg-slate-100 dark:bg-neutral-800 text-cyan-600 dark:text-cyan-400 shadow-sm font-bold"
+                            : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
                             }`}
                     >
                         <Terminal size={14} />
@@ -197,8 +182,8 @@ export const DeveloperHub: React.FC = () => {
                         type="button"
                         onClick={() => setActiveTab("platforms")}
                         className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${activeTab === "platforms"
-                                ? "bg-slate-100 dark:bg-neutral-800 text-amber-600 dark:text-amber-400 shadow-sm font-bold"
-                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
+                            ? "bg-slate-100 dark:bg-neutral-800 text-amber-600 dark:text-amber-400 shadow-sm font-bold"
+                            : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
                             }`}
                     >
                         <Trophy size={14} />
@@ -208,8 +193,8 @@ export const DeveloperHub: React.FC = () => {
                         type="button"
                         onClick={() => setActiveTab("prep")}
                         className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${activeTab === "prep"
-                                ? "bg-slate-100 dark:bg-neutral-800 text-emerald-600 dark:text-emerald-400 shadow-sm font-bold"
-                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
+                            ? "bg-slate-100 dark:bg-neutral-800 text-emerald-600 dark:text-emerald-400 shadow-sm font-bold"
+                            : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
                             }`}
                     >
                         <BookOpen size={14} />
