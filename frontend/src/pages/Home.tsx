@@ -70,44 +70,74 @@ const features = [
     {
         title: "Secure Storage",
         description:
-            "Keep important digital information protected in one centralized workspace.",
+            "Keep important digital information protected in one centralized workspace with encrypted backups.",
         icon: ShieldCheck,
-        className: "bg-blue-50 text-blue-600 dark:bg-cyan-500/10 dark:text-cyan-400 dark:border dark:border-cyan-500/20",
+        iconBg: "bg-cyan-500/10",
+        iconText: "text-cyan-600 dark:text-cyan-400",
+        iconBorder: "border-cyan-500/20",
+        hoverBorder: "hover:border-cyan-500/40",
+        actionText: "text-cyan-600 dark:text-cyan-400",
+        action: "Explore Secure Storage",
     },
     {
         title: "Smart Organization",
         description:
-            "Organize documents, certificates, notes, links and credentials together.",
+            "Organize documents, certificates, notes, links and credentials together seamlessly.",
         icon: FolderOpen,
-        className: "bg-indigo-50 text-indigo-600 dark:bg-blue-500/10 dark:text-blue-400 dark:border dark:border-blue-500/20",
+        iconBg: "bg-blue-500/10",
+        iconText: "text-blue-600 dark:text-blue-400",
+        iconBorder: "border-blue-500/20",
+        hoverBorder: "hover:border-blue-500/40",
+        actionText: "text-blue-600 dark:text-blue-400",
+        action: "Explore Organization",
     },
     {
-        title: "Quick Access",
+        title: "Quick Access & Search",
         description:
-            "Find and access your digital assets whenever you need them.",
+            "Find and access your digital assets whenever you need them with instantaneous keyword search.",
         icon: Search,
-        className: "bg-sky-50 text-sky-600 dark:bg-sky-500/10 dark:text-sky-400 dark:border dark:border-sky-500/20",
+        iconBg: "bg-sky-500/10",
+        iconText: "text-sky-600 dark:text-sky-400",
+        iconBorder: "border-sky-500/20",
+        hoverBorder: "hover:border-sky-500/40",
+        actionText: "text-sky-600 dark:text-sky-400",
+        action: "Instant Search",
     },
     {
         title: "OTP Verification",
         description:
-            "Additional verification helps protect account registration and recovery.",
+            "Multi-factor verification safeguards account registration, login sessions, and password recovery.",
         icon: LockKeyhole,
-        className: "bg-violet-50 text-violet-600 dark:bg-purple-500/10 dark:text-purple-400 dark:border dark:border-purple-500/20",
+        iconBg: "bg-purple-500/10",
+        iconText: "text-purple-600 dark:text-purple-400",
+        iconBorder: "border-purple-500/20",
+        hoverBorder: "hover:border-purple-500/40",
+        actionText: "text-purple-600 dark:text-purple-400",
+        action: "Learn Security",
     },
     {
-        title: "Responsive",
+        title: "Responsive Across Devices",
         description:
-            "Use Calvion comfortably across desktop, tablet and mobile devices.",
+            "Use Calvion comfortably across desktop, tablet and mobile screens with adaptive layouts.",
         icon: Smartphone,
-        className: "bg-cyan-50 text-cyan-600 dark:bg-amber-500/10 dark:text-amber-400 dark:border dark:border-amber-500/20",
+        iconBg: "bg-amber-500/10",
+        iconText: "text-amber-600 dark:text-amber-400",
+        iconBorder: "border-amber-500/20",
+        hoverBorder: "hover:border-amber-500/40",
+        actionText: "text-amber-600 dark:text-amber-400",
+        action: "Cross-Platform Sync",
     },
     {
         title: "Centralized Workspace",
         description:
-            "Keep your digital information organized and accessible from one place.",
+            "Keep your digital information organized and accessible from one unified cloud vault.",
         icon: Database,
-        className: "bg-blue-50 text-blue-600 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border dark:border-emerald-500/20",
+        iconBg: "bg-emerald-500/10",
+        iconText: "text-emerald-600 dark:text-emerald-400",
+        iconBorder: "border-emerald-500/20",
+        hoverBorder: "hover:border-emerald-500/40",
+        actionText: "text-emerald-600 dark:text-emerald-400",
+        action: "Open Unified Vault",
     },
 ];
 
@@ -1199,11 +1229,12 @@ function Home() {
 
                         <div
                             className="
-                                mt-10
+                                mt-12
                                 grid
-                                gap-4
-                                sm:grid-cols-2
+                                grid-cols-1
+                                md:grid-cols-2
                                 lg:grid-cols-3
+                                gap-6
                             "
                         >
 
@@ -1212,83 +1243,92 @@ function Home() {
                                      title,
                                      description,
                                      icon: Icon,
-                                     className,
+                                     iconBg,
+                                     iconText,
+                                     iconBorder,
+                                     hoverBorder,
+                                     actionText,
+                                     action,
                                  }) => (
 
-                                    <article
+                                    <div
                                         key={title}
-                                        className="
-                                            group
-                                            rounded-2xl
+                                        onClick={() => navigate("/register")}
+                                        className={`
+                                            cursor-pointer
+                                            rounded-3xl
                                             border
                                             border-slate-200/80
                                             dark:border-neutral-800
                                             bg-white
                                             dark:bg-[#0c0c0e]
                                             p-6
+                                            sm:p-8
+                                            flex
+                                            flex-col
+                                            justify-between
+                                            ${hoverBorder}
+                                            hover:shadow-md
+                                            dark:hover:shadow-none
+                                            transition
+                                            group
                                             shadow-sm
                                             dark:shadow-none
-                                            transition
-                                            duration-300
-                                            hover:-translate-y-1
-                                            hover:border-blue-200
-                                            dark:hover:border-cyan-500/40
-                                            hover:shadow-xl
-                                            hover:shadow-blue-100/40
-                                            dark:hover:shadow-none
-                                        "
+                                        `}
                                     >
 
-                                        <div
-                                            className={`
-                                                flex
-                                                h-11
-                                                w-11
-                                                items-center
-                                                justify-center
-                                                rounded-xl
-                                                ${className}
-                                                dark:border-transparent
-                                                transition
-                                                duration-300
-                                                group-hover:scale-105
-                                            `}
-                                        >
+                                        <div>
 
-                                            <Icon size={21} />
+                                            <div
+                                                className={`
+                                                    flex
+                                                    h-12
+                                                    w-12
+                                                    items-center
+                                                    justify-center
+                                                    rounded-2xl
+                                                    ${iconBg}
+                                                    ${iconText}
+                                                    border
+                                                    ${iconBorder}
+                                                    mb-5
+                                                `}
+                                            >
+                                                <Icon size={24} />
+                                            </div>
+
+                                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                                                {title}
+                                            </h3>
+
+                                            <p className="mt-2 text-sm text-slate-600 dark:text-neutral-400 leading-relaxed">
+                                                {description}
+                                            </p>
 
                                         </div>
 
-
-                                        <h3
-                                            className="
-                                                mt-5
-                                                text-lg
+                                        <div
+                                            className={`
+                                                mt-6
+                                                pt-4
+                                                border-t
+                                                border-slate-100
+                                                dark:border-neutral-800/80
+                                                flex
+                                                items-center
+                                                justify-between
+                                                text-xs
+                                                ${actionText}
                                                 font-bold
-                                                text-slate-900
-                                                dark:text-white
-                                                transition
-                                                group-hover:text-blue-600
-                                                dark:group-hover:text-cyan-400
-                                            "
+                                                group-hover:translate-x-1
+                                                transition-transform
+                                            `}
                                         >
-                                            {title}
-                                        </h3>
+                                            <span>{action}</span>
+                                            <ArrowRight size={14} />
+                                        </div>
 
-
-                                        <p
-                                            className="
-                                                mt-2
-                                                text-sm
-                                                leading-6
-                                                text-slate-500
-                                                dark:text-neutral-400
-                                            "
-                                        >
-                                            {description}
-                                        </p>
-
-                                    </article>
+                                    </div>
 
                                 )
                             )}
@@ -1510,119 +1550,178 @@ function Home() {
                     <div
                         className="
                             mx-auto
-                            max-w-4xl
-                            text-center
+                            max-w-[1720px]
                         "
                     >
 
-                        <div
-                            className="
-                                mx-auto
-                                flex
-                                h-14
-                                w-14
-                                items-center
-                                justify-center
-                                rounded-2xl
-                                bg-blue-50
-                                dark:bg-cyan-500/10
-                                text-blue-600
-                                dark:text-cyan-400
-                                ring-1
-                                ring-blue-100
-                                dark:ring-cyan-500/20
-                            "
-                        >
+                        <div className="max-w-3xl mx-auto text-center">
 
-                            <ShieldCheck size={27} />
+                            <div
+                                className="
+                                    mx-auto
+                                    flex
+                                    h-14
+                                    w-14
+                                    items-center
+                                    justify-center
+                                    rounded-2xl
+                                    bg-blue-50
+                                    dark:bg-cyan-500/10
+                                    text-blue-600
+                                    dark:text-cyan-400
+                                    ring-1
+                                    ring-blue-100
+                                    dark:ring-cyan-500/20
+                                "
+                            >
+
+                                <ShieldCheck size={27} />
+
+                            </div>
+
+
+                            <p
+                                className="
+                                    mt-5
+                                    text-xs
+                                    font-bold
+                                    uppercase
+                                    tracking-[0.18em]
+                                    text-blue-600
+                                    dark:text-cyan-400
+                                "
+                            >
+                                Security First
+                            </p>
+
+
+                            <h2
+                                className="
+                                    mt-3
+                                    text-3xl
+                                    font-bold
+                                    tracking-tight
+                                    text-slate-950
+                                    dark:text-white
+                                    sm:text-4xl
+                                "
+                            >
+                                Built with security in mind
+                            </h2>
+
+
+                            <p
+                                className="
+                                    mx-auto
+                                    mt-4
+                                    max-w-2xl
+                                    text-base
+                                    leading-7
+                                    text-slate-500
+                                    dark:text-neutral-400
+                                "
+                            >
+                                Authentication, OTP verification, and controlled access help keep your Calvion workspace protected at every level.
+                            </p>
 
                         </div>
 
 
-                        <p
-                            className="
-                                mt-5
-                                text-xs
-                                font-bold
-                                uppercase
-                                tracking-[0.18em]
-                                text-blue-600
-                                dark:text-cyan-400
-                            "
-                        >
-                            Security First
-                        </p>
+                        {/* 3 SECURITY SHOWCASE CARDS */}
+
+                        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                            {/* CARD 1: OTP AUTHENTICATION */}
+
+                            <div
+                                onClick={() => navigate("/login")}
+                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-cyan-500/40 hover:shadow-md dark:hover:shadow-none transition group shadow-sm dark:shadow-none"
+                            >
+
+                                <div>
+
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 mb-5">
+                                        <LockKeyhole size={24} />
+                                    </div>
+
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                                        Time-Based OTP Auth
+                                    </h3>
+
+                                    <p className="mt-2 text-sm text-slate-600 dark:text-neutral-400 leading-relaxed">
+                                        Multi-factor email OTP validation blocks unauthorized access during signup, signin, and password recovery workflows.
+                                    </p>
+
+                                </div>
+
+                                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-neutral-800/80 flex items-center justify-between text-xs text-cyan-600 dark:text-cyan-400 font-bold group-hover:translate-x-1 transition-transform">
+                                    <span>Explore Secure Login</span>
+                                    <ArrowRight size={14} />
+                                </div>
+
+                            </div>
 
 
-                        <h2
-                            className="
-                                mt-3
-                                text-3xl
-                                font-bold
-                                tracking-tight
-                                text-slate-950
-                                dark:text-white
-                                sm:text-4xl
-                            "
-                        >
-                            Built with security in mind
-                        </h2>
+                            {/* CARD 2: ZERO-EXPOSURE VAULT */}
+
+                            <div
+                                onClick={() => navigate("/register")}
+                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-emerald-500/40 hover:shadow-md dark:hover:shadow-none transition group shadow-sm dark:shadow-none"
+                            >
+
+                                <div>
+
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 mb-5">
+                                        <ShieldCheck size={24} />
+                                    </div>
+
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                                        Zero-Exposure Private Vault
+                                    </h3>
+
+                                    <p className="mt-2 text-sm text-slate-600 dark:text-neutral-400 leading-relaxed">
+                                        Personal documents, notes, credentials, and code files are kept private, isolated, and accessible strictly by your verified session.
+                                    </p>
+
+                                </div>
+
+                                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-neutral-800/80 flex items-center justify-between text-xs text-emerald-600 dark:text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">
+                                    <span>Create Secure Account</span>
+                                    <ArrowRight size={14} />
+                                </div>
+
+                            </div>
 
 
-                        <p
-                            className="
-                                mx-auto
-                                mt-4
-                                max-w-2xl
-                                text-base
-                                leading-7
-                                text-slate-500
-                                dark:text-neutral-400
-                            "
-                        >
-                            Authentication, OTP verification and
-                            controlled access help keep your Calvion
-                            workspace protected.
-                        </p>
+                            {/* CARD 3: GRANULAR ACCESS & SHARING */}
 
+                            <div
+                                onClick={() => navigate("/register")}
+                                className="cursor-pointer rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-amber-500/40 hover:shadow-md dark:hover:shadow-none transition group shadow-sm dark:shadow-none"
+                            >
 
-                        <div
-                            className="
-                                mt-7
-                                flex
-                                flex-wrap
-                                justify-center
-                                gap-3
-                            "
-                        >
+                                <div>
 
-                            {[
-                                "OTP Verification",
-                                "Authenticated Access",
-                                "Private Workspace",
-                            ].map((item) => (
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 mb-5">
+                                        <KeyRound size={24} />
+                                    </div>
 
-                                <span
-                                    key={item}
-                                    className="
-                                        rounded-full
-                                        border
-                                        border-blue-100
-                                        dark:border-neutral-800
-                                        bg-blue-50
-                                        dark:bg-[#0c0c0e]
-                                        px-4
-                                        py-2
-                                        text-sm
-                                        font-medium
-                                        text-blue-600
-                                        dark:text-cyan-400
-                                    "
-                                >
-                                    {item}
-                                </span>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                                        Granular Access & Sharing
+                                    </h3>
 
-                            ))}
+                                    <p className="mt-2 text-sm text-slate-600 dark:text-neutral-400 leading-relaxed">
+                                        Share specific assets with trusted collaborators with granular VIEW or EDIT permissions and immediately revocable access.
+                                    </p>
+
+                                </div>
+
+                                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-neutral-800/80 flex items-center justify-between text-xs text-amber-600 dark:text-amber-400 font-bold group-hover:translate-x-1 transition-transform">
+                                    <span>Manage Access Controls</span>
+                                    <ArrowRight size={14} />
+                                </div>
+
+                            </div>
 
                         </div>
 
