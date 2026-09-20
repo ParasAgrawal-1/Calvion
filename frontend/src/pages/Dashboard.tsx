@@ -651,7 +651,7 @@ export default function Dashboard() {
 
                             {/* HEADING */}
 
-                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                            <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
 
                                 Welcome back,{" "}
 
@@ -666,7 +666,7 @@ export default function Dashboard() {
 
                             {/* DESCRIPTION */}
 
-                            <p className="mt-3 max-w-xl text-sm sm:text-base text-slate-600 dark:text-neutral-400 leading-relaxed">
+                            <p className="mt-3 max-w-xl text-sm leading-6 text-slate-600 sm:text-base dark:text-neutral-400">
 
                                 Manage your important digital assets securely from one place.
 

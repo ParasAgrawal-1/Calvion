@@ -1072,14 +1072,14 @@ const MyAssets = () => {
                         </div>
 
 
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                        <h1 className="text-[42px] font-bold leading-tight tracking-[-1.5px] text-slate-950 sm:text-5xl dark:text-white">
 
                             My Assets
 
                         </h1>
 
 
-                        <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-neutral-400 leading-relaxed">
+                        <p className="mt-3 text-[15px] leading-6 text-slate-500 dark:text-neutral-400">
 
                             {totalAssets}{" "}
 
