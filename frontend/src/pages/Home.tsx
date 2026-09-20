@@ -1384,11 +1384,11 @@ function Home() {
 
                                 </div>
 
-                                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-950 dark:text-white">
                                     Code. Practice. Conquer Tests.
                                 </h2>
 
-                                <p className="mt-3 max-w-2xl text-sm sm:text-base text-slate-600 dark:text-neutral-400 leading-relaxed">
+                                <p className="mt-4 max-w-2xl text-base leading-7 text-slate-500 dark:text-neutral-400">
                                     Take your engineering skills to the next level with our in-browser multi-language code editor, direct launchpad to LeetCode, Codeforces, and HackerRank, plus curated DSA test preparation sheets.
                                 </p>
 
