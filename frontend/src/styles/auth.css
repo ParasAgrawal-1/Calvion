@@ -1410,3 +1410,97 @@ body {
     }
 
 }
+
+
+/* =========================================
+   AUTH DARK MODE
+========================================= */
+
+html.dark body {
+    background: #000000;
+}
+
+html.dark .auth-page {
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(6, 182, 212, 0.08),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(59, 130, 246, 0.06),
+            transparent 35%
+        ),
+        #000000 !important;
+}
+
+html.dark .auth-card {
+    background: #0c0c0e !important;
+    border: 1px solid #27272a !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7) !important;
+}
+
+html.dark .auth-title {
+    color: #ffffff !important;
+}
+
+html.dark .auth-subtitle {
+    color: #a1a1aa !important;
+}
+
+html.dark .auth-logo {
+    color: #ffffff !important;
+}
+
+html.dark .auth-label {
+    color: #d4d4d8 !important;
+}
+
+html.dark .auth-input {
+    background: #000000 !important;
+    border-color: #27272a !important;
+    color: #ffffff !important;
+}
+
+html.dark .auth-input:focus {
+    border-color: #06b6d4 !important;
+    background: #000000 !important;
+    box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.15) !important;
+}
+
+html.dark .auth-input::placeholder {
+    color: #71717a !important;
+}
+
+html.dark .auth-input-wrapper {
+    background: #000000 !important;
+    border-color: #27272a !important;
+}
+
+html.dark .auth-footer {
+    color: #a1a1aa !important;
+}
+
+html.dark .auth-link {
+    color: #38bdf8 !important;
+}
+
+html.dark .auth-divider {
+    border-color: #27272a !important;
+}
+
+html.dark .auth-divider span {
+    background: #0c0c0e !important;
+    color: #71717a !important;
+}
+
+html.dark .back-home-button {
+    color: #a1a1aa !important;
+}
+
+html.dark .back-home-button:hover {
+    background: #18181b !important;
+    color: #38bdf8 !important;
+}
+

@@ -1892,8 +1892,8 @@ function AppearanceSection() {
                         }
                         className={`rounded-2xl border p-4 text-left transition ${
                             theme === "light"
-                                ? "border-blue-400 bg-blue-50 ring-4 ring-blue-50 dark:border-blue-500 dark:bg-blue-950/30 dark:ring-blue-950/40"
-                                : "border-slate-200 bg-white hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
+                                ? "border-cyan-500 bg-cyan-50/60 ring-4 ring-cyan-100 dark:border-cyan-500 dark:bg-cyan-950/20 dark:ring-cyan-950/40"
+                                : "border-slate-200 bg-white hover:border-slate-300 dark:border-neutral-800 dark:bg-black dark:hover:border-neutral-700"
                         }`}
                     >
 
@@ -1903,7 +1903,7 @@ function AppearanceSection() {
 
                             <div className="mt-3 h-8 rounded-lg bg-slate-50" />
 
-                            <div className="mt-2 h-8 rounded-lg bg-blue-50" />
+                            <div className="mt-2 h-8 rounded-lg bg-cyan-50" />
 
                         </div>
 
@@ -1917,7 +1917,7 @@ function AppearanceSection() {
                                 </p>
 
 
-                                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                                <p className="mt-1 text-xs text-slate-500 dark:text-neutral-400">
                                     Bright and clean
                                 </p>
 
@@ -1927,7 +1927,7 @@ function AppearanceSection() {
                             {theme ===
                                 "light" && (
 
-                                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-white">
+                                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-cyan-600 text-white">
 
                                         <Check
                                             size={13}
@@ -1953,18 +1953,18 @@ function AppearanceSection() {
                         }
                         className={`rounded-2xl border p-4 text-left transition ${
                             theme === "dark"
-                                ? "border-blue-400 bg-blue-50 ring-4 ring-blue-50 dark:border-blue-500 dark:bg-blue-950/30 dark:ring-blue-950/40"
-                                : "border-slate-200 bg-white hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
+                                ? "border-cyan-500 bg-cyan-50/60 ring-4 ring-cyan-100 dark:border-cyan-400 dark:bg-cyan-950/20 dark:ring-cyan-950/40"
+                                : "border-slate-200 bg-white hover:border-slate-300 dark:border-neutral-800 dark:bg-black dark:hover:border-neutral-700"
                         }`}
                     >
 
-                        <div className="mb-4 h-24 rounded-xl border border-slate-700 bg-slate-900 p-3">
+                        <div className="mb-4 h-24 rounded-xl border border-neutral-800 bg-black p-3">
 
-                            <div className="h-2 w-2/5 rounded bg-slate-600" />
+                            <div className="h-2 w-2/5 rounded bg-neutral-700" />
 
-                            <div className="mt-3 h-8 rounded-lg bg-slate-800" />
+                            <div className="mt-3 h-8 rounded-lg bg-[#141417] border border-neutral-800" />
 
-                            <div className="mt-2 h-8 rounded-lg bg-blue-900/60" />
+                            <div className="mt-2 h-8 rounded-lg bg-neutral-900 border border-neutral-800" />
 
                         </div>
 
@@ -1978,8 +1978,8 @@ function AppearanceSection() {
                                 </p>
 
 
-                                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                                    Comfortable in low light
+                                <p className="mt-1 text-xs text-slate-500 dark:text-neutral-400">
+                                    Pure black & high contrast
                                 </p>
 
                             </div>
@@ -1988,7 +1988,7 @@ function AppearanceSection() {
                             {theme ===
                                 "dark" && (
 
-                                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-white">
+                                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-cyan-600 text-white">
 
                                         <Check
                                             size={13}
@@ -2014,12 +2014,12 @@ function AppearanceSection() {
                         }
                         className={`rounded-2xl border p-4 text-left transition ${
                             theme === "system"
-                                ? "border-blue-400 bg-blue-50 ring-4 ring-blue-50 dark:border-blue-500 dark:bg-blue-950/30 dark:ring-blue-950/40"
-                                : "border-slate-200 bg-white hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
+                                ? "border-cyan-500 bg-cyan-50/60 ring-4 ring-cyan-100 dark:border-cyan-400 dark:bg-cyan-950/20 dark:ring-cyan-950/40"
+                                : "border-slate-200 bg-white hover:border-slate-300 dark:border-neutral-800 dark:bg-black dark:hover:border-neutral-700"
                         }`}
                     >
 
-                        <div className="mb-4 flex h-24 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700">
+                        <div className="mb-4 flex h-24 overflow-hidden rounded-xl border border-slate-200 dark:border-neutral-800">
 
                             <div className="w-1/2 bg-white p-3">
 
@@ -2030,11 +2030,11 @@ function AppearanceSection() {
                             </div>
 
 
-                            <div className="w-1/2 bg-slate-900 p-3">
+                            <div className="w-1/2 bg-black p-3">
 
-                                <div className="h-2 w-3/5 rounded bg-slate-600" />
+                                <div className="h-2 w-3/5 rounded bg-neutral-700" />
 
-                                <div className="mt-3 h-8 rounded-lg bg-slate-800" />
+                                <div className="mt-3 h-8 rounded-lg bg-[#141417]" />
 
                             </div>
 
@@ -2050,7 +2050,7 @@ function AppearanceSection() {
                                 </p>
 
 
-                                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                                <p className="mt-1 text-xs text-slate-500 dark:text-neutral-400">
                                     Follow your device
                                 </p>
 
@@ -2060,7 +2060,7 @@ function AppearanceSection() {
                             {theme ===
                                 "system" && (
 
-                                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-white">
+                                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-cyan-600 text-white">
 
                                         <Check
                                             size={13}
@@ -2081,11 +2081,11 @@ function AppearanceSection() {
 
             {/* CURRENT THEME */}
 
-            <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5 dark:border-blue-900/50 dark:bg-blue-950/20">
+            <div className="rounded-2xl border border-neutral-200 bg-neutral-50/80 p-5 dark:border-neutral-800 dark:bg-black">
 
                 <div className="flex items-start gap-3">
 
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-blue-600 shadow-sm dark:bg-slate-900 dark:text-blue-400">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-cyan-600 shadow-sm dark:border dark:border-neutral-800 dark:bg-[#0c0c0e] dark:text-cyan-400">
 
                         <Palette
                             size={17}
@@ -2096,20 +2096,20 @@ function AppearanceSection() {
 
                     <div>
 
-                        <p className="text-sm font-semibold text-blue-900 dark:text-blue-300">
+                        <p className="text-sm font-semibold text-slate-900 dark:text-white">
 
                             Current theme:{" "}
 
-                            <span className="capitalize">
+                            <span className="capitalize font-bold text-cyan-600 dark:text-cyan-400">
                                 {theme}
                             </span>
 
                         </p>
 
 
-                        <p className="mt-1 text-xs leading-5 text-blue-700 dark:text-blue-400">
+                        <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-neutral-400">
 
-                            Your theme preference is saved automatically.
+                            Your theme preference is saved automatically and applied across your entire Calvion workspace.
 
                         </p>
 
@@ -2222,16 +2222,16 @@ export default function Settings() {
                                         }
                                         className={`group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition ${
                                             active
-                                                ? "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300"
-                                                : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/70 dark:hover:text-slate-100"
+                                                ? "bg-blue-50 text-blue-700 dark:bg-neutral-900 dark:text-cyan-400"
+                                                : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-neutral-400 dark:hover:bg-neutral-900/60 dark:hover:text-white"
                                         }`}
                                     >
 
                                         <div
                                             className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
                                                 active
-                                                    ? "bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400"
-                                                    : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400"
+                                                    ? "bg-blue-100 text-blue-600 dark:bg-cyan-950/40 dark:text-cyan-400"
+                                                    : "bg-slate-100 text-slate-500 dark:bg-neutral-900 dark:text-neutral-400"
                                             }`}
                                         >
 
@@ -2249,8 +2249,8 @@ export default function Settings() {
                                             <p
                                                 className={`truncate text-sm font-semibold ${
                                                     active
-                                                        ? "text-blue-700 dark:text-blue-300"
-                                                        : "text-slate-700 dark:text-slate-300"
+                                                        ? "text-blue-700 dark:text-cyan-400"
+                                                        : "text-slate-700 dark:text-neutral-200"
                                                 }`}
                                             >
 
@@ -2261,7 +2261,7 @@ export default function Settings() {
                                             </p>
 
 
-                                            <p className="truncate text-[10px] text-slate-400 dark:text-slate-500">
+                                            <p className="truncate text-[10px] text-slate-400 dark:text-neutral-500">
 
                                                 {
                                                     item.description
@@ -2278,7 +2278,7 @@ export default function Settings() {
                                                 size={
                                                     15
                                                 }
-                                                className="shrink-0 text-blue-500 dark:text-blue-400"
+                                                className="shrink-0 text-blue-500 dark:text-cyan-400"
                                             />
 
                                         )}
@@ -2389,14 +2389,14 @@ export default function Settings() {
 
     return (
 
-        <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+        <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-black dark:text-slate-100">
 
 
             {/* =================================================
                 HEADER
             ================================================= */}
 
-            <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/95">
+            <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl dark:border-neutral-800 dark:bg-black/95">
 
                 <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
@@ -2412,7 +2412,7 @@ export default function Settings() {
                                     "/dashboard"
                                 )
                             }
-                            className="group flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-slate-500 transition hover:bg-slate-50 hover:text-blue-600 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-blue-400"
+                            className="group flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-slate-500 transition hover:bg-slate-50 hover:text-blue-600 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-cyan-400"
                         >
 
                             <ArrowLeft
@@ -2427,7 +2427,7 @@ export default function Settings() {
                         </button>
 
 
-                        <div className="h-6 w-px bg-slate-200 dark:bg-slate-800" />
+                        <div className="h-6 w-px bg-slate-200 dark:bg-neutral-800" />
 
 
                         <div className="flex items-center gap-2">
@@ -2448,7 +2448,7 @@ export default function Settings() {
                                 </h1>
 
 
-                                <p className="hidden text-[10px] text-slate-400 sm:block">
+                                <p className="hidden text-[10px] text-slate-400 dark:text-neutral-500 sm:block">
                                     Manage your account and preferences
                                 </p>
 
@@ -2469,7 +2469,7 @@ export default function Settings() {
                                     !previous
                             )
                         }
-                        className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 md:hidden"
+                        className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 md:hidden"
                     >
 
                         {mobileMenuOpen
@@ -2494,7 +2494,7 @@ export default function Settings() {
 
                 {mobileMenuOpen && (
 
-                    <div className="mb-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:hidden">
+                    <div className="mb-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e] md:hidden">
 
                         {renderMenuGroup(
                             "General",
@@ -2534,16 +2534,16 @@ export default function Settings() {
 
                     <aside className="hidden md:block">
 
-                        <div className="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                        <div className="sticky top-24 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
 
                             {/* SIDEBAR HEADER */}
 
-                            <div className="mb-5 rounded-xl bg-gradient-to-br from-slate-50 to-blue-50/70 p-4 dark:from-slate-800 dark:to-blue-950/30">
+                            <div className="mb-5 rounded-xl bg-gradient-to-br from-slate-50 to-blue-50/70 p-4 dark:border dark:border-neutral-800/80 dark:from-neutral-900 dark:to-[#0c0c0e]">
 
                                 <div className="flex items-center gap-3">
 
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-blue-600 shadow-sm dark:bg-slate-900 dark:text-blue-400">
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-blue-600 shadow-sm dark:border dark:border-neutral-800 dark:bg-black dark:text-cyan-400">
 
                                         <SettingsIcon
                                             size={19}
@@ -2559,7 +2559,7 @@ export default function Settings() {
                                         </p>
 
 
-                                        <p className="mt-0.5 text-[10px] text-slate-400">
+                                        <p className="mt-0.5 text-[10px] text-slate-400 dark:text-neutral-500">
                                             Control center
                                         </p>
 
@@ -2608,7 +2608,7 @@ export default function Settings() {
 
                             <div className="mb-5 hidden md:block">
 
-                                <p className="text-xs font-semibold uppercase tracking-[0.1em] text-blue-600 dark:text-blue-400">
+                                <p className="text-xs font-semibold uppercase tracking-[0.1em] text-blue-600 dark:text-cyan-400">
                                     Settings
                                 </p>
 
@@ -2622,7 +2622,7 @@ export default function Settings() {
                                 </h2>
 
 
-                                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                                <p className="mt-1 text-sm text-slate-500 dark:text-neutral-400">
 
                                     {
                                         activeItem.description

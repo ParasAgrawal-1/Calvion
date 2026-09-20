@@ -150,10 +150,10 @@ function getAssetStyle(
             return {
 
                 icon:
-                    "bg-blue-50 text-blue-600",
+                    "bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400 dark:ring-1 dark:ring-blue-900/50",
 
                 badge:
-                    "bg-blue-50 text-blue-700",
+                    "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 dark:border dark:border-blue-900/50",
 
             };
 
@@ -163,10 +163,10 @@ function getAssetStyle(
             return {
 
                 icon:
-                    "bg-amber-50 text-amber-600",
+                    "bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400 dark:ring-1 dark:ring-amber-900/50",
 
                 badge:
-                    "bg-amber-50 text-amber-700",
+                    "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400 dark:border dark:border-amber-900/50",
 
             };
 
@@ -176,10 +176,10 @@ function getAssetStyle(
             return {
 
                 icon:
-                    "bg-yellow-50 text-yellow-600",
+                    "bg-yellow-50 text-yellow-600 dark:bg-yellow-950/40 dark:text-yellow-400 dark:ring-1 dark:ring-yellow-900/50",
 
                 badge:
-                    "bg-yellow-50 text-yellow-700",
+                    "bg-yellow-50 text-yellow-700 dark:bg-yellow-950/40 dark:text-yellow-400 dark:border dark:border-yellow-900/50",
 
             };
 
@@ -189,10 +189,10 @@ function getAssetStyle(
             return {
 
                 icon:
-                    "bg-cyan-50 text-cyan-600",
+                    "bg-cyan-50 text-cyan-600 dark:bg-cyan-950/40 dark:text-cyan-400 dark:ring-1 dark:ring-cyan-900/50",
 
                 badge:
-                    "bg-cyan-50 text-cyan-700",
+                    "bg-cyan-50 text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-400 dark:border dark:border-cyan-900/50",
 
             };
 
@@ -202,10 +202,10 @@ function getAssetStyle(
             return {
 
                 icon:
-                    "bg-violet-50 text-violet-600",
+                    "bg-violet-50 text-violet-600 dark:bg-violet-950/40 dark:text-violet-400 dark:ring-1 dark:ring-violet-900/50",
 
                 badge:
-                    "bg-violet-50 text-violet-700",
+                    "bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-400 dark:border dark:border-violet-900/50",
 
             };
 
@@ -215,10 +215,10 @@ function getAssetStyle(
             return {
 
                 icon:
-                    "bg-pink-50 text-pink-600",
+                    "bg-pink-50 text-pink-600 dark:bg-pink-950/40 dark:text-pink-400 dark:ring-1 dark:ring-pink-900/50",
 
                 badge:
-                    "bg-pink-50 text-pink-700",
+                    "bg-pink-50 text-pink-700 dark:bg-pink-950/40 dark:text-pink-400 dark:border dark:border-pink-900/50",
 
             };
 
@@ -228,10 +228,10 @@ function getAssetStyle(
             return {
 
                 icon:
-                    "bg-slate-100 text-slate-600",
+                    "bg-slate-100 text-slate-600 dark:bg-neutral-800 dark:text-neutral-400",
 
                 badge:
-                    "bg-slate-100 text-slate-700",
+                    "bg-slate-100 text-slate-700 dark:bg-neutral-800 dark:text-neutral-300",
 
             };
     }
@@ -735,7 +735,7 @@ export default function SharedAssets() {
 
     return (
 
-        <div className="min-h-screen bg-slate-50 text-slate-900">
+        <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-black dark:text-neutral-100">
 
 
             {/* =================================================
@@ -765,7 +765,7 @@ export default function SharedAssets() {
                             "/dashboard"
                         )
                     }
-                    className="mb-6 flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-slate-900"
+                    className="mb-6 flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-slate-900 dark:text-neutral-400 dark:hover:text-white"
                 >
 
                     <ArrowLeft
@@ -786,7 +786,7 @@ export default function SharedAssets() {
 
                     <div>
 
-                        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700">
+                        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700 dark:border-cyan-900/60 dark:bg-cyan-950/40 dark:text-cyan-400">
 
                             <UserRound
                                 size={13}
@@ -797,14 +797,14 @@ export default function SharedAssets() {
                         </div>
 
 
-                        <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+                        <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl dark:text-white">
 
                             Shared With Me
 
                         </h1>
 
 
-                        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base">
+                        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base dark:text-neutral-400">
 
                             Assets that other Calvion users have shared with you.
 
@@ -826,7 +826,7 @@ export default function SharedAssets() {
                             refreshing ||
                             loading
                         }
-                        className="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-700 disabled:cursor-not-allowed disabled:opacity-60"
+                        className="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-700 disabled:cursor-not-allowed disabled:opacity-60 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white"
                     >
 
                         <RefreshCw
@@ -858,11 +858,11 @@ export default function SharedAssets() {
 
                     {/* TOTAL */}
 
-                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
                         <div className="mb-4 flex items-center justify-between">
 
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600 dark:bg-cyan-950/40 dark:text-cyan-400">
 
                                 <Inbox
                                     size={20}
@@ -871,14 +871,14 @@ export default function SharedAssets() {
                             </div>
 
 
-                            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-neutral-500">
                                 Total
                             </span>
 
                         </div>
 
 
-                        <p className="text-2xl font-bold text-slate-950">
+                        <p className="text-2xl font-bold text-slate-950 dark:text-white">
 
                             {
                                 totalShared
@@ -887,7 +887,7 @@ export default function SharedAssets() {
                         </p>
 
 
-                        <p className="mt-1 text-sm text-slate-500">
+                        <p className="mt-1 text-sm text-slate-500 dark:text-neutral-400">
                             Shared assets
                         </p>
 
@@ -896,11 +896,11 @@ export default function SharedAssets() {
 
                     {/* VIEW */}
 
-                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
                         <div className="mb-4 flex items-center justify-between">
 
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400">
 
                                 <Eye
                                     size={20}
@@ -909,14 +909,14 @@ export default function SharedAssets() {
                             </div>
 
 
-                            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-neutral-500">
                                 Access
                             </span>
 
                         </div>
 
 
-                        <p className="text-2xl font-bold text-slate-950">
+                        <p className="text-2xl font-bold text-slate-950 dark:text-white">
 
                             {
                                 viewCount
@@ -925,7 +925,7 @@ export default function SharedAssets() {
                         </p>
 
 
-                        <p className="mt-1 text-sm text-slate-500">
+                        <p className="mt-1 text-sm text-slate-500 dark:text-neutral-400">
                             View permission
                         </p>
 
@@ -934,11 +934,11 @@ export default function SharedAssets() {
 
                     {/* EDIT */}
 
-                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
                         <div className="mb-4 flex items-center justify-between">
 
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-950/40 dark:text-violet-400">
 
                                 <Pencil
                                     size={20}
@@ -947,14 +947,14 @@ export default function SharedAssets() {
                             </div>
 
 
-                            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-neutral-500">
                                 Access
                             </span>
 
                         </div>
 
 
-                        <p className="text-2xl font-bold text-slate-950">
+                        <p className="text-2xl font-bold text-slate-950 dark:text-white">
 
                             {
                                 editCount
@@ -963,7 +963,7 @@ export default function SharedAssets() {
                         </p>
 
 
-                        <p className="mt-1 text-sm text-slate-500">
+                        <p className="mt-1 text-sm text-slate-500 dark:text-neutral-400">
                             Edit permission
                         </p>
 
@@ -976,7 +976,7 @@ export default function SharedAssets() {
                     SEARCH + FILTERS
                 ================================================= */}
 
-                <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
                     <div className="flex flex-col gap-3 lg:flex-row">
 
@@ -987,7 +987,7 @@ export default function SharedAssets() {
 
                             <Search
                                 size={18}
-                                className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                                className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500"
                             />
 
 
@@ -1004,7 +1004,7 @@ export default function SharedAssets() {
                                     )
                                 }
                                 placeholder="Search by title, description, or owner..."
-                                className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-400 focus:bg-white focus:ring-4 focus:ring-cyan-500/10"
+                                className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-400 focus:bg-white focus:ring-4 focus:ring-cyan-500/10 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-500 dark:focus:border-cyan-500/50 dark:focus:bg-black dark:focus:ring-cyan-500/10"
                             />
 
                         </div>
@@ -1028,7 +1028,7 @@ export default function SharedAssets() {
                                             | AssetType
                                     )
                                 }
-                                className="h-11 min-w-44 appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 pr-10 text-sm font-medium text-slate-700 outline-none transition focus:border-cyan-400 focus:bg-white focus:ring-4 focus:ring-cyan-500/10"
+                                className="h-11 min-w-44 appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 pr-10 text-sm font-medium text-slate-700 outline-none transition focus:border-cyan-400 focus:bg-white focus:ring-4 focus:ring-cyan-500/10 dark:border-neutral-800 dark:bg-black dark:text-neutral-200 dark:focus:border-cyan-500/50 dark:focus:bg-black"
                             >
 
                                 <option value="ALL">
@@ -1068,7 +1068,7 @@ export default function SharedAssets() {
 
                             <ChevronDown
                                 size={16}
-                                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"
+                                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500"
                             />
 
                         </div>
@@ -1092,7 +1092,7 @@ export default function SharedAssets() {
                                             | AssetPermission
                                     )
                                 }
-                                className="h-11 min-w-40 appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 pr-10 text-sm font-medium text-slate-700 outline-none transition focus:border-cyan-400 focus:bg-white focus:ring-4 focus:ring-cyan-500/10"
+                                className="h-11 min-w-40 appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 pr-10 text-sm font-medium text-slate-700 outline-none transition focus:border-cyan-400 focus:bg-white focus:ring-4 focus:ring-cyan-500/10 dark:border-neutral-800 dark:bg-black dark:text-neutral-200 dark:focus:border-cyan-500/50 dark:focus:bg-black"
                             >
 
                                 <option value="ALL">
@@ -1131,7 +1131,7 @@ export default function SharedAssets() {
 
                         <div className="mb-4 flex items-center justify-between">
 
-                            <p className="text-sm font-medium text-slate-500">
+                            <p className="text-sm font-medium text-slate-500 dark:text-neutral-400">
 
                                 {
                                     filteredAssets.length
@@ -1162,7 +1162,7 @@ export default function SharedAssets() {
                                     onClick={
                                         clearFilters
                                     }
-                                    className="text-sm font-semibold text-cyan-600 transition hover:text-cyan-700"
+                                    className="text-sm font-semibold text-cyan-600 transition hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
                                 >
 
                                     Clear filters
@@ -1182,11 +1182,11 @@ export default function SharedAssets() {
 
                 {error && (
 
-                    <div className="rounded-2xl border border-red-200 bg-red-50 p-6">
+                    <div className="rounded-2xl border border-red-200 bg-red-50 p-6 dark:border-red-900/60 dark:bg-red-950/20">
 
                         <div className="flex items-start gap-4">
 
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-100 text-red-600">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400">
 
                                 <Inbox
                                     size={20}
@@ -1197,12 +1197,12 @@ export default function SharedAssets() {
 
                             <div className="flex-1">
 
-                                <h3 className="font-semibold text-red-900">
+                                <h3 className="font-semibold text-red-900 dark:text-red-300">
                                     Unable to load shared assets
                                 </h3>
 
 
-                                <p className="mt-1 text-sm text-red-700">
+                                <p className="mt-1 text-sm text-red-700 dark:text-red-400">
                                     {error}
                                 </p>
 
@@ -1253,32 +1253,32 @@ export default function SharedAssets() {
                                         key={
                                             index
                                         }
-                                        className="animate-pulse rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                                        className="animate-pulse rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]"
                                     >
 
                                         <div className="mb-5 flex justify-between">
 
-                                            <div className="h-11 w-11 rounded-xl bg-slate-200" />
+                                            <div className="h-11 w-11 rounded-xl bg-slate-200 dark:bg-neutral-800" />
 
 
-                                            <div className="h-6 w-16 rounded-full bg-slate-200" />
+                                            <div className="h-6 w-16 rounded-full bg-slate-200 dark:bg-neutral-800" />
 
                                         </div>
 
 
-                                        <div className="h-5 w-3/4 rounded bg-slate-200" />
+                                        <div className="h-5 w-3/4 rounded bg-slate-200 dark:bg-neutral-800" />
 
 
-                                        <div className="mt-3 h-4 w-full rounded bg-slate-100" />
+                                        <div className="mt-3 h-4 w-full rounded bg-slate-100 dark:bg-neutral-900" />
 
 
-                                        <div className="mt-2 h-4 w-2/3 rounded bg-slate-100" />
+                                        <div className="mt-2 h-4 w-2/3 rounded bg-slate-100 dark:bg-neutral-900" />
 
 
-                                        <div className="mt-6 h-px bg-slate-100" />
+                                        <div className="mt-6 h-px bg-slate-100 dark:bg-neutral-800" />
 
 
-                                        <div className="mt-4 h-10 rounded-xl bg-slate-100" />
+                                        <div className="mt-4 h-10 rounded-xl bg-slate-100 dark:bg-neutral-900" />
 
                                     </div>
 
@@ -1299,9 +1299,9 @@ export default function SharedAssets() {
                     assets.length ===
                     0 && (
 
-                        <div className="rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center shadow-sm">
+                        <div className="rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
-                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-600">
+                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-600 dark:bg-cyan-950/40 dark:text-cyan-400">
 
                                 <Inbox
                                     size={30}
@@ -1310,12 +1310,12 @@ export default function SharedAssets() {
                             </div>
 
 
-                            <h2 className="mt-6 text-xl font-bold text-slate-950">
+                            <h2 className="mt-6 text-xl font-bold text-slate-950 dark:text-white">
                                 Nothing shared with you yet
                             </h2>
 
 
-                            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+                            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500 dark:text-neutral-400">
 
                                 When another Calvion user shares an asset with you,
                                 it will appear here.
@@ -1330,7 +1330,7 @@ export default function SharedAssets() {
                                         "/assets"
                                     )
                                 }
-                                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+                                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200"
                             >
 
                                 <FolderOpen
@@ -1357,9 +1357,9 @@ export default function SharedAssets() {
                     filteredAssets.length ===
                     0 && (
 
-                        <div className="rounded-3xl border border-slate-200 bg-white px-6 py-16 text-center shadow-sm">
+                        <div className="rounded-3xl border border-slate-200 bg-white px-6 py-16 text-center shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
-                            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500">
+                            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500 dark:bg-neutral-900 dark:text-neutral-400">
 
                                 <Search
                                     size={26}
@@ -1368,12 +1368,12 @@ export default function SharedAssets() {
                             </div>
 
 
-                            <h2 className="mt-5 text-lg font-bold text-slate-950">
+                            <h2 className="mt-5 text-lg font-bold text-slate-950 dark:text-white">
                                 No matching assets
                             </h2>
 
 
-                            <p className="mt-2 text-sm text-slate-500">
+                            <p className="mt-2 text-sm text-slate-500 dark:text-neutral-400">
                                 Try changing your search or filters.
                             </p>
 
@@ -1383,7 +1383,7 @@ export default function SharedAssets() {
                                 onClick={
                                     clearFilters
                                 }
-                                className="mt-5 text-sm font-semibold text-cyan-600 hover:text-cyan-700"
+                                className="mt-5 text-sm font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
                             >
 
                                 Clear filters
@@ -1434,7 +1434,7 @@ export default function SharedAssets() {
                                             key={
                                                 asset.id
                                             }
-                                            className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-cyan-200 hover:shadow-xl hover:shadow-slate-200/50"
+                                            className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-cyan-200 hover:shadow-xl hover:shadow-slate-200/50 dark:border-neutral-800 dark:bg-[#0c0c0e] dark:hover:border-neutral-700 dark:hover:shadow-neutral-950/50"
                                         >
 
 
@@ -1475,7 +1475,7 @@ export default function SharedAssets() {
 
                                                 {/* TITLE */}
 
-                                                <h2 className="line-clamp-1 text-lg font-bold text-slate-950">
+                                                <h2 className="line-clamp-1 text-lg font-bold text-slate-950 dark:text-white">
 
                                                     {
                                                         asset.title ||
@@ -1487,7 +1487,7 @@ export default function SharedAssets() {
 
                                                 {/* DESCRIPTION */}
 
-                                                <p className="mt-2 min-h-10 line-clamp-2 text-sm leading-5 text-slate-500">
+                                                <p className="mt-2 min-h-10 line-clamp-2 text-sm leading-5 text-slate-500 dark:text-neutral-400">
 
                                                     {
                                                         asset.description ||
@@ -1499,7 +1499,7 @@ export default function SharedAssets() {
 
                                                 {/* OWNER */}
 
-                                                <div className="mt-5 flex items-center gap-3 rounded-xl bg-slate-50 p-3">
+                                                <div className="mt-5 flex items-center gap-3 rounded-xl bg-slate-50 p-3 dark:bg-neutral-900/80">
 
                                                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-xs font-bold text-white">
 
@@ -1532,7 +1532,7 @@ export default function SharedAssets() {
 
                                                     <div className="min-w-0 flex-1">
 
-                                                        <p className="truncate text-sm font-semibold text-slate-800">
+                                                        <p className="truncate text-sm font-semibold text-slate-800 dark:text-neutral-200">
 
                                                             {
                                                                 asset.ownerName ||
@@ -1542,7 +1542,7 @@ export default function SharedAssets() {
                                                         </p>
 
 
-                                                        <p className="truncate text-xs text-slate-500">
+                                                        <p className="truncate text-xs text-slate-500 dark:text-neutral-400">
 
                                                             {
                                                                 asset.ownerEmail ||
@@ -1566,7 +1566,7 @@ export default function SharedAssets() {
                                                     <div className="flex items-center justify-between gap-3 text-xs">
 
 
-                                                        <div className="flex min-w-0 items-center gap-2 text-slate-500">
+                                                        <div className="flex min-w-0 items-center gap-2 text-slate-500 dark:text-neutral-400">
 
                                                             <CalendarDays
                                                                 size={
@@ -1595,8 +1595,8 @@ export default function SharedAssets() {
                                                         <span
                                                             className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-1 font-semibold ${
                                                                 permissionIsEdit
-                                                                    ? "bg-violet-50 text-violet-700"
-                                                                    : "bg-blue-50 text-blue-700"
+                                                                    ? "bg-violet-50 text-violet-700 dark:bg-violet-950/50 dark:text-violet-400"
+                                                                    : "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-400"
                                                             }`}
                                                         >
 
@@ -1616,7 +1616,7 @@ export default function SharedAssets() {
                                                                             }
                                                                         />
                                                                     )
-                                                            }
+                                                                }
 
 
                                                             {
@@ -1632,7 +1632,7 @@ export default function SharedAssets() {
 
                                                     {/* FILE COUNT */}
 
-                                                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                                                    <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-neutral-400">
 
                                                         <Files
                                                             size={
@@ -1663,7 +1663,7 @@ export default function SharedAssets() {
 
                                             {/* CARD ACTION */}
 
-                                            <div className="mt-auto border-t border-slate-100 bg-slate-50/70 p-4">
+                                            <div className="mt-auto border-t border-slate-100 bg-slate-50/70 p-4 dark:border-neutral-800/80 dark:bg-black/50">
 
                                                 <button
                                                     type="button"
@@ -1672,7 +1672,7 @@ export default function SharedAssets() {
                                                             asset.id
                                                         )
                                                     }
-                                                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-cyan-600"
+                                                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-cyan-600 dark:border dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-cyan-500 dark:hover:bg-cyan-600"
                                                 >
 
                                                     <ExternalLink

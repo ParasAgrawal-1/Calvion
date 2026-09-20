@@ -389,13 +389,13 @@ function getTypeStyles(
             return {
 
                 icon:
-                    "bg-blue-50 text-blue-700 ring-blue-100",
+                    "bg-blue-50 text-blue-700 ring-blue-100 dark:bg-blue-950/40 dark:text-blue-400 dark:ring-blue-900/40",
 
                 badge:
-                    "border-blue-100 bg-blue-50 text-blue-700",
+                    "border-blue-100 bg-blue-50 text-blue-700 dark:border-blue-900/50 dark:bg-blue-950/40 dark:text-blue-300",
 
                 hover:
-                    "group-hover:text-blue-700",
+                    "group-hover:text-blue-700 dark:group-hover:text-cyan-400",
             };
 
 
@@ -404,13 +404,13 @@ function getTypeStyles(
             return {
 
                 icon:
-                    "bg-amber-50 text-amber-700 ring-amber-100",
+                    "bg-amber-50 text-amber-700 ring-amber-100 dark:bg-amber-950/40 dark:text-amber-400 dark:ring-amber-900/40",
 
                 badge:
-                    "border-amber-100 bg-amber-50 text-amber-700",
+                    "border-amber-100 bg-amber-50 text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/40 dark:text-amber-300",
 
                 hover:
-                    "group-hover:text-amber-700",
+                    "group-hover:text-amber-700 dark:group-hover:text-amber-400",
             };
 
 
@@ -419,13 +419,13 @@ function getTypeStyles(
             return {
 
                 icon:
-                    "bg-violet-50 text-violet-700 ring-violet-100",
+                    "bg-violet-50 text-violet-700 ring-violet-100 dark:bg-violet-950/40 dark:text-violet-400 dark:ring-violet-900/40",
 
                 badge:
-                    "border-violet-100 bg-violet-50 text-violet-700",
+                    "border-violet-100 bg-violet-50 text-violet-700 dark:border-violet-900/50 dark:bg-violet-950/40 dark:text-violet-300",
 
                 hover:
-                    "group-hover:text-violet-700",
+                    "group-hover:text-violet-700 dark:group-hover:text-violet-400",
             };
 
 
@@ -434,13 +434,13 @@ function getTypeStyles(
             return {
 
                 icon:
-                    "bg-cyan-50 text-cyan-700 ring-cyan-100",
+                    "bg-cyan-50 text-cyan-700 ring-cyan-100 dark:bg-cyan-950/40 dark:text-cyan-400 dark:ring-cyan-900/40",
 
                 badge:
-                    "border-cyan-100 bg-cyan-50 text-cyan-700",
+                    "border-cyan-100 bg-cyan-50 text-cyan-700 dark:border-cyan-900/50 dark:bg-cyan-950/40 dark:text-cyan-300",
 
                 hover:
-                    "group-hover:text-cyan-700",
+                    "group-hover:text-cyan-700 dark:group-hover:text-cyan-400",
             };
 
 
@@ -449,13 +449,13 @@ function getTypeStyles(
             return {
 
                 icon:
-                    "bg-sky-50 text-sky-700 ring-sky-100",
+                    "bg-sky-50 text-sky-700 ring-sky-100 dark:bg-sky-950/40 dark:text-sky-400 dark:ring-sky-900/40",
 
                 badge:
-                    "border-sky-100 bg-sky-50 text-sky-700",
+                    "border-sky-100 bg-sky-50 text-sky-700 dark:border-sky-900/50 dark:bg-sky-950/40 dark:text-sky-300",
 
                 hover:
-                    "group-hover:text-sky-700",
+                    "group-hover:text-sky-700 dark:group-hover:text-sky-400",
             };
 
 
@@ -464,13 +464,13 @@ function getTypeStyles(
             return {
 
                 icon:
-                    "bg-slate-100 text-slate-700 ring-slate-200",
+                    "bg-slate-100 text-slate-700 ring-slate-200 dark:bg-neutral-800 dark:text-neutral-300 dark:ring-neutral-700",
 
                 badge:
-                    "border-slate-200 bg-slate-100 text-slate-700",
+                    "border-slate-200 bg-slate-100 text-slate-700 dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-300",
 
                 hover:
-                    "group-hover:text-slate-700",
+                    "group-hover:text-slate-700 dark:group-hover:text-neutral-200",
             };
     }
 }
@@ -1007,7 +1007,7 @@ const MyAssets = () => {
 
     return (
 
-        <div className="min-h-screen bg-slate-50 text-slate-900">
+        <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-black dark:text-neutral-100">
 
 
             {/* =================================================
@@ -1037,7 +1037,7 @@ const MyAssets = () => {
                             "/dashboard"
                         )
                     }
-                    className="group mb-7 inline-flex items-center gap-2 rounded-lg text-sm font-medium text-slate-500 transition hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                    className="group mb-7 inline-flex items-center gap-2 rounded-lg text-sm font-medium text-slate-500 transition hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:text-neutral-400 dark:hover:text-cyan-400"
                 >
 
                     <ArrowLeft
@@ -1061,7 +1061,7 @@ const MyAssets = () => {
 
                     <div>
 
-                        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-blue-700">
+                        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-blue-700 dark:border-neutral-700 dark:bg-neutral-800/80 dark:text-cyan-400">
 
                             <Database
                                 size={13}
@@ -1072,14 +1072,14 @@ const MyAssets = () => {
                         </div>
 
 
-                        <h1 className="text-[42px] font-bold leading-tight tracking-[-1.5px] text-slate-950 sm:text-5xl">
+                        <h1 className="text-[42px] font-bold leading-tight tracking-[-1.5px] text-slate-950 sm:text-5xl dark:text-white">
 
                             My Assets
 
                         </h1>
 
 
-                        <p className="mt-3 text-[15px] leading-6 text-slate-500">
+                        <p className="mt-3 text-[15px] leading-6 text-slate-500 dark:text-neutral-400">
 
                             {totalAssets}{" "}
 
@@ -1173,7 +1173,7 @@ const MyAssets = () => {
 
                 {!message && (
 
-                    <section className="mb-9 rounded-2xl border border-slate-200/90 bg-white p-3 shadow-[0_2px_10px_rgba(15,23,42,0.04)]">
+                    <section className="mb-9 rounded-2xl border border-slate-200/90 bg-white p-3 shadow-[0_2px_10px_rgba(15,23,42,0.04)] dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
                         <div className="flex flex-col gap-3 lg:flex-row">
 
@@ -1184,7 +1184,7 @@ const MyAssets = () => {
 
                                 <Search
                                     size={19}
-                                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500"
                                 />
 
 
@@ -1202,7 +1202,7 @@ const MyAssets = () => {
                                     }
                                     placeholder="Search your assets..."
                                     aria-label="Search assets"
-                                    className="h-12 w-full rounded-xl border border-transparent bg-slate-50 pl-11 pr-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-200 focus:bg-white focus:ring-4 focus:ring-blue-50"
+                                    className="h-12 w-full rounded-xl border border-transparent bg-slate-50 pl-11 pr-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-200 focus:bg-white focus:ring-4 focus:ring-blue-50 dark:border-neutral-800 dark:bg-black dark:text-neutral-100 dark:placeholder:text-neutral-500 dark:focus:border-cyan-500/50 dark:focus:bg-black dark:focus:ring-cyan-500/10"
                                 />
 
                             </div>
@@ -1214,7 +1214,7 @@ const MyAssets = () => {
 
                                 <SlidersHorizontal
                                     size={17}
-                                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500"
                                 />
 
 
@@ -1231,7 +1231,7 @@ const MyAssets = () => {
                                         )
                                     }
                                     aria-label="Filter by asset type"
-                                    className="h-12 w-full min-w-[180px] appearance-none rounded-xl border border-slate-200 bg-white pl-10 pr-10 text-sm font-medium text-slate-700 outline-none transition hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50"
+                                    className="h-12 w-full min-w-[180px] appearance-none rounded-xl border border-slate-200 bg-white pl-10 pr-10 text-sm font-medium text-slate-700 outline-none transition hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 dark:border-neutral-800 dark:bg-black dark:text-neutral-200 dark:hover:border-neutral-700 dark:focus:border-cyan-500/50 dark:focus:ring-cyan-500/10"
                                 >
 
                                     <option value="ALL">
@@ -1273,7 +1273,7 @@ const MyAssets = () => {
 
                                 <ChevronDown
                                     size={16}
-                                    className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
+                                    className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500"
                                 />
 
                             </div>
@@ -1296,7 +1296,7 @@ const MyAssets = () => {
                                         )
                                     }
                                     aria-label="Sort assets"
-                                    className="h-12 w-full min-w-[190px] appearance-none rounded-xl border border-slate-200 bg-white px-4 pr-10 text-sm font-medium text-slate-700 outline-none transition hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50"
+                                    className="h-12 w-full min-w-[190px] appearance-none rounded-xl border border-slate-200 bg-white px-4 pr-10 text-sm font-medium text-slate-700 outline-none transition hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 dark:border-neutral-800 dark:bg-black dark:text-neutral-200 dark:hover:border-neutral-700 dark:focus:border-cyan-500/50 dark:focus:ring-cyan-500/10"
                                 >
 
                                     <option value="updated-desc">
@@ -1323,7 +1323,7 @@ const MyAssets = () => {
 
                                 <ChevronDown
                                     size={16}
-                                    className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
+                                    className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500"
                                 />
 
                             </div>
@@ -1359,7 +1359,7 @@ const MyAssets = () => {
                                 }
                                 title="Refresh assets"
                                 aria-label="Refresh assets"
-                                className="flex h-12 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+                                className="flex h-12 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 dark:border-neutral-800 dark:bg-black dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:bg-neutral-900 dark:hover:text-white"
                             >
 
                                 <RefreshCw
@@ -1392,11 +1392,11 @@ const MyAssets = () => {
                             <div className="flex flex-wrap items-center justify-between gap-3 px-2 pt-3">
 
 
-                                <p className="text-xs text-slate-500">
+                                <p className="text-xs text-slate-500 dark:text-neutral-400">
 
                                     Showing{" "}
 
-                                    <span className="font-semibold text-slate-700">
+                                    <span className="font-semibold text-slate-700 dark:text-neutral-200">
 
                                         {
                                             filteredAssets.length
@@ -1423,7 +1423,7 @@ const MyAssets = () => {
                                     onClick={
                                         clearFilters
                                     }
-                                    className="text-xs font-semibold text-blue-600 transition hover:text-blue-700 hover:underline"
+                                    className="text-xs font-semibold text-blue-600 transition hover:text-blue-700 hover:underline dark:text-cyan-400 dark:hover:text-cyan-300"
                                 >
 
                                     Clear filters
@@ -1447,10 +1447,10 @@ const MyAssets = () => {
                     assets.length ===
                     0 && (
 
-                        <div className="flex min-h-[430px] flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white px-6 text-center shadow-sm">
+                        <div className="flex min-h-[430px] flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white px-6 text-center shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
 
-                            <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+                            <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-neutral-900 dark:text-cyan-400">
 
                                 <Folder
                                     size={36}
@@ -1460,12 +1460,12 @@ const MyAssets = () => {
                             </div>
 
 
-                            <h2 className="text-2xl font-bold tracking-tight text-slate-900">
+                            <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
                                 Your workspace is empty
                             </h2>
 
 
-                            <p className="mt-3 max-w-md text-sm leading-6 text-slate-500">
+                            <p className="mt-3 max-w-md text-sm leading-6 text-slate-500 dark:text-neutral-400">
 
                                 Start building your Calvion workspace by
                                 adding documents, certificates, notes,
@@ -1508,10 +1508,10 @@ const MyAssets = () => {
                     filteredAssets.length ===
                     0 && (
 
-                        <div className="flex min-h-[360px] flex-col items-center justify-center rounded-3xl border border-slate-200 bg-white px-6 text-center shadow-sm">
+                        <div className="flex min-h-[360px] flex-col items-center justify-center rounded-3xl border border-slate-200 bg-white px-6 text-center shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
 
-                            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100 text-slate-500">
+                            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100 text-slate-500 dark:bg-neutral-900 dark:text-neutral-400">
 
                                 <Search
                                     size={28}
@@ -1520,12 +1520,12 @@ const MyAssets = () => {
                             </div>
 
 
-                            <h2 className="text-xl font-bold text-slate-900">
+                            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                                 No matching assets
                             </h2>
 
 
-                            <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500">
+                            <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500 dark:text-neutral-400">
 
                                 Try a different search term or change
                                 the asset type filter.
@@ -1538,7 +1538,7 @@ const MyAssets = () => {
                                 onClick={
                                     clearFilters
                                 }
-                                className="mt-5 rounded-lg px-4 py-2 text-sm font-semibold text-blue-600 transition hover:bg-blue-50 hover:text-blue-700"
+                                className="mt-5 rounded-lg px-4 py-2 text-sm font-semibold text-blue-600 transition hover:bg-blue-50 hover:text-blue-700 dark:text-cyan-400 dark:hover:bg-neutral-900 dark:hover:text-cyan-300"
                             >
 
                                 Clear filters
@@ -1568,19 +1568,19 @@ const MyAssets = () => {
 
                                 <div>
 
-                                    <h2 className="text-xl font-bold tracking-tight text-slate-900">
+                                    <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
                                         Your collection
                                     </h2>
 
 
-                                    <p className="mt-1 text-sm text-slate-500">
+                                    <p className="mt-1 text-sm text-slate-500 dark:text-neutral-400">
                                         Select an asset to view its details.
                                     </p>
 
                                 </div>
 
 
-                                <span className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-500 shadow-sm ring-1 ring-slate-200">
+                                <span className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-500 shadow-sm ring-1 ring-slate-200 dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-800">
 
                                     {
                                         filteredAssets.length
@@ -1655,7 +1655,7 @@ const MyAssets = () => {
                                                     }
 
                                                 }}
-                                                className="group relative flex min-h-[310px] cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_2px_10px_rgba(15,23,42,0.035)] transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_18px_40px_rgba(15,23,42,0.09)] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-100"
+                                                className="group relative flex min-h-[310px] cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_2px_10px_rgba(15,23,42,0.035)] transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_18px_40px_rgba(15,23,42,0.09)] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-100 dark:border-neutral-800 dark:bg-[#0c0c0e] dark:hover:border-neutral-700 dark:hover:bg-neutral-900/60 dark:hover:shadow-[0_18px_40px_rgba(0,0,0,0.5)] dark:focus-visible:ring-cyan-500/20"
                                             >
 
 
@@ -1679,7 +1679,7 @@ const MyAssets = () => {
 
                                                     {/* OPEN ICON */}
 
-                                                    <div className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-300 transition duration-200 group-hover:bg-blue-50 group-hover:text-blue-600">
+                                                    <div className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-300 transition duration-200 group-hover:bg-blue-50 group-hover:text-blue-600 dark:text-neutral-600 dark:group-hover:bg-neutral-800 dark:group-hover:text-cyan-400">
 
                                                         <ExternalLink
                                                             size={17}
@@ -1712,7 +1712,7 @@ const MyAssets = () => {
                                                 {/* TITLE */}
 
                                                 <h3
-                                                    className={`mt-4 line-clamp-2 text-[20px] font-bold leading-snug tracking-[-0.35px] text-slate-900 transition duration-200 ${styles.hover}`}
+                                                    className={`mt-4 line-clamp-2 text-[20px] font-bold leading-snug tracking-[-0.35px] text-slate-900 transition duration-200 dark:text-white ${styles.hover}`}
                                                 >
 
                                                     {
@@ -1725,7 +1725,7 @@ const MyAssets = () => {
 
                                                 {/* DESCRIPTION */}
 
-                                                <p className="mt-2 line-clamp-2 min-h-[42px] text-sm leading-6 text-slate-500">
+                                                <p className="mt-2 line-clamp-2 min-h-[42px] text-sm leading-6 text-slate-500 dark:text-neutral-400">
 
                                                     {
                                                         asset.description ||
@@ -1740,19 +1740,19 @@ const MyAssets = () => {
 
                                                 {/* FOOTER */}
 
-                                                <div className="mt-5 flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
+                                                <div className="mt-5 flex items-center justify-between gap-3 border-t border-slate-100 pt-4 dark:border-neutral-800/80">
 
 
                                                     {/* UPDATED */}
 
                                                     <div className="flex min-w-0 items-center gap-1.5">
 
-                                                        <span className="text-xs text-slate-400">
+                                                        <span className="text-xs text-slate-400 dark:text-neutral-500">
                                                             Updated
                                                         </span>
 
 
-                                                        <span className="truncate text-xs font-semibold text-slate-600">
+                                                        <span className="truncate text-xs font-semibold text-slate-600 dark:text-neutral-300">
 
                                                             {
                                                                 formatRelativeDate(
@@ -1770,7 +1770,7 @@ const MyAssets = () => {
                                                     {fileCount >
                                                         0 && (
 
-                                                            <div className="flex shrink-0 items-center gap-1.5 rounded-lg bg-slate-50 px-2.5 py-1.5 text-xs font-semibold text-slate-500">
+                                                            <div className="flex shrink-0 items-center gap-1.5 rounded-lg bg-slate-50 px-2.5 py-1.5 text-xs font-semibold text-slate-500 dark:bg-neutral-900 dark:text-neutral-400">
 
                                                                 <Files
                                                                     size={13}

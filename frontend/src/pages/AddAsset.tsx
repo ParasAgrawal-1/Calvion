@@ -790,7 +790,7 @@ const AddAsset = () => {
 
     return (
 
-        <div className="min-h-screen bg-slate-50 text-slate-900">
+        <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-black dark:text-neutral-100">
 
             <main className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
 
@@ -807,7 +807,7 @@ const AddAsset = () => {
                         )
                     }
                     disabled={loading}
-                    className="group mb-7 inline-flex items-center gap-2 rounded-lg px-1 py-1 text-sm font-medium text-slate-500 transition hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="group mb-7 inline-flex items-center gap-2 rounded-lg px-1 py-1 text-sm font-medium text-slate-500 transition hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-50 dark:text-neutral-400 dark:hover:text-cyan-400"
                 >
 
                     <ArrowLeft
@@ -826,7 +826,7 @@ const AddAsset = () => {
 
                 <section className="mb-8">
 
-                    <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-blue-700">
+                    <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-blue-700 dark:border-cyan-900/60 dark:bg-cyan-950/40 dark:text-cyan-400">
 
                         <Database
                             size={13}
@@ -841,22 +841,22 @@ const AddAsset = () => {
 
                         <div>
 
-                            <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+                            <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl dark:text-white">
                                 Add New Asset
                             </h1>
 
-                            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base">
+                            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base dark:text-neutral-400">
                                 Store your important digital information securely in your workspace.
                             </p>
 
                         </div>
 
 
-                        <div className="hidden items-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-500 shadow-sm md:flex">
+                        <div className="hidden items-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-500 shadow-sm md:flex dark:border-neutral-800 dark:bg-[#0c0c0e] dark:text-neutral-400">
 
                             <ShieldCheck
                                 size={16}
-                                className="text-blue-600"
+                                className="text-blue-600 dark:text-cyan-400"
                             />
 
                             Secure workspace
@@ -874,20 +874,20 @@ const AddAsset = () => {
 
                 <form
                     onSubmit={handleSubmit}
-                    className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(15,23,42,0.05)]"
+                    className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_8px_30px_rgba(15,23,42,0.05)] dark:border-neutral-800 dark:bg-[#0c0c0e] dark:shadow-none"
                 >
 
                     {/* =================================================
                         FORM HEADER
                     ================================================= */}
 
-                    <div className="border-b border-slate-100 bg-gradient-to-r from-white via-blue-50/20 to-cyan-50/30 px-5 py-5 sm:px-7">
+                    <div className="border-b border-slate-100 bg-gradient-to-r from-white via-blue-50/20 to-cyan-50/30 px-5 py-5 sm:px-7 dark:border-neutral-800 dark:bg-gradient-to-r dark:from-[#0c0c0e] dark:via-neutral-900/40 dark:to-neutral-900/60">
 
-                        <h2 className="text-base font-bold text-slate-900">
+                        <h2 className="text-base font-bold text-slate-900 dark:text-white">
                             Asset Information
                         </h2>
 
-                        <p className="mt-1 text-xs leading-5 text-slate-500">
+                        <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-neutral-400">
                             Add the details of the information you want to keep in your workspace.
                         </p>
 
@@ -909,7 +909,7 @@ const AddAsset = () => {
 
                             <div
                                 role="alert"
-                                className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium leading-6 text-red-700"
+                                className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium leading-6 text-red-700 dark:border-red-900/60 dark:bg-red-950/20 dark:text-red-400"
                             >
 
                                 {message}
@@ -922,18 +922,18 @@ const AddAsset = () => {
                         {/* =================================================
                             ZERO-KNOWLEDGE PRIVACY GUARANTEE BANNER
                         ================================================= */}
-                        <div className="flex items-start gap-3.5 rounded-2xl border border-emerald-200/80 bg-emerald-50/60 p-4 text-emerald-900 shadow-sm sm:items-center">
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm">
+                        <div className="flex items-start gap-3.5 rounded-2xl border border-emerald-200/80 bg-emerald-50/60 p-4 text-emerald-900 shadow-sm sm:items-center dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-300">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm dark:bg-emerald-600/80">
                                 <ShieldCheck size={20} />
                             </div>
                             <div className="flex-1 text-xs sm:text-sm">
-                                <div className="flex flex-wrap items-center gap-2 font-bold text-emerald-950">
+                                <div className="flex flex-wrap items-center gap-2 font-bold text-emerald-950 dark:text-emerald-200">
                                     <span>Zero-Knowledge Client-Side Encryption Active</span>
-                                    <span className="inline-flex items-center rounded-md bg-emerald-200/70 px-2 py-0.5 text-[10px] font-semibold text-emerald-800">
+                                    <span className="inline-flex items-center rounded-md bg-emerald-200/70 px-2 py-0.5 text-[10px] font-semibold text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200">
                                         AES-256-GCM + SHA-256
                                     </span>
                                 </div>
-                                <p className="mt-0.5 text-xs text-emerald-800/90 leading-relaxed">
+                                <p className="mt-0.5 text-xs text-emerald-800/90 leading-relaxed dark:text-emerald-400/90">
                                     Your title, content, uploaded files, and original filenames are encrypted directly in your browser before transmission. Backend developers, server admins, and the database only ever receive ciphertext and cryptographic hashes.
                                 </p>
                             </div>
@@ -953,7 +953,7 @@ const AddAsset = () => {
 
                                 <label
                                     htmlFor="title"
-                                    className="mb-2 block text-sm font-semibold text-slate-800"
+                                    className="mb-2 block text-sm font-semibold text-slate-800 dark:text-neutral-200"
                                 >
                                     Asset Title
                                 </label>
@@ -973,11 +973,11 @@ const AddAsset = () => {
                                     maxLength={150}
                                     required
                                     disabled={loading}
-                                    className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 disabled:cursor-not-allowed disabled:bg-slate-50"
+                                    className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 disabled:cursor-not-allowed disabled:bg-slate-50 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-600 dark:hover:border-neutral-700 dark:focus:border-cyan-500/50 dark:focus:ring-cyan-500/10 dark:disabled:bg-neutral-900"
                                 />
 
 
-                                <p className="mt-1.5 text-xs text-slate-400">
+                                <p className="mt-1.5 text-xs text-slate-400 dark:text-neutral-500">
                                     Give your asset a clear and recognizable name.
                                 </p>
 
@@ -990,7 +990,7 @@ const AddAsset = () => {
 
                                 <label
                                     htmlFor="type"
-                                    className="mb-2 block text-sm font-semibold text-slate-800"
+                                    className="mb-2 block text-sm font-semibold text-slate-800 dark:text-neutral-200"
                                 >
                                     Asset Type
                                 </label>
@@ -1008,7 +1008,7 @@ const AddAsset = () => {
                                     disabled={
                                         loading
                                     }
-                                    className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 outline-none transition hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 disabled:cursor-not-allowed disabled:bg-slate-50"
+                                    className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 outline-none transition hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 disabled:cursor-not-allowed disabled:bg-slate-50 dark:border-neutral-800 dark:bg-black dark:text-white dark:hover:border-neutral-700 dark:focus:border-cyan-500/50 dark:focus:ring-cyan-500/10 dark:disabled:bg-neutral-900"
                                 >
 
                                     <option value="Document">
@@ -1034,7 +1034,7 @@ const AddAsset = () => {
                                 </select>
 
 
-                                <p className="mt-1.5 text-xs text-slate-400">
+                                <p className="mt-1.5 text-xs text-slate-400 dark:text-neutral-500">
                                     Choose the category that best describes this asset.
                                 </p>
 
@@ -1051,7 +1051,7 @@ const AddAsset = () => {
 
                             <label
                                 htmlFor="description"
-                                className="mb-2 block text-sm font-semibold text-slate-800"
+                                className="mb-2 block text-sm font-semibold text-slate-800 dark:text-neutral-200"
                             >
                                 Description
                             </label>
@@ -1070,13 +1070,13 @@ const AddAsset = () => {
                                 maxLength={500}
                                 rows={4}
                                 disabled={loading}
-                                className="min-h-[110px] w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 disabled:cursor-not-allowed disabled:bg-slate-50"
+                                className="min-h-[110px] w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 disabled:cursor-not-allowed disabled:bg-slate-50 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-600 dark:hover:border-neutral-700 dark:focus:border-cyan-500/50 dark:focus:ring-cyan-500/10 dark:disabled:bg-neutral-900"
                             />
 
 
                             <div className="mt-1.5 flex justify-end">
 
-                                <span className="text-xs text-slate-400">
+                                <span className="text-xs text-slate-400 dark:text-neutral-500">
                                     {
                                         formData
                                             .description
@@ -1099,7 +1099,7 @@ const AddAsset = () => {
 
                                 <div>
 
-                                    <label className="mb-2 block text-sm font-semibold text-slate-800">
+                                    <label className="mb-2 block text-sm font-semibold text-slate-800 dark:text-neutral-200">
                                         Content Mode
                                     </label>
 
@@ -1128,8 +1128,8 @@ const AddAsset = () => {
                                             className={`rounded-xl border px-4 py-3 text-left transition ${
                                                 formData.contentMode ===
                                                 "text"
-                                                    ? "border-blue-300 bg-blue-50 ring-4 ring-blue-50"
-                                                    : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
+                                                    ? "border-blue-300 bg-blue-50 ring-4 ring-blue-50 dark:border-cyan-500/50 dark:bg-cyan-950/30 dark:ring-cyan-500/20"
+                                                    : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 dark:border-neutral-800 dark:bg-black dark:hover:border-neutral-700 dark:hover:bg-neutral-900"
                                             }`}
                                         >
 
@@ -1139,8 +1139,8 @@ const AddAsset = () => {
                                                     className={`flex h-10 w-10 items-center justify-center rounded-xl ${
                                                         formData.contentMode ===
                                                         "text"
-                                                            ? "bg-blue-100 text-blue-600"
-                                                            : "bg-slate-100 text-slate-500"
+                                                            ? "bg-blue-100 text-blue-600 dark:bg-cyan-900/40 dark:text-cyan-400"
+                                                            : "bg-slate-100 text-slate-500 dark:bg-neutral-800 dark:text-neutral-400"
                                                     }`}
                                                 >
 
@@ -1153,11 +1153,11 @@ const AddAsset = () => {
 
                                                 <div>
 
-                                                    <p className="text-sm font-semibold text-slate-900">
+                                                    <p className="text-sm font-semibold text-slate-900 dark:text-white">
                                                         Text Content
                                                     </p>
 
-                                                    <p className="mt-0.5 text-xs text-slate-500">
+                                                    <p className="mt-0.5 text-xs text-slate-500 dark:text-neutral-400">
                                                         Store text directly
                                                     </p>
 
@@ -1189,8 +1189,8 @@ const AddAsset = () => {
                                             className={`rounded-xl border px-4 py-3 text-left transition ${
                                                 formData.contentMode ===
                                                 "file"
-                                                    ? "border-blue-300 bg-blue-50 ring-4 ring-blue-50"
-                                                    : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
+                                                    ? "border-blue-300 bg-blue-50 ring-4 ring-blue-50 dark:border-cyan-500/50 dark:bg-cyan-950/30 dark:ring-cyan-500/20"
+                                                    : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 dark:border-neutral-800 dark:bg-black dark:hover:border-neutral-700 dark:hover:bg-neutral-900"
                                             }`}
                                         >
 
@@ -1200,8 +1200,8 @@ const AddAsset = () => {
                                                     className={`flex h-10 w-10 items-center justify-center rounded-xl ${
                                                         formData.contentMode ===
                                                         "file"
-                                                            ? "bg-blue-100 text-blue-600"
-                                                            : "bg-slate-100 text-slate-500"
+                                                            ? "bg-blue-100 text-blue-600 dark:bg-cyan-900/40 dark:text-cyan-400"
+                                                            : "bg-slate-100 text-slate-500 dark:bg-neutral-800 dark:text-neutral-400"
                                                     }`}
                                                 >
 
@@ -1214,11 +1214,11 @@ const AddAsset = () => {
 
                                                 <div>
 
-                                                    <p className="text-sm font-semibold text-slate-900">
+                                                    <p className="text-sm font-semibold text-slate-900 dark:text-white">
                                                         File Upload
                                                     </p>
 
-                                                    <p className="mt-0.5 text-xs text-slate-500">
+                                                    <p className="mt-0.5 text-xs text-slate-500 dark:text-neutral-400">
                                                         Upload one or more files
                                                     </p>
 
@@ -1246,7 +1246,7 @@ const AddAsset = () => {
 
                                     <label
                                         htmlFor="content"
-                                        className="mb-2 block text-sm font-semibold text-slate-800"
+                                        className="mb-2 block text-sm font-semibold text-slate-800 dark:text-neutral-200"
                                     >
                                         Content
                                     </label>
@@ -1265,13 +1265,13 @@ const AddAsset = () => {
                                         maxLength={5000}
                                         rows={9}
                                         disabled={loading}
-                                        className="w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 disabled:cursor-not-allowed disabled:bg-slate-50"
+                                        className="w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 disabled:cursor-not-allowed disabled:bg-slate-50 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-600 dark:hover:border-neutral-700 dark:focus:border-cyan-500/50 dark:focus:ring-cyan-500/10 dark:disabled:bg-neutral-900"
                                     />
 
 
                                     <div className="mt-1.5 flex justify-end">
 
-                                    <span className="text-xs text-slate-400">
+                                    <span className="text-xs text-slate-400 dark:text-neutral-500">
                                         {
                                             formData
                                                 .content
@@ -1298,14 +1298,14 @@ const AddAsset = () => {
 
                                     <div className="mb-2 flex items-center justify-between">
 
-                                        <label className="block text-sm font-semibold text-slate-800">
+                                        <label className="block text-sm font-semibold text-slate-800 dark:text-neutral-200">
                                             Upload Files
                                         </label>
 
 
                                         {files.length > 0 && (
 
-                                            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-bold text-blue-700">
+                                            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-bold text-blue-700 dark:bg-cyan-950/40 dark:text-cyan-400">
                                             {
                                                 files.length
                                             }{" "}
@@ -1389,8 +1389,8 @@ const AddAsset = () => {
                                         }}
                                         className={`cursor-pointer rounded-2xl border-2 border-dashed px-6 py-10 text-center transition ${
                                             dragActive
-                                                ? "border-blue-500 bg-blue-50"
-                                                : "border-slate-200 bg-slate-50/70 hover:border-blue-300 hover:bg-blue-50/40"
+                                                ? "border-blue-500 bg-blue-50 dark:border-cyan-500 dark:bg-cyan-950/30"
+                                                : "border-slate-200 bg-slate-50/70 hover:border-blue-300 hover:bg-blue-50/40 dark:border-neutral-800 dark:bg-black dark:hover:border-neutral-700 dark:hover:bg-neutral-900/50"
                                         } ${
                                             loading
                                                 ? "cursor-not-allowed opacity-60"
@@ -1398,7 +1398,7 @@ const AddAsset = () => {
                                         }`}
                                     >
 
-                                        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+                                        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-neutral-900 dark:text-cyan-400">
 
                                             <Upload
                                                 size={26}
@@ -1407,17 +1407,17 @@ const AddAsset = () => {
                                         </div>
 
 
-                                        <h3 className="mt-4 text-sm font-bold text-slate-900">
+                                        <h3 className="mt-4 text-sm font-bold text-slate-900 dark:text-white">
                                             Click to upload or drag and drop
                                         </h3>
 
 
-                                        <p className="mt-1 text-xs text-slate-500">
+                                        <p className="mt-1 text-xs text-slate-500 dark:text-neutral-400">
                                             Multiple files are supported
                                         </p>
 
 
-                                        <p className="mt-2 text-[11px] font-medium text-slate-400">
+                                        <p className="mt-2 text-[11px] font-medium text-slate-400 dark:text-neutral-500">
                                             Supports any file type (PDF, Images, Videos, Audio, ZIP, Code, Binaries, etc. up to 500MB)
                                         </p>
 
@@ -1428,18 +1428,18 @@ const AddAsset = () => {
 
                                     {files.length > 0 && (
 
-                                        <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                                        <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-neutral-800 dark:bg-black">
 
-                                            <div className="border-b border-slate-100 bg-slate-50 px-4 py-3">
+                                            <div className="border-b border-slate-100 bg-slate-50 px-4 py-3 dark:border-neutral-800 dark:bg-neutral-900">
 
-                                                <p className="text-xs font-bold text-slate-700">
+                                                <p className="text-xs font-bold text-slate-700 dark:text-neutral-300">
                                                     Selected Files
                                                 </p>
 
                                             </div>
 
 
-                                            <div className="divide-y divide-slate-100">
+                                            <div className="divide-y divide-slate-100 dark:divide-neutral-800">
 
                                                 {files.map(
                                                     (
@@ -1452,7 +1452,7 @@ const AddAsset = () => {
                                                             className="flex items-center gap-3 px-4 py-3"
                                                         >
 
-                                                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                                                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-neutral-900 dark:text-cyan-400">
 
                                                                 <FileText
                                                                     size={
@@ -1465,13 +1465,13 @@ const AddAsset = () => {
 
                                                             <div className="min-w-0 flex-1">
 
-                                                                <p className="truncate text-sm font-semibold text-slate-800">
+                                                                <p className="truncate text-sm font-semibold text-slate-800 dark:text-neutral-200">
                                                                     {
                                                                         file.name
                                                                     }
                                                                 </p>
 
-                                                                <p className="mt-0.5 text-xs text-slate-400">
+                                                                <p className="mt-0.5 text-xs text-slate-400 dark:text-neutral-500">
 
                                                                     {(
                                                                         file.size /
@@ -1497,7 +1497,7 @@ const AddAsset = () => {
                                                                 disabled={
                                                                     loading
                                                                 }
-                                                                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+                                                                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50 dark:text-neutral-500 dark:hover:bg-red-950/40 dark:hover:text-red-400"
                                                                 title={`Remove ${file.name}`}
                                                             >
 
@@ -1532,7 +1532,7 @@ const AddAsset = () => {
 
                                 <label
                                     htmlFor="url"
-                                    className="mb-2 block text-sm font-semibold text-slate-800"
+                                    className="mb-2 block text-sm font-semibold text-slate-800 dark:text-neutral-200"
                                 >
                                     URL
                                 </label>
@@ -1542,7 +1542,7 @@ const AddAsset = () => {
 
                                     <LinkIcon
                                         size={17}
-                                        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                                        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500"
                                     />
 
 
@@ -1561,13 +1561,13 @@ const AddAsset = () => {
                                         disabled={
                                             loading
                                         }
-                                        className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 disabled:cursor-not-allowed disabled:bg-slate-50"
+                                        className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-300 focus:ring-4 focus:ring-blue-50 disabled:cursor-not-allowed disabled:bg-slate-50 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-600 dark:hover:border-neutral-700 dark:focus:border-cyan-500/50 dark:focus:ring-cyan-500/10 dark:disabled:bg-neutral-900"
                                     />
 
                                 </div>
 
 
-                                <p className="mt-1.5 text-xs text-slate-400">
+                                <p className="mt-1.5 text-xs text-slate-400 dark:text-neutral-500">
                                     Paste the website or resource address.
                                 </p>
 
@@ -1581,11 +1581,11 @@ const AddAsset = () => {
 
                         {formData.type === "Credential" && (
 
-                            <div className="space-y-5 rounded-2xl border border-violet-100 bg-violet-50/30 p-5">
+                            <div className="space-y-5 rounded-2xl border border-violet-100 bg-violet-50/30 p-5 dark:border-neutral-800 dark:bg-neutral-950">
 
                                 <div className="flex items-start gap-3">
 
-                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-600">
+                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-600 dark:bg-violet-950/50 dark:text-violet-400">
 
                                         <KeyRound
                                             size={18}
@@ -1596,11 +1596,11 @@ const AddAsset = () => {
 
                                     <div>
 
-                                        <h3 className="text-sm font-bold text-slate-900">
+                                        <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                                             Credential Details
                                         </h3>
 
-                                        <p className="mt-1 text-xs leading-5 text-slate-500">
+                                        <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-neutral-400">
                                             Store the account information associated with this service.
                                         </p>
 
@@ -1615,7 +1615,7 @@ const AddAsset = () => {
 
                                     <label
                                         htmlFor="credential-url"
-                                        className="mb-2 block text-sm font-semibold text-slate-800"
+                                        className="mb-2 block text-sm font-semibold text-slate-800 dark:text-neutral-200"
                                     >
                                         Website / URL
                                     </label>
@@ -1625,7 +1625,7 @@ const AddAsset = () => {
 
                                         <LinkIcon
                                             size={17}
-                                            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                                            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500"
                                         />
 
                                         <input
@@ -1643,7 +1643,7 @@ const AddAsset = () => {
                                             disabled={
                                                 loading
                                             }
-                                            className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-violet-300 focus:ring-4 focus:ring-violet-50 disabled:cursor-not-allowed disabled:bg-slate-50"
+                                            className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-violet-300 focus:ring-4 focus:ring-violet-50 disabled:cursor-not-allowed disabled:bg-slate-50 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-600 dark:hover:border-neutral-700 dark:focus:border-violet-400 dark:disabled:bg-neutral-900"
                                         />
 
                                     </div>
@@ -1657,7 +1657,7 @@ const AddAsset = () => {
 
                                     <label
                                         htmlFor="username"
-                                        className="mb-2 block text-sm font-semibold text-slate-800"
+                                        className="mb-2 block text-sm font-semibold text-slate-800 dark:text-neutral-200"
                                     >
                                         Username / Email
                                     </label>
@@ -1678,7 +1678,7 @@ const AddAsset = () => {
                                         disabled={
                                             loading
                                         }
-                                        className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-violet-300 focus:ring-4 focus:ring-violet-50 disabled:cursor-not-allowed disabled:bg-slate-50"
+                                        className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-violet-300 focus:ring-4 focus:ring-violet-50 disabled:cursor-not-allowed disabled:bg-slate-50 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-600 dark:hover:border-neutral-700 dark:focus:border-violet-400 dark:disabled:bg-neutral-900"
                                     />
 
                                 </div>
@@ -1690,7 +1690,7 @@ const AddAsset = () => {
 
                                     <label
                                         htmlFor="password"
-                                        className="mb-2 block text-sm font-semibold text-slate-800"
+                                        className="mb-2 block text-sm font-semibold text-slate-800 dark:text-neutral-200"
                                     >
                                         Password
                                     </label>
@@ -1700,7 +1700,7 @@ const AddAsset = () => {
 
                                         <KeyRound
                                             size={17}
-                                            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                                            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-neutral-500"
                                         />
 
 
@@ -1719,13 +1719,13 @@ const AddAsset = () => {
                                             disabled={
                                                 loading
                                             }
-                                            className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-violet-300 focus:ring-4 focus:ring-violet-50 disabled:cursor-not-allowed disabled:bg-slate-50"
+                                            className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-violet-300 focus:ring-4 focus:ring-violet-50 disabled:cursor-not-allowed disabled:bg-slate-50 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-600 dark:hover:border-neutral-700 dark:focus:border-violet-400 dark:disabled:bg-neutral-900"
                                         />
 
                                     </div>
 
 
-                                    <p className="mt-1.5 text-xs text-slate-400">
+                                    <p className="mt-1.5 text-xs text-slate-400 dark:text-neutral-500">
                                         Credentials are currently stored as part of the asset content.
                                     </p>
 
@@ -1741,7 +1741,7 @@ const AddAsset = () => {
                         FOOTER
                     ================================================= */}
 
-                    <div className="flex flex-col-reverse gap-3 border-t border-slate-100 bg-slate-50/50 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+                    <div className="flex flex-col-reverse gap-3 border-t border-slate-100 bg-slate-50/50 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7 dark:border-neutral-800 dark:bg-black/50">
 
                         <button
                             type="button"
@@ -1751,7 +1751,7 @@ const AddAsset = () => {
                             disabled={
                                 loading
                             }
-                            className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white"
                         >
 
                             Cancel
@@ -1764,7 +1764,7 @@ const AddAsset = () => {
                             disabled={
                                 loading
                             }
-                            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 text-sm font-bold text-white shadow-sm shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+                            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 text-sm font-bold text-white shadow-sm shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60 dark:bg-cyan-600 dark:hover:bg-cyan-500"
                         >
 
                             <Plus

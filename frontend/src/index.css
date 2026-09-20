@@ -53,11 +53,37 @@ html.light body {
 
 html.dark {
     color-scheme: dark;
+    background-color: #000000;
+
+    /* Override slate palette in dark mode to neutral jet black / zinc tones (NO blue) */
+    --color-slate-950: #000000;
+    --color-slate-900: #0c0c0e;
+    --color-slate-800: #18181b;
+    --color-slate-700: #27272a;
+    --color-slate-600: #52525b;
+    --color-slate-500: #71717a;
+    --color-slate-400: #a1a1aa;
+    --color-slate-300: #d4d4d8;
+    --color-slate-200: #27272a;
+    --color-slate-100: #18181b;
+    --color-slate-50: #000000;
+
+    --color-blue-950: #0c121e;
 }
 
 html.dark body {
-    background: #020617;
-    color: #f8fafc;
+    background-color: #000000;
+    color: #f3f4f6;
+}
+
+html.dark select option {
+    background-color: #0c0c0e;
+    color: #ffffff;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+    color: #71717a;
 }
 
 
@@ -176,15 +202,15 @@ svg {
 ========================================================= */
 
 html.dark::-webkit-scrollbar-track {
-    background: #0f172a;
+    background: #000000;
 }
 
 
 html.dark::-webkit-scrollbar-thumb {
-    background: #334155;
+    background: #27272a;
 }
 
 
 html.dark::-webkit-scrollbar-thumb:hover {
-    background: #475569;
+    background: #3f3f46;
 }

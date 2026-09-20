@@ -487,28 +487,28 @@ function EditAsset() {
     if (loading) {
 
         return (
-            <main className="min-h-screen bg-slate-50">
+            <main className="min-h-screen bg-slate-50 dark:bg-black">
 
                 <div className="flex min-h-screen items-center justify-center px-5">
 
                     <div className="flex flex-col items-center text-center">
 
-                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-100 bg-white shadow-sm">
+                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-100 bg-white shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
                             <Loader2
                                 size={24}
-                                className="animate-spin text-cyan-600"
+                                className="animate-spin text-cyan-600 dark:text-cyan-400"
                             />
 
                         </div>
 
 
-                        <h2 className="mt-5 text-base font-bold text-slate-800">
+                        <h2 className="mt-5 text-base font-bold text-slate-800 dark:text-white">
                             Loading asset
                         </h2>
 
 
-                        <p className="mt-1 text-sm text-slate-400">
+                        <p className="mt-1 text-sm text-slate-400 dark:text-neutral-500">
                             Preparing the editor...
                         </p>
 
@@ -528,7 +528,7 @@ function EditAsset() {
     if (!asset) {
 
         return (
-            <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
+            <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8 dark:bg-black dark:text-neutral-100">
 
                 <div className="mx-auto max-w-3xl">
 
@@ -537,7 +537,7 @@ function EditAsset() {
                         onClick={() =>
                             navigate("/assets")
                         }
-                        className="group inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-cyan-700"
+                        className="group inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-cyan-700 dark:text-neutral-400 dark:hover:text-cyan-400"
                     >
 
                         <ArrowLeft
@@ -550,9 +550,9 @@ function EditAsset() {
                     </button>
 
 
-                    <div className="mt-8 rounded-3xl border border-red-100 bg-white p-8 text-center shadow-sm">
+                    <div className="mt-8 rounded-3xl border border-red-100 bg-white p-8 text-center shadow-sm dark:border-neutral-800 dark:bg-[#0c0c0e]">
 
-                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-500">
+                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-500 dark:bg-red-950/40 dark:text-red-400">
 
                             <span className="text-xl font-bold">
                                 !
@@ -561,12 +561,12 @@ function EditAsset() {
                         </div>
 
 
-                        <h1 className="mt-5 text-xl font-bold text-slate-900">
+                        <h1 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
                             Unable to load asset
                         </h1>
 
 
-                        <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+                        <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500 dark:text-neutral-400">
                             {message ||
                                 "The requested asset could not be loaded."}
                         </p>
@@ -577,7 +577,7 @@ function EditAsset() {
                             onClick={() =>
                                 navigate("/assets")
                             }
-                            className="mt-6 inline-flex h-11 items-center justify-center rounded-xl bg-slate-900 px-5 text-sm font-semibold text-white transition hover:bg-slate-800"
+                            className="mt-6 inline-flex h-11 items-center justify-center rounded-xl bg-slate-900 px-5 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200"
                         >
                             Return to Assets
                         </button>
@@ -617,7 +617,7 @@ function EditAsset() {
     // =====================================================
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-slate-50 dark:bg-black dark:text-neutral-100">
 
             {/* =============================================
                 BACKGROUND
@@ -625,9 +625,9 @@ function EditAsset() {
 
             <div className="pointer-events-none fixed inset-0 overflow-hidden">
 
-                <div className="absolute -left-32 -top-32 h-80 w-80 rounded-full bg-cyan-200/25 blur-3xl" />
+                <div className="absolute -left-32 -top-32 h-80 w-80 rounded-full bg-cyan-200/25 blur-3xl dark:bg-cyan-500/10" />
 
-                <div className="absolute -right-32 top-1/3 h-96 w-96 rounded-full bg-blue-200/25 blur-3xl" />
+                <div className="absolute -right-32 top-1/3 h-96 w-96 rounded-full bg-blue-200/25 blur-3xl dark:bg-blue-500/10" />
 
             </div>
 
@@ -645,7 +645,7 @@ function EditAsset() {
                         onClick={() =>
                             navigate(`/assets/${id}`)
                         }
-                        className="group inline-flex items-center gap-2 rounded-lg py-2 pr-3 text-sm font-semibold text-slate-500 transition hover:text-cyan-700"
+                        className="group inline-flex items-center gap-2 rounded-lg py-2 pr-3 text-sm font-semibold text-slate-500 transition hover:text-cyan-700 dark:text-neutral-400 dark:hover:text-cyan-400"
                     >
 
                         <ArrowLeft
@@ -658,18 +658,18 @@ function EditAsset() {
                     </button>
 
 
-                    <div className="hidden items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 sm:flex">
+                    <div className="hidden items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 sm:flex dark:border-neutral-800 dark:bg-black">
 
                         <ShieldCheck
                             size={15}
                             className={
                                 canEdit
-                                    ? "text-cyan-600"
-                                    : "text-slate-400"
+                                    ? "text-cyan-600 dark:text-cyan-400"
+                                    : "text-slate-400 dark:text-neutral-500"
                             }
                         />
 
-                        <span className="text-xs font-bold text-slate-600">
+                        <span className="text-xs font-bold text-slate-600 dark:text-neutral-300">
                             {permissionLabel}
                         </span>
 
@@ -682,13 +682,13 @@ function EditAsset() {
                     MAIN CARD
                 ========================================= */}
 
-                <section className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_20px_60px_-30px_rgba(15,23,42,0.22)]">
+                <section className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_20px_60px_-30px_rgba(15,23,42,0.22)] dark:border-neutral-800 dark:bg-[#0c0c0e] dark:shadow-none">
 
                     {/* =====================================
                         HEADER
                     ===================================== */}
 
-                    <div className="border-b border-slate-100 bg-gradient-to-br from-white via-white to-cyan-50/60 px-6 py-7 sm:px-9 sm:py-8">
+                    <div className="border-b border-slate-100 bg-gradient-to-br from-white via-white to-cyan-50/60 px-6 py-7 sm:px-9 sm:py-8 dark:border-neutral-800 dark:bg-gradient-to-br dark:from-[#0c0c0e] dark:via-neutral-900/40 dark:to-neutral-900/60">
 
                         <div className="flex items-start gap-4">
 
@@ -705,14 +705,14 @@ function EditAsset() {
 
                                 <div className="flex flex-wrap items-center gap-2">
 
-                                    <span className="inline-flex items-center rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-cyan-700">
+                                    <span className="inline-flex items-center rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-cyan-700 dark:border-cyan-900/60 dark:bg-cyan-950/40 dark:text-cyan-400">
 
                                         Edit Asset
 
                                     </span>
 
 
-                                    <span className="text-xs font-medium text-slate-400">
+                                    <span className="text-xs font-medium text-slate-400 dark:text-neutral-500">
 
                                         #{asset.id}
 
@@ -721,7 +721,7 @@ function EditAsset() {
                                 </div>
 
 
-                                <h1 className="mt-3 break-words text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
+                                <h1 className="mt-3 break-words text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl dark:text-white">
 
                                     {asset.title ||
                                         "Untitled Asset"}
@@ -729,7 +729,7 @@ function EditAsset() {
                                 </h1>
 
 
-                                <p className="mt-2 text-sm leading-6 text-slate-500">
+                                <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-neutral-400">
 
                                     Update the information stored in this digital asset.
 
@@ -748,22 +748,22 @@ function EditAsset() {
 
                     {!canEdit && (
 
-                        <div className="border-b border-amber-100 bg-amber-50 px-6 py-4 sm:px-9">
+                        <div className="border-b border-amber-100 bg-amber-50 px-6 py-4 sm:px-9 dark:border-amber-900/60 dark:bg-amber-950/30">
 
                             <div className="flex items-start gap-3">
 
                                 <ShieldCheck
                                     size={19}
-                                    className="mt-0.5 shrink-0 text-amber-600"
+                                    className="mt-0.5 shrink-0 text-amber-600 dark:text-amber-400"
                                 />
 
                                 <div>
 
-                                    <p className="text-sm font-bold text-amber-800">
+                                    <p className="text-sm font-bold text-amber-800 dark:text-amber-300">
                                         View-only access
                                     </p>
 
-                                    <p className="mt-1 text-xs leading-5 text-amber-700">
+                                    <p className="mt-1 text-xs leading-5 text-amber-700 dark:text-amber-400/90">
                                         You can view this asset, but you do not have permission to modify it.
                                     </p>
 
@@ -795,7 +795,7 @@ function EditAsset() {
 
                                 <label
                                     htmlFor="title"
-                                    className="mb-2 block text-sm font-bold text-slate-700"
+                                    className="mb-2 block text-sm font-bold text-slate-700 dark:text-neutral-200"
                                 >
                                     Asset Title
                                 </label>
@@ -817,7 +817,7 @@ function EditAsset() {
                                         !canEdit
                                     }
                                     required
-                                    className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-50 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                                    className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-50 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-600 dark:hover:border-neutral-700 dark:focus:border-cyan-500/50 dark:focus:ring-cyan-500/10 dark:disabled:bg-neutral-900"
                                 />
 
                             </div>
@@ -831,7 +831,7 @@ function EditAsset() {
 
                                 <label
                                     htmlFor="description"
-                                    className="mb-2 block text-sm font-bold text-slate-700"
+                                    className="mb-2 block text-sm font-bold text-slate-700 dark:text-neutral-200"
                                 >
                                     Description
                                 </label>
@@ -852,7 +852,7 @@ function EditAsset() {
                                         !canEdit
                                     }
                                     rows={5}
-                                    className="w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-50 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                                    className="w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-50 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-600 dark:hover:border-neutral-700 dark:focus:border-cyan-500/50 dark:focus:ring-cyan-500/10 dark:disabled:bg-neutral-900"
                                 />
 
                             </div>
@@ -866,7 +866,7 @@ function EditAsset() {
 
                                 <label
                                     htmlFor="type"
-                                    className="mb-2 block text-sm font-bold text-slate-700"
+                                    className="mb-2 block text-sm font-bold text-slate-700 dark:text-neutral-200"
                                 >
                                     Asset Type
                                 </label>
@@ -886,7 +886,7 @@ function EditAsset() {
                                         !canEdit
                                     }
                                     required
-                                    className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-50 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                                    className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-50 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400 dark:border-neutral-800 dark:bg-black dark:text-white dark:hover:border-neutral-700 dark:focus:border-cyan-500/50 dark:focus:ring-cyan-500/10 dark:disabled:bg-neutral-900"
                                 >
 
                                     <option value="DOCUMENT">
@@ -916,11 +916,11 @@ function EditAsset() {
                                 </select>
 
 
-                                <p className="mt-2 text-xs text-slate-400">
+                                <p className="mt-2 text-xs text-slate-400 dark:text-neutral-500">
 
                                     Current type:{" "}
 
-                                    <span className="font-semibold text-slate-500">
+                                    <span className="font-semibold text-slate-500 dark:text-neutral-300">
 
                                         {assetTypeLabels[type] ||
                                             "Other"}
@@ -938,7 +938,7 @@ function EditAsset() {
 
                             {message && (
 
-                                <div className="rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-semibold leading-5 text-red-600">
+                                <div className="rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-semibold leading-5 text-red-600 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-400">
 
                                     {message}
 
@@ -949,7 +949,7 @@ function EditAsset() {
 
                             {successMessage && (
 
-                                <div className="flex items-start gap-3 rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm font-semibold leading-5 text-emerald-700">
+                                <div className="flex items-start gap-3 rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm font-semibold leading-5 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-400">
 
                                     <CheckCircle2
                                         size={18}
@@ -971,7 +971,7 @@ function EditAsset() {
                             ACTIONS
                         ===================================== */}
 
-                        <div className="mt-8 flex flex-col-reverse gap-3 border-t border-slate-100 pt-6 sm:flex-row sm:justify-end">
+                        <div className="mt-8 flex flex-col-reverse gap-3 border-t border-slate-100 pt-6 sm:flex-row sm:justify-end dark:border-neutral-800">
 
                             <button
                                 type="button"
@@ -979,7 +979,7 @@ function EditAsset() {
                                     navigate(`/assets/${id}`)
                                 }
                                 disabled={saving}
-                                className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                                className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white"
                             >
                                 Cancel
                             </button>

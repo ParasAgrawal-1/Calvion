@@ -707,9 +707,9 @@ export default function AppNavbar({
 
         return page === activePage
 
-            ? "inline-flex items-center gap-2 rounded-lg bg-cyan-50 px-3 py-2 text-sm font-semibold text-cyan-700"
+            ? "inline-flex items-center gap-2 rounded-lg bg-cyan-50 px-3 py-2 text-sm font-semibold text-cyan-700 dark:bg-neutral-800 dark:text-cyan-400 dark:border dark:border-neutral-700"
 
-            : "inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900";
+            : "inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:text-neutral-400 dark:hover:bg-neutral-800/70 dark:hover:text-white";
     };
 
 
@@ -719,7 +719,7 @@ export default function AppNavbar({
 
     return (
 
-        <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl">
+        <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl dark:border-neutral-800 dark:bg-black/95">
 
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
@@ -753,14 +753,14 @@ export default function AppNavbar({
 
                     <div className="text-left">
 
-                        <div className="text-lg font-bold tracking-tight text-slate-900">
+                        <div className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">
 
                             Calvion
 
                         </div>
 
 
-                        <div className="hidden text-[11px] font-medium text-slate-400 sm:block">
+                        <div className="hidden text-[11px] font-medium text-slate-400 dark:text-neutral-500 sm:block">
 
                             Digital Asset Manager
 
@@ -900,9 +900,9 @@ export default function AppNavbar({
                             className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-all duration-200 ${
                                 showNotifications
 
-                                    ? "border-cyan-200 bg-cyan-50 text-cyan-600"
+                                    ? "border-cyan-200 bg-cyan-50 text-cyan-600 dark:border-cyan-500/50 dark:bg-neutral-800 dark:text-cyan-400"
 
-                                    : "border-slate-200 bg-white text-slate-600 hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-600"
+                                    : "border-slate-200 bg-white text-slate-600 hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white"
                             }`}
                         >
 
@@ -914,7 +914,7 @@ export default function AppNavbar({
                             {unreadCount >
                                 0 && (
 
-                                    <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white shadow-sm ring-2 ring-white">
+                                    <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-neutral-900">
 
                                     {
                                         unreadCount > 9
@@ -934,18 +934,18 @@ export default function AppNavbar({
 
                         {showNotifications && (
 
-                            <div className="absolute right-0 top-[calc(100%+10px)] z-[100] w-[360px] max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/15">
+                            <div className="absolute right-0 top-[calc(100%+10px)] z-[100] w-[360px] max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/15 dark:border-neutral-800 dark:bg-[#0c0c0e] dark:shadow-black">
 
 
                                 {/* HEADER */}
 
-                                <div className="flex items-center justify-between border-b border-slate-100 px-4 py-4">
+                                <div className="flex items-center justify-between border-b border-slate-100 px-4 py-4 dark:border-neutral-800">
 
                                     <div>
 
                                         <div className="flex items-center gap-2">
 
-                                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600">
+                                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 dark:bg-neutral-800 dark:text-cyan-400">
 
                                                 <Bell
                                                     size={16}
@@ -954,7 +954,7 @@ export default function AppNavbar({
                                             </div>
 
 
-                                            <h3 className="text-sm font-bold text-slate-900">
+                                            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
 
                                                 Notifications
 
@@ -963,7 +963,7 @@ export default function AppNavbar({
                                         </div>
 
 
-                                        <p className="mt-1 pl-10 text-[11px] text-slate-400">
+                                        <p className="mt-1 pl-10 text-[11px] text-slate-400 dark:text-neutral-400">
 
                                             {
                                                 unreadCount >
@@ -994,7 +994,7 @@ export default function AppNavbar({
                                                     onClick={
                                                         markAllNotificationsAsRead
                                                     }
-                                                    className="flex h-8 items-center gap-1.5 rounded-lg px-2 text-[11px] font-semibold text-cyan-600 transition hover:bg-cyan-50"
+                                                    className="flex h-8 items-center gap-1.5 rounded-lg px-2 text-[11px] font-semibold text-cyan-600 transition hover:bg-cyan-50 dark:text-cyan-400 dark:hover:bg-neutral-800"
                                                 >
 
                                                     <CheckCheck
@@ -1018,7 +1018,7 @@ export default function AppNavbar({
                                                 )
                                             }
                                             aria-label="Close notifications"
-                                            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
+                                            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
                                         >
 
                                             <X
@@ -1052,16 +1052,16 @@ export default function AppNavbar({
                                                         className="flex animate-pulse gap-3"
                                                     >
 
-                                                        <div className="h-10 w-10 shrink-0 rounded-xl bg-slate-200" />
+                                                        <div className="h-10 w-10 shrink-0 rounded-xl bg-slate-200 dark:bg-neutral-800" />
 
 
                                                         <div className="flex-1">
 
-                                                            <div className="h-3.5 w-3/4 rounded bg-slate-200" />
+                                                            <div className="h-3.5 w-3/4 rounded bg-slate-200 dark:bg-neutral-800" />
 
-                                                            <div className="mt-2 h-3 w-full rounded bg-slate-100" />
+                                                            <div className="mt-2 h-3 w-full rounded bg-slate-100 dark:bg-neutral-900" />
 
-                                                            <div className="mt-2 h-2.5 w-1/3 rounded bg-slate-100" />
+                                                            <div className="mt-2 h-2.5 w-1/3 rounded bg-slate-100 dark:bg-neutral-900" />
 
                                                         </div>
 
@@ -1076,7 +1076,7 @@ export default function AppNavbar({
 
                                         <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
 
-                                            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-500">
+                                            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-500 dark:bg-neutral-800 dark:text-cyan-400">
 
                                                 <Bell
                                                     size={25}
@@ -1085,14 +1085,14 @@ export default function AppNavbar({
                                             </div>
 
 
-                                            <h4 className="mt-4 text-sm font-bold text-slate-900">
+                                            <h4 className="mt-4 text-sm font-bold text-slate-900 dark:text-white">
 
                                                 No notifications
 
                                             </h4>
 
 
-                                            <p className="mt-1 max-w-[230px] text-xs leading-5 text-slate-400">
+                                            <p className="mt-1 max-w-[230px] text-xs leading-5 text-slate-400 dark:text-neutral-400">
 
                                                 New asset sharing and permission activity will appear here.
 
@@ -1102,7 +1102,7 @@ export default function AppNavbar({
 
                                     ) : (
 
-                                        <div className="divide-y divide-slate-100">
+                                        <div className="divide-y divide-slate-100 dark:divide-neutral-800">
 
                                             {notifications.map(
                                                 (
@@ -1119,18 +1119,18 @@ export default function AppNavbar({
                                                                 notification
                                                             )
                                                         }
-                                                        className={`flex w-full gap-3 px-4 py-4 text-left transition hover:bg-slate-50 ${
+                                                        className={`flex w-full gap-3 px-4 py-4 text-left transition ${
                                                             notification.read
-                                                                ? "bg-white"
-                                                                : "bg-cyan-50/50"
+                                                                ? "bg-white hover:bg-slate-50 dark:bg-[#0c0c0e] dark:hover:bg-neutral-900"
+                                                                : "bg-cyan-50/50 hover:bg-cyan-50/80 dark:bg-neutral-900/90 dark:hover:bg-neutral-900"
                                                         }`}
                                                     >
 
                                                         <div
                                                             className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
                                                                 notification.read
-                                                                    ? "bg-slate-100 text-slate-400"
-                                                                    : "bg-cyan-100 text-cyan-600"
+                                                                    ? "bg-slate-100 text-slate-400 dark:bg-neutral-800 dark:text-neutral-400"
+                                                                    : "bg-cyan-100 text-cyan-600 dark:bg-neutral-800 dark:text-cyan-400"
                                                             }`}
                                                         >
 
@@ -1147,7 +1147,7 @@ export default function AppNavbar({
 
                                                             <div className="flex items-start justify-between gap-2">
 
-                                                                <p className="text-xs font-bold text-slate-900">
+                                                                <p className="text-xs font-bold text-slate-900 dark:text-white">
 
                                                                     {
                                                                         notification.title
@@ -1165,7 +1165,7 @@ export default function AppNavbar({
                                                             </div>
 
 
-                                                            <p className="mt-1 text-[11px] leading-5 text-slate-500">
+                                                            <p className="mt-1 text-[11px] leading-5 text-slate-500 dark:text-neutral-300">
 
                                                                 {
                                                                     notification.message
@@ -1174,7 +1174,7 @@ export default function AppNavbar({
                                                             </p>
 
 
-                                                            <p className="mt-2 text-[10px] font-medium text-slate-400">
+                                                            <p className="mt-2 text-[10px] font-medium text-slate-400 dark:text-neutral-500">
 
                                                                 {
                                                                     formatNotificationDate(
@@ -1239,9 +1239,9 @@ export default function AppNavbar({
                             className={`flex items-center gap-2 rounded-xl border px-2 py-1.5 transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-cyan-500/10 ${
                                 menuOpen
 
-                                    ? "border-cyan-200 bg-cyan-50"
+                                    ? "border-cyan-200 bg-cyan-50 dark:border-neutral-700 dark:bg-neutral-800"
 
-                                    : "border-transparent bg-white hover:border-slate-200 hover:bg-slate-50"
+                                    : "border-transparent bg-white hover:border-slate-200 hover:bg-slate-50 dark:bg-transparent dark:text-white dark:hover:border-neutral-800 dark:hover:bg-neutral-900"
                             }`}
                         >
 
@@ -1262,7 +1262,7 @@ export default function AppNavbar({
 
                             <div className="hidden max-w-36 text-left sm:block">
 
-                                <p className="truncate text-sm font-semibold text-slate-800">
+                                <p className="truncate text-sm font-semibold text-slate-800 dark:text-white">
 
                                     {
                                         userName
@@ -1271,7 +1271,7 @@ export default function AppNavbar({
                                 </p>
 
 
-                                <p className="text-[10px] font-medium text-slate-400">
+                                <p className="text-[10px] font-medium text-slate-400 dark:text-neutral-500">
 
                                     Personal workspace
 
@@ -1282,9 +1282,9 @@ export default function AppNavbar({
 
                             <ChevronDown
                                 size={16}
-                                className={`shrink-0 text-slate-400 transition-transform duration-200 ${
+                                className={`shrink-0 text-slate-400 dark:text-neutral-500 transition-transform duration-200 ${
                                     menuOpen
-                                        ? "rotate-180 text-cyan-600"
+                                        ? "rotate-180 text-cyan-600 dark:text-cyan-400"
                                         : ""
                                 }`}
                             />
@@ -1300,12 +1300,12 @@ export default function AppNavbar({
 
                             <div
                                 role="menu"
-                                className="absolute right-0 top-[calc(100%+10px)] z-[100] w-64 overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl shadow-slate-900/10"
+                                className="absolute right-0 top-[calc(100%+10px)] z-[100] w-64 overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl shadow-slate-900/10 dark:border-neutral-800 dark:bg-[#0c0c0e] dark:shadow-black"
                             >
 
                                 {/* ACCOUNT */}
 
-                                <div className="mb-1 rounded-xl bg-gradient-to-br from-slate-50 to-cyan-50/60 px-3 py-3">
+                                <div className="mb-1 rounded-xl bg-gradient-to-br from-slate-50 to-cyan-50/60 px-3 py-3 dark:from-neutral-900 dark:to-neutral-900 dark:border dark:border-neutral-800">
 
                                     <div className="flex items-center gap-3">
 
@@ -1322,7 +1322,7 @@ export default function AppNavbar({
 
                                         <div className="min-w-0">
 
-                                            <p className="truncate text-sm font-bold text-slate-800">
+                                            <p className="truncate text-sm font-bold text-slate-800 dark:text-white">
 
                                                 {
                                                     userName
@@ -1331,7 +1331,7 @@ export default function AppNavbar({
                                             </p>
 
 
-                                            <p className="text-[10px] font-medium text-slate-400">
+                                            <p className="text-[10px] font-medium text-slate-400 dark:text-neutral-500">
 
                                                 Personal workspace
 
@@ -1354,10 +1354,10 @@ export default function AppNavbar({
                                             "/settings"
                                         )
                                     }
-                                    className="group flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition hover:bg-blue-50"
+                                    className="group flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition hover:bg-blue-50 dark:hover:bg-neutral-900"
                                 >
 
-                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600 transition group-hover:bg-blue-100">
+                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600 transition group-hover:bg-blue-100 dark:bg-neutral-800 dark:text-blue-400 dark:group-hover:bg-neutral-700">
 
                                         <User
                                             size={17}
@@ -1368,14 +1368,14 @@ export default function AppNavbar({
 
                                     <div className="min-w-0">
 
-                                        <p className="text-sm font-semibold text-slate-800 group-hover:text-blue-700">
+                                        <p className="text-sm font-semibold text-slate-800 group-hover:text-blue-700 dark:text-neutral-200 dark:group-hover:text-white">
 
                                             Profile
 
                                         </p>
 
 
-                                        <p className="truncate text-[10px] text-slate-400">
+                                        <p className="truncate text-[10px] text-slate-400 dark:text-neutral-500">
 
                                             View your profile
 
@@ -1396,10 +1396,10 @@ export default function AppNavbar({
                                             "/settings"
                                         )
                                     }
-                                    className="group flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition hover:bg-cyan-50"
+                                    className="group flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition hover:bg-cyan-50 dark:hover:bg-neutral-900"
                                 >
 
-                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 transition group-hover:bg-cyan-100">
+                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 transition group-hover:bg-cyan-100 dark:bg-neutral-800 dark:text-cyan-400 dark:group-hover:bg-neutral-700">
 
                                         <Settings
                                             size={17}
@@ -1410,14 +1410,14 @@ export default function AppNavbar({
 
                                     <div className="min-w-0">
 
-                                        <p className="text-sm font-semibold text-slate-800 group-hover:text-cyan-700">
+                                        <p className="text-sm font-semibold text-slate-800 group-hover:text-cyan-700 dark:text-neutral-200 dark:group-hover:text-white">
 
                                             Settings
 
                                         </p>
 
 
-                                        <p className="truncate text-[10px] text-slate-400">
+                                        <p className="truncate text-[10px] text-slate-400 dark:text-neutral-500">
 
                                             Manage preferences
 
@@ -1430,7 +1430,7 @@ export default function AppNavbar({
 
                                 {/* DIVIDER */}
 
-                                <div className="my-1 border-t border-slate-100" />
+                                <div className="my-1 border-t border-slate-100 dark:border-neutral-800" />
 
 
                                 {/* LOGOUT */}
@@ -1441,10 +1441,10 @@ export default function AppNavbar({
                                     onClick={
                                         handleLogout
                                     }
-                                    className="group flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition hover:bg-red-50"
+                                    className="group flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition hover:bg-red-50 dark:hover:bg-red-950/30"
                                 >
 
-                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-50 text-red-500 transition group-hover:bg-red-100">
+                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-50 text-red-500 transition group-hover:bg-red-100 dark:bg-neutral-800 dark:text-red-400 dark:group-hover:bg-red-950/50">
 
                                         <LogOut
                                             size={17}
@@ -1455,14 +1455,14 @@ export default function AppNavbar({
 
                                     <div className="min-w-0">
 
-                                        <p className="text-sm font-semibold text-slate-800 group-hover:text-red-600">
+                                        <p className="text-sm font-semibold text-slate-800 group-hover:text-red-600 dark:text-neutral-200 dark:group-hover:text-red-400">
 
                                             Logout
 
                                         </p>
 
 
-                                        <p className="truncate text-[10px] text-slate-400">
+                                        <p className="truncate text-[10px] text-slate-400 dark:text-neutral-500">
 
                                             Sign out of Calvion
 
