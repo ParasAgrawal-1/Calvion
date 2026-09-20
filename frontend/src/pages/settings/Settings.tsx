@@ -6,7 +6,6 @@ import {
 import {
     ArrowLeft,
     User,
-    Palette,
     Shield,
     Bell,
     Users,
@@ -19,7 +18,6 @@ import {
     Info,
     ChevronRight,
     Settings as SettingsIcon,
-    Check,
     Share2,
     ShieldAlert,
     Trash2,
@@ -41,10 +39,6 @@ import {
 
 import axios from "axios";
 
-import {
-    useTheme,
-} from "../../context/ThemeContext";
-
 import api from "../../services/api";
 
 import ProfileSettings from "./ProfileSettings";
@@ -65,7 +59,6 @@ import AboutSection from "./sections/AboutSection";
 
 type SettingSection =
     | "profile"
-    | "appearance"
     | "security"
     | "notifications"
     | "sharing"
@@ -124,13 +117,6 @@ const settingsMenu: SettingItem[] = [
         label: "Profile",
         description: "Personal information",
         icon: User,
-    },
-
-    {
-        id: "appearance",
-        label: "Appearance",
-        description: "Theme and interface",
-        icon: Palette,
     },
 
     {
@@ -227,7 +213,6 @@ const settingsMenu: SettingItem[] = [
 
 const generalSections: SettingSection[] = [
     "profile",
-    "appearance",
     "notifications",
     "expiry",
 ];
@@ -1811,320 +1796,6 @@ function NotificationsSection() {
 
 
 /* =========================================================
-   APPEARANCE
-========================================================= */
-
-function AppearanceSection() {
-
-    const {
-        theme,
-        setTheme,
-    } = useTheme();
-
-
-    return (
-
-        <div className="space-y-6">
-
-
-            {/* HEADER */}
-
-            <div>
-
-                <div className="flex items-center gap-3">
-
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-950/50 dark:text-violet-400">
-
-                        <Palette
-                            size={19}
-                        />
-
-                    </div>
-
-
-                    <div>
-
-                        <h2 className="text-xl font-bold tracking-tight text-slate-950 dark:text-white">
-                            Appearance
-                        </h2>
-
-
-                        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                            Customize how Calvion looks and feels.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            {/* THEME */}
-
-            <div className="rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-
-                <div className="border-b border-slate-100 px-5 py-5 dark:border-slate-800 sm:px-6">
-
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                        Theme
-                    </h3>
-
-
-                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                        Choose how your workspace should appear.
-                    </p>
-
-                </div>
-
-
-                <div className="grid gap-4 p-5 sm:grid-cols-3 sm:p-6">
-
-
-                    {/* LIGHT */}
-
-                    <button
-                        type="button"
-                        onClick={() =>
-                            setTheme(
-                                "light"
-                            )
-                        }
-                        className={`rounded-2xl border p-4 text-left transition ${
-                            theme === "light"
-                                ? "border-cyan-500 bg-cyan-50/60 ring-4 ring-cyan-100 dark:border-cyan-500 dark:bg-cyan-950/20 dark:ring-cyan-950/40"
-                                : "border-slate-200 bg-white hover:border-slate-300 dark:border-neutral-800 dark:bg-black dark:hover:border-neutral-700"
-                        }`}
-                    >
-
-                        <div className="mb-4 h-24 rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
-
-                            <div className="h-2 w-2/5 rounded bg-slate-200" />
-
-                            <div className="mt-3 h-8 rounded-lg bg-slate-50" />
-
-                            <div className="mt-2 h-8 rounded-lg bg-cyan-50" />
-
-                        </div>
-
-
-                        <div className="flex items-center justify-between">
-
-                            <div>
-
-                                <p className="text-sm font-bold text-slate-900 dark:text-white">
-                                    Light
-                                </p>
-
-
-                                <p className="mt-1 text-xs text-slate-500 dark:text-neutral-400">
-                                    Bright and clean
-                                </p>
-
-                            </div>
-
-
-                            {theme ===
-                                "light" && (
-
-                                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-cyan-600 text-white">
-
-                                        <Check
-                                            size={13}
-                                        />
-
-                                    </div>
-
-                                )}
-
-                        </div>
-
-                    </button>
-
-
-                    {/* DARK */}
-
-                    <button
-                        type="button"
-                        onClick={() =>
-                            setTheme(
-                                "dark"
-                            )
-                        }
-                        className={`rounded-2xl border p-4 text-left transition ${
-                            theme === "dark"
-                                ? "border-cyan-500 bg-cyan-50/60 ring-4 ring-cyan-100 dark:border-cyan-400 dark:bg-cyan-950/20 dark:ring-cyan-950/40"
-                                : "border-slate-200 bg-white hover:border-slate-300 dark:border-neutral-800 dark:bg-black dark:hover:border-neutral-700"
-                        }`}
-                    >
-
-                        <div className="mb-4 h-24 rounded-xl border border-neutral-800 bg-black p-3">
-
-                            <div className="h-2 w-2/5 rounded bg-neutral-700" />
-
-                            <div className="mt-3 h-8 rounded-lg bg-[#141417] border border-neutral-800" />
-
-                            <div className="mt-2 h-8 rounded-lg bg-neutral-900 border border-neutral-800" />
-
-                        </div>
-
-
-                        <div className="flex items-center justify-between">
-
-                            <div>
-
-                                <p className="text-sm font-bold text-slate-900 dark:text-white">
-                                    Dark
-                                </p>
-
-
-                                <p className="mt-1 text-xs text-slate-500 dark:text-neutral-400">
-                                    Pure black & high contrast
-                                </p>
-
-                            </div>
-
-
-                            {theme ===
-                                "dark" && (
-
-                                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-cyan-600 text-white">
-
-                                        <Check
-                                            size={13}
-                                        />
-
-                                    </div>
-
-                                )}
-
-                        </div>
-
-                    </button>
-
-
-                    {/* SYSTEM */}
-
-                    <button
-                        type="button"
-                        onClick={() =>
-                            setTheme(
-                                "system"
-                            )
-                        }
-                        className={`rounded-2xl border p-4 text-left transition ${
-                            theme === "system"
-                                ? "border-cyan-500 bg-cyan-50/60 ring-4 ring-cyan-100 dark:border-cyan-400 dark:bg-cyan-950/20 dark:ring-cyan-950/40"
-                                : "border-slate-200 bg-white hover:border-slate-300 dark:border-neutral-800 dark:bg-black dark:hover:border-neutral-700"
-                        }`}
-                    >
-
-                        <div className="mb-4 flex h-24 overflow-hidden rounded-xl border border-slate-200 dark:border-neutral-800">
-
-                            <div className="w-1/2 bg-white p-3">
-
-                                <div className="h-2 w-3/5 rounded bg-slate-200" />
-
-                                <div className="mt-3 h-8 rounded-lg bg-slate-50" />
-
-                            </div>
-
-
-                            <div className="w-1/2 bg-black p-3">
-
-                                <div className="h-2 w-3/5 rounded bg-neutral-700" />
-
-                                <div className="mt-3 h-8 rounded-lg bg-[#141417]" />
-
-                            </div>
-
-                        </div>
-
-
-                        <div className="flex items-center justify-between">
-
-                            <div>
-
-                                <p className="text-sm font-bold text-slate-900 dark:text-white">
-                                    System
-                                </p>
-
-
-                                <p className="mt-1 text-xs text-slate-500 dark:text-neutral-400">
-                                    Follow your device
-                                </p>
-
-                            </div>
-
-
-                            {theme ===
-                                "system" && (
-
-                                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-cyan-600 text-white">
-
-                                        <Check
-                                            size={13}
-                                        />
-
-                                    </div>
-
-                                )}
-
-                        </div>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            {/* CURRENT THEME */}
-
-            <div className="rounded-2xl border border-neutral-200 bg-neutral-50/80 p-5 dark:border-neutral-800 dark:bg-black">
-
-                <div className="flex items-start gap-3">
-
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-cyan-600 shadow-sm dark:border dark:border-neutral-800 dark:bg-[#0c0c0e] dark:text-cyan-400">
-
-                        <Palette
-                            size={17}
-                        />
-
-                    </div>
-
-
-                    <div>
-
-                        <p className="text-sm font-semibold text-slate-900 dark:text-white">
-
-                            Current theme:{" "}
-
-                            <span className="capitalize font-bold text-cyan-600 dark:text-cyan-400">
-                                {theme}
-                            </span>
-
-                        </p>
-
-
-                        <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-neutral-400">
-
-                            Your theme preference is saved automatically and applied across your entire Calvion workspace.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-    );
-}
-
-
-/* =========================================================
    SETTINGS COMPONENT
 ========================================================= */
 
@@ -2310,13 +1981,6 @@ export default function Settings() {
 
                     return (
                         <ProfileSettings />
-                    );
-
-
-                case "appearance":
-
-                    return (
-                        <AppearanceSection />
                     );
 
 
