@@ -12,6 +12,10 @@ import {
     Minimize2,
     FileCode,
     Settings2,
+    AlertCircle,
+    CheckCircle2,
+    Clock,
+    Cpu,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -148,6 +152,15 @@ func main() {
 `,
 };
 
+const JUDGE0_LANG_MAP: Record<SupportedLanguage, number> = {
+    python: 92,     // Python (3.11.2)
+    cpp: 105,       // C++ (GCC 14.1.0)
+    java: 91,       // Java (JDK 17.0.6)
+    javascript: 93, // JavaScript (Node.js 18.15.0)
+    typescript: 94, // TypeScript (5.0.3)
+    go: 95,         // Go (1.18.5)
+};
+
 export const CodeEditor: React.FC<CodeEditorProps> = ({
     initialCode,
     initialLanguage = "python",
@@ -157,7 +170,14 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     const [language, setLanguage] = useState<SupportedLanguage>(initialLanguage);
     const [code, setCode] = useState<string>(initialCode || BOILERPLATES[initialLanguage]);
     const [customInput, setCustomInput] = useState<string>("4\n1 2 3 4");
-    const [output, setOutput] = useState<string>("");
+    const [execStatus, setExecStatus] = useState<{
+        statusType: "success" | "error" | "warning";
+        label: string;
+        time?: string | null;
+        memory?: string | null;
+    } | null>(null);
+    const [stdout, setStdout] = useState<string>("");
+    const [stderr, setStderr] = useState<string>("");
     const [isRunning, setIsRunning] = useState<boolean>(false);
     const [copied, setCopied] = useState<boolean>(false);
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
@@ -197,47 +217,94 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
     const handleReset = () => {
         setCode(BOILERPLATES[language]);
-        setOutput("");
+        setExecStatus(null);
+        setStdout("");
+        setStderr("");
     };
 
-    const handleRunCode = () => {
+    const handleRunCode = async () => {
         setIsRunning(true);
-        setOutput("Executing code...\n");
+        setExecStatus(null);
+        setStdout("");
+        setStderr("");
 
-        setTimeout(() => {
-            try {
-                if (language === "javascript" || language === "typescript") {
-                    const logs: string[] = [];
-                    const originalConsoleLog = console.log;
-                    console.log = (...args) => {
-                        logs.push(args.map(a => (typeof a === "object" ? JSON.stringify(a) : String(a))).join(" "));
-                    };
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-                    try {
-                        // eslint-disable-next-line no-new-func
-                        const runFn = new Function(code);
-                        runFn();
-                        console.log = originalConsoleLog;
-                        setOutput(logs.length > 0 ? logs.join("\n") : "Execution completed with 0 outputs.");
-                    } catch (err: any) {
-                        console.log = originalConsoleLog;
-                        setOutput(`Runtime Error: ${err?.message || String(err)}`);
-                    }
-                } else if (language === "python") {
-                    setOutput(`[Calvion Python 3 Environment]\nInput Provided:\n${customInput}\n\nExecution simulated successfully.\nOutput:\nHello from Calvion Developer Workspace!\nProcessed tokens: ${customInput.trim().split(/\s+/).filter(Boolean).length}\nTokens: [${customInput.trim().split(/\s+/).filter(Boolean).map(t => `'${t}'`).join(", ")}]\n\nExecution Time: 0.04s | Memory: 12.4 MB`);
-                } else if (language === "cpp") {
-                    setOutput(`[Calvion GCC 13 C++20 Compiler]\nCompilation: Success (0 warnings, 0 errors)\nExecution:\nInput received: ${customInput.split(/\s+/)[0] || "Sample"}\n\nExecution Time: 0.002s | Memory: 3.1 MB`);
-                } else if (language === "java") {
-                    setOutput(`[Calvion OpenJDK 21 Compiler]\nCompilation: Success\nExecution:\nInput received: ${customInput.split(/\s+/)[0] || "Sample"}\n\nExecution Time: 0.08s | Memory: 28.2 MB`);
-                } else {
-                    setOutput(`[Calvion Go 1.22 Environment]\nExecution:\nInput: ${customInput.split(/\n/)[0] || "Sample"}\n\nExecution Time: 0.01s | Memory: 4.8 MB`);
-                }
-            } catch (err: any) {
-                setOutput(`Error: ${err?.message || "Failed to execute"}`);
-            } finally {
-                setIsRunning(false);
+            const res = await fetch("https://ce.judge0.com/submissions?base64_encoded=false&wait=true", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    source_code: code,
+                    language_id: JUDGE0_LANG_MAP[language],
+                    stdin: customInput || "",
+                }),
+                signal: controller.signal,
+            });
+
+            clearTimeout(timeoutId);
+
+            if (!res.ok) {
+                throw new Error(`Execution server responded with status: ${res.status}`);
             }
-        }, 600);
+
+            const data = await res.json();
+            const statusId = data.status?.id || 0;
+            const statusDesc = data.status?.description || "Unknown";
+
+            // Status id 3 is Accepted / Success in Judge0
+            const isSuccess = statusId === 3;
+            const isError = statusId === 6 || statusId >= 7;
+
+            setExecStatus({
+                statusType: isSuccess ? "success" : isError ? "error" : "warning",
+                label: statusDesc,
+                time: data.time ? `${data.time}s` : null,
+                memory: data.memory ? `${data.memory} KB` : null,
+            });
+
+            setStdout(data.stdout || "");
+            setStderr(data.stderr || data.compile_output || data.message || "");
+        } catch (err: any) {
+            // Client-side fallback for JS/TS if network issue
+            if ((language === "javascript" || language === "typescript") && (err.name === "AbortError" || err.message?.includes("fetch"))) {
+                const logs: string[] = [];
+                const originalConsoleLog = console.log;
+                console.log = (...args) => {
+                    logs.push(args.map(a => (typeof a === "object" ? JSON.stringify(a) : String(a))).join(" "));
+                };
+
+                try {
+                    // eslint-disable-next-line no-new-func
+                    const runFn = new Function(code);
+                    runFn();
+                    console.log = originalConsoleLog;
+                    setExecStatus({
+                        statusType: "success",
+                        label: "Executed (Local JS Sandbox)",
+                    });
+                    setStdout(logs.join("\n"));
+                } catch (localErr: any) {
+                    console.log = originalConsoleLog;
+                    setExecStatus({
+                        statusType: "error",
+                        label: "Runtime Error (Local)",
+                    });
+                    setStderr(localErr?.message || String(localErr));
+                }
+            } else {
+                setExecStatus({
+                    statusType: "error",
+                    label: "Execution Failed",
+                });
+                setStderr(`Connection Error: ${err?.message || "Failed to reach execution sandbox. Please check your internet connection."}`);
+            }
+        } finally {
+            setIsRunning(false);
+        }
     };
 
     const handleSaveToVault = () => {
@@ -432,28 +499,96 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                     </div>
 
                     {/* OUTPUT CONSOLE */}
-                    <div className="p-4 flex-1 flex flex-col min-h-[220px]">
-                        <div className="flex items-center justify-between mb-2">
-                            <label className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-neutral-300">
-                                <Terminal size={13} className="text-emerald-500" />
-                                <span>Execution Console (stdout)</span>
-                            </label>
-                            {output && (
+                    <div className="p-4 flex-1 flex flex-col min-h-[240px]">
+                        <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <div className="flex items-center gap-2">
+                                <label className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-neutral-300">
+                                    <Terminal size={13} className="text-emerald-500" />
+                                    <span>Console Output</span>
+                                </label>
+                                {execStatus && (
+                                    <div className="flex items-center gap-1.5">
+                                        <span
+                                            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                                                execStatus.statusType === "success"
+                                                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-500/20"
+                                                    : execStatus.statusType === "error"
+                                                    ? "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-1 ring-rose-500/20"
+                                                    : "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-1 ring-amber-500/20"
+                                            }`}
+                                        >
+                                            {execStatus.statusType === "success" ? (
+                                                <CheckCircle2 size={11} />
+                                            ) : (
+                                                <AlertCircle size={11} />
+                                            )}
+                                            <span>{execStatus.label}</span>
+                                        </span>
+                                        {execStatus.time && (
+                                            <span className="flex items-center gap-0.5 text-[10px] text-slate-400 dark:text-neutral-500">
+                                                <Clock size={10} />
+                                                {execStatus.time}
+                                            </span>
+                                        )}
+                                        {execStatus.memory && (
+                                            <span className="flex items-center gap-0.5 text-[10px] text-slate-400 dark:text-neutral-500">
+                                                <Cpu size={10} />
+                                                {execStatus.memory}
+                                            </span>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                            {(stdout || stderr || execStatus) && (
                                 <button
                                     type="button"
-                                    onClick={() => setOutput("")}
-                                    className="text-[10px] text-slate-400 hover:text-slate-600 dark:hover:text-neutral-300 transition"
+                                    onClick={() => {
+                                        setStdout("");
+                                        setStderr("");
+                                        setExecStatus(null);
+                                    }}
+                                    className="text-[10px] font-medium text-slate-400 hover:text-slate-600 dark:hover:text-neutral-300 transition"
                                 >
                                     Clear
                                 </button>
                             )}
                         </div>
-                        <div className="w-full flex-1 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-3 font-mono text-xs text-slate-800 dark:text-neutral-200 overflow-y-auto whitespace-pre-wrap">
-                            {output ? (
-                                <span>{output}</span>
+
+                        <div className="w-full flex-1 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-3 font-mono text-xs overflow-y-auto max-h-[300px]">
+                            {isRunning ? (
+                                <div className="flex items-center gap-2 py-4 text-cyan-500 dark:text-cyan-400">
+                                    <div className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                                    <span className="text-xs">Compiling & executing in secure sandbox...</span>
+                                </div>
+                            ) : stderr ? (
+                                <div className="space-y-2">
+                                    <div className="flex items-center gap-1.5 text-rose-500 font-semibold text-[11px]">
+                                        <AlertCircle size={13} />
+                                        <span>Error Output / Traceback:</span>
+                                    </div>
+                                    <pre className="text-rose-600 dark:text-rose-400 whitespace-pre-wrap break-all leading-5 bg-rose-500/5 p-2.5 rounded-lg border border-rose-500/20">
+                                        {stderr}
+                                    </pre>
+                                    {stdout && (
+                                        <div className="mt-3 pt-3 border-t border-slate-200 dark:border-neutral-800">
+                                            <div className="text-[11px] text-slate-500 dark:text-neutral-400 font-semibold mb-1">Standard Output (stdout):</div>
+                                            <pre className="text-slate-800 dark:text-neutral-200 whitespace-pre-wrap break-all leading-5">
+                                                {stdout}
+                                            </pre>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : stdout ? (
+                                <pre className="text-slate-800 dark:text-neutral-200 whitespace-pre-wrap break-all leading-5">
+                                    {stdout}
+                                </pre>
+                            ) : execStatus ? (
+                                <div className="text-emerald-500 dark:text-emerald-400 italic text-xs py-2">
+                                    Program finished with exit code 0. (No stdout output produced)
+                                </div>
                             ) : (
                                 <span className="text-slate-400 dark:text-neutral-600 italic">
-                                    Click &quot;Run Code&quot; to execute your solution and see console output here.
+                                    Click &quot;Run Code&quot; to execute your solution and see console output or error traces here.
                                 </span>
                             )}
                         </div>
