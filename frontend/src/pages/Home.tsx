@@ -18,6 +18,10 @@ import {
     LogIn,
     UserPlus,
     Folder,
+    Code2,
+    Terminal,
+    Trophy,
+    Sparkles,
 } from "lucide-react";
 
 
@@ -322,6 +326,40 @@ function Home() {
                             "
                         >
                             Security
+                        </button>
+
+
+                        {/* DEVELOPER HUB */}
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                navigate("/developer")
+                            }
+                            className="
+                                inline-flex
+                                items-center
+                                gap-1.5
+                                rounded-xl
+                                border
+                                border-cyan-500/30
+                                bg-cyan-500/10
+                                px-3
+                                py-2
+                                text-xs
+                                font-bold
+                                text-cyan-700
+                                transition
+                                hover:bg-cyan-500/20
+                                hover:border-cyan-500/50
+                                sm:px-3.5
+                            "
+                        >
+                            <Code2 size={15} className="text-cyan-600" />
+                            <span>Developer Hub</span>
+                            <span className="hidden sm:inline-block rounded-full bg-cyan-500 px-1.5 py-0.2 text-[9px] font-extrabold text-white">
+                                NEW
+                            </span>
                         </button>
 
 
@@ -696,6 +734,36 @@ function Home() {
 
                                     Sign In
 
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        navigate("/developer")
+                                    }
+                                    className="
+                                        inline-flex
+                                        h-12
+                                        items-center
+                                        justify-center
+                                        gap-2
+                                        rounded-xl
+                                        border
+                                        border-cyan-500/30
+                                        bg-cyan-500/10
+                                        px-5
+                                        text-sm
+                                        font-bold
+                                        text-cyan-700
+                                        shadow-sm
+                                        transition
+                                        hover:bg-cyan-500/20
+                                        hover:border-cyan-500/50
+                                    "
+                                >
+                                    <Code2 size={18} className="text-cyan-600" />
+                                    <span>Developer Hub</span>
                                 </button>
 
                             </div>
@@ -1143,6 +1211,183 @@ function Home() {
 
                                 )
                             )}
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                {/* =====================================================
+                    DEVELOPER PORTAL SHOWCASE
+                ===================================================== */}
+
+                <section
+                    id="developer"
+                    className="
+                        scroll-mt-20
+                        border-t
+                        border-slate-200
+                        bg-gradient-to-b
+                        from-slate-900
+                        via-black
+                        to-slate-950
+                        text-white
+                        px-5
+                        py-16
+                        sm:px-8
+                        sm:py-20
+                        lg:px-10
+                    "
+                >
+
+                    <div className="mx-auto max-w-[1400px]">
+
+                        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-12">
+
+                            <div>
+
+                                <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3.5 py-1 text-xs font-bold text-cyan-400 mb-3">
+
+                                    <Terminal size={14} />
+
+                                    <span>Built for Developers &amp; Competitive Programmers</span>
+
+                                </div>
+
+                                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
+                                    Code. Practice. Conquer Tests.
+                                </h2>
+
+                                <p className="mt-3 max-w-2xl text-sm sm:text-base text-neutral-400 leading-relaxed">
+                                    Take your engineering skills to the next level with our in-browser multi-language code editor, direct launchpad to LeetCode, Codeforces, and HackerRank, plus curated DSA test preparation sheets.
+                                </p>
+
+                            </div>
+
+
+                            <div className="flex flex-wrap items-center gap-3">
+
+                                <button
+                                    type="button"
+                                    onClick={() => navigate("/developer")}
+                                    className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 text-sm font-bold text-white shadow-lg shadow-cyan-500/25 hover:from-cyan-600 hover:to-blue-700 transition"
+                                >
+                                    <Code2 size={18} />
+                                    <span>Open Developer Hub</span>
+                                    <ArrowRight size={16} />
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => navigate("/register")}
+                                    className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-neutral-700 bg-neutral-900/80 px-6 text-sm font-semibold text-neutral-200 hover:bg-neutral-800 transition"
+                                >
+                                    <UserPlus size={16} />
+                                    <span>Register as Developer</span>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        {/* 3 FEATURE SHOWCASE CARDS */}
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                            {/* CARD 1: CODE PLAYGROUND */}
+
+                            <div
+                                onClick={() => navigate("/developer")}
+                                className="cursor-pointer rounded-3xl border border-neutral-800 bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-cyan-500/40 transition group shadow-sm"
+                            >
+
+                                <div>
+
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-5">
+                                        <Code2 size={24} />
+                                    </div>
+
+                                    <h3 className="text-xl font-bold text-white">
+                                        In-Browser Code Editor
+                                    </h3>
+
+                                    <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
+                                        Write and test code in Python, C++, Java, JavaScript, and Go with custom stdin test inputs, execution console, and instant encrypted backup to your vault.
+                                    </p>
+
+                                </div>
+
+                                <div className="mt-6 pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs text-cyan-400 font-bold group-hover:translate-x-1 transition-transform">
+                                    <span>Launch Code Playground</span>
+                                    <ArrowRight size={14} />
+                                </div>
+
+                            </div>
+
+
+                            {/* CARD 2: COMPETITIVE PLATFORMS */}
+
+                            <div
+                                onClick={() => navigate("/developer")}
+                                className="cursor-pointer rounded-3xl border border-neutral-800 bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-amber-500/40 transition group shadow-sm"
+                            >
+
+                                <div>
+
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-5">
+                                        <Trophy size={24} />
+                                    </div>
+
+                                    <h3 className="text-xl font-bold text-white">
+                                        Competitive Platforms Hub
+                                    </h3>
+
+                                    <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
+                                        One-click access to LeetCode, Codeforces, CodeChef, HackerRank, GeeksforGeeks, and AtCoder with live contest trackers and problem archives.
+                                    </p>
+
+                                </div>
+
+                                <div className="mt-6 pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs text-amber-400 font-bold group-hover:translate-x-1 transition-transform">
+                                    <span>Explore Coding Platforms</span>
+                                    <ArrowRight size={14} />
+                                </div>
+
+                            </div>
+
+
+                            {/* CARD 3: DSA PREPARATION */}
+
+                            <div
+                                onClick={() => navigate("/developer")}
+                                className="cursor-pointer rounded-3xl border border-neutral-800 bg-[#0c0c0e] p-6 sm:p-8 flex flex-col justify-between hover:border-emerald-500/40 transition group shadow-sm"
+                            >
+
+                                <div>
+
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-5">
+                                        <Sparkles size={24} />
+                                    </div>
+
+                                    <h3 className="text-xl font-bold text-white">
+                                        Coding Test &amp; DSA Prep
+                                    </h3>
+
+                                    <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
+                                        Prepare for technical interviews with Blind 75, NeetCode 150, and SDE Sheet questions. Filter by topic, company tag, and solve directly in the browser.
+                                    </p>
+
+                                </div>
+
+                                <div className="mt-6 pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">
+                                    <span>Start DSA Practice</span>
+                                    <ArrowRight size={14} />
+                                </div>
+
+                            </div>
 
                         </div>
 

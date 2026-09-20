@@ -21,6 +21,7 @@ import MyAssets from "./pages/MyAssets";
 import EditAsset from "./pages/EditAsset";
 import SharedAssets from "./pages/SharedAssets";
 import Settings from "./pages/settings/Settings";
+import DeveloperHub from "./pages/developer/DeveloperHub";
 function App() {
   return (
       <>
@@ -114,6 +115,10 @@ function App() {
           <Route
               path="/settings"
               element={<Settings />}
+          />
+          <Route
+              path="/developer"
+              element={<DeveloperHub />}
           />
 
         </Routes>
