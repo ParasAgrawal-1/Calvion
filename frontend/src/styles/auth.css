@@ -664,15 +664,17 @@ body {
 
     border-radius: 12px;
 
-    background: #4f46e5;
+    background: linear-gradient(135deg, #06b6d4, #2563eb);
 
     color: #ffffff;
 
     font-family: inherit;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
 
     cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.25);
 
     transition:
             background 0.2s ease,
@@ -682,13 +684,13 @@ body {
 
 
 .auth-button:hover:not(:disabled) {
-    background: #4338ca;
+    background: linear-gradient(135deg, #0891b2, #1d4ed8);
 
     transform: translateY(-1px);
 
     box-shadow:
             0 10px 24px
-            rgba(79, 70, 229, 0.2);
+            rgba(6, 182, 212, 0.35);
 }
 
 
@@ -700,9 +702,9 @@ body {
 /* Disabled Button */
 
 .auth-button:disabled {
-    background: #a5b4fc;
+    background: #cbd5e1;
 
-    color: #ffffff;
+    color: #94a3b8;
 
     opacity: 0.7;
 
@@ -1393,6 +1395,58 @@ body {
     transform: translateX(-1px);
 }
 
+/* =========================================
+   AUTH TOP ACTIONS
+========================================= */
+
+.auth-top-actions {
+    position: absolute;
+    top: 28px;
+    right: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 20;
+}
+
+.theme-toggle-btn {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #475569;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    border-color: #06b6d4;
+    color: #06b6d4;
+}
+
+.auth-header-action {
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.auth-header-action:hover {
+    border-color: #06b6d4;
+    color: #0891b2;
+    background: #f0fdfa;
+}
 
 /* =========================================
    MOBILE
@@ -1405,19 +1459,22 @@ body {
         left: 16px;
 
         padding: 8px 10px;
+    }
 
-        font-size: 13px;
+    .auth-top-actions {
+        top: 16px;
+        right: 16px;
     }
 
 }
 
 
 /* =========================================
-   AUTH DARK MODE
+   AUTH DARK MODE (DEVELOPER OBSIDIAN PALETTE)
 ========================================= */
 
 html.dark body {
-    background: #000000;
+    background: #06070a !important;
 }
 
 html.dark .auth-page {
@@ -1432,19 +1489,21 @@ html.dark .auth-page {
             rgba(59, 130, 246, 0.06),
             transparent 35%
         ),
-        #000000 !important;
+        #06070a !important;
 }
 
 html.dark .auth-card {
     background: #0c0c0e !important;
     border: 1px solid #27272a !important;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7) !important;
+    box-shadow: none !important;
 }
 
+html.dark .auth-header h1,
 html.dark .auth-title {
     color: #ffffff !important;
 }
 
+html.dark .auth-header p,
 html.dark .auth-subtitle {
     color: #a1a1aa !important;
 }
@@ -1453,28 +1512,85 @@ html.dark .auth-logo {
     color: #ffffff !important;
 }
 
-html.dark .auth-label {
+html.dark .auth-label,
+html.dark .form-group label,
+html.dark .label-row label {
     color: #d4d4d8 !important;
 }
 
+html.dark .form-group input,
+html.dark input[type="text"],
+html.dark input[type="email"],
+html.dark input[type="password"],
 html.dark .auth-input {
-    background: #000000 !important;
-    border-color: #27272a !important;
+    background: #121318 !important;
+    border: 1px solid #27272a !important;
     color: #ffffff !important;
 }
 
+html.dark .form-group input:hover,
+html.dark input[type="text"]:hover,
+html.dark input[type="email"]:hover,
+html.dark input[type="password"]:hover,
+html.dark .auth-input:hover {
+    border-color: #3f3f46 !important;
+}
+
+html.dark .form-group input:focus,
+html.dark input[type="text"]:focus,
+html.dark input[type="email"]:focus,
+html.dark input[type="password"]:focus,
 html.dark .auth-input:focus {
     border-color: #06b6d4 !important;
-    background: #000000 !important;
+    background: #121318 !important;
     box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.15) !important;
 }
 
+html.dark .form-group input::placeholder,
+html.dark input::placeholder,
 html.dark .auth-input::placeholder {
     color: #71717a !important;
 }
 
+html.dark .password-toggle {
+    color: #71717a !important;
+}
+
+html.dark .password-toggle:hover {
+    color: #06b6d4 !important;
+    background: #1a1b22 !important;
+}
+
+html.dark .character-count,
+html.dark .input-hint,
+html.dark .strength-header,
+html.dark .terms-label,
+html.dark .auth-switch-text {
+    color: #a1a1aa !important;
+}
+
+html.dark .requirement {
+    color: #71717a !important;
+}
+
+html.dark .requirement svg {
+    color: #3f3f46 !important;
+}
+
+html.dark .requirement.valid {
+    color: #10b981 !important;
+}
+
+html.dark .requirement.valid svg {
+    color: #10b981 !important;
+}
+
+html.dark .strength-bars span {
+    background: #27272a !important;
+}
+
 html.dark .auth-input-wrapper {
-    background: #000000 !important;
+    background: #121318 !important;
     border-color: #27272a !important;
 }
 
@@ -1482,7 +1598,15 @@ html.dark .auth-footer {
     color: #a1a1aa !important;
 }
 
-html.dark .auth-link {
+html.dark .auth-link,
+html.dark .terms-link,
+html.dark .create-account-link {
+    color: #06b6d4 !important;
+}
+
+html.dark .auth-link:hover,
+html.dark .terms-link:hover,
+html.dark .create-account-link:hover {
     color: #38bdf8 !important;
 }
 
@@ -1496,11 +1620,36 @@ html.dark .auth-divider span {
 }
 
 html.dark .back-home-button {
-    color: #a1a1aa !important;
+    background: #0c0c0e !important;
+    border: 1px solid #27272a !important;
+    color: #d4d4d8 !important;
 }
 
 html.dark .back-home-button:hover {
     background: #18181b !important;
-    color: #38bdf8 !important;
+    border-color: rgba(6, 182, 212, 0.4) !important;
+    color: #22d3ee !important;
+}
+
+html.dark .otp-icon {
+    background: rgba(6, 182, 212, 0.1) !important;
+    border: 1px solid rgba(6, 182, 212, 0.2) !important;
+    color: #22d3ee !important;
+}
+
+html.dark .otp-email {
+    color: #ffffff !important;
+}
+
+html.dark .auth-message {
+    background: rgba(225, 29, 72, 0.15) !important;
+    border: 1px solid rgba(225, 29, 72, 0.3) !important;
+    color: #fb7185 !important;
+}
+
+html.dark .auth-success-message {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+    color: #34d399 !important;
 }
 

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LockKeyhole } from "lucide-react";
+import { LockKeyhole, ArrowLeft, Sun, Moon } from "lucide-react";
 import api from "../services/api";
+import { useTheme } from "../context/ThemeContext";
 import "../styles/auth.css";
 
 function ForgotPassword() {
     const navigate = useNavigate();
+    const { theme, setTheme } = useTheme();
 
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
@@ -63,6 +65,32 @@ function ForgotPassword() {
     return (
         <main className="auth-page">
 
+            {/* Top Navigation */}
+            <button
+                type="button"
+                className="back-home-button"
+                onClick={() => navigate("/login")}
+            >
+                <ArrowLeft size={19} />
+                <span>Back to Sign In</span>
+            </button>
+
+            <div className="auth-top-actions">
+                <button
+                    type="button"
+                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                    className="theme-toggle-btn"
+                    title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
+                    aria-label="Toggle Theme"
+                >
+                    {theme === "dark" ? (
+                        <Sun size={16} className="sun-icon" />
+                    ) : (
+                        <Moon size={16} className="moon-icon" />
+                    )}
+                </button>
+            </div>
+
             <div className="auth-wrapper">
 
                 {/* Calvion Logo */}
@@ -73,8 +101,12 @@ function ForgotPassword() {
                     onClick={() => navigate("/")}
                     aria-label="Go to Calvion home"
                 >
-                    <div className="logo-mark">
-                        D
+                    <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200 dark:ring-neutral-800 transition duration-200 group-hover:scale-105">
+                        <img
+                            src="/calvion-icon.png"
+                            alt="Calvion"
+                            className="h-8 w-8 object-contain"
+                        />
                     </div>
 
                     <span>Calvion</span>

@@ -5,16 +5,20 @@ import {
     EyeOff,
     Check,
     X,
-    ArrowLeft
+    ArrowLeft,
+    Sun,
+    Moon,
 } from "lucide-react";
 
 import api from "../services/api";
+import { useTheme } from "../context/ThemeContext";
 import "../styles/auth.css";
 
 
 function Register() {
 
     const navigate = useNavigate();
+    const { theme, setTheme } = useTheme();
 
 
     /* ================= FORM STATES ================= */
@@ -311,6 +315,31 @@ setSuccessEmail(email.trim());
                 Back to Home
             </span>
             </button>
+
+            {/* Top Actions */}
+            <div className="auth-top-actions">
+                <button
+                    type="button"
+                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                    className="theme-toggle-btn"
+                    title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
+                    aria-label="Toggle Theme"
+                >
+                    {theme === "dark" ? (
+                        <Sun size={16} className="sun-icon" />
+                    ) : (
+                        <Moon size={16} className="moon-icon" />
+                    )}
+                </button>
+
+                <button
+                    type="button"
+                    className="auth-header-action"
+                    onClick={() => navigate("/login")}
+                >
+                    Sign In
+                </button>
+            </div>
 
 
             <div className="auth-wrapper">
