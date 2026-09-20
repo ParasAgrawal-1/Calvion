@@ -8,7 +8,10 @@ import {
     UserPlus,
     LogIn,
     Lock,
+    Sun,
+    Moon,
 } from "lucide-react";
+import { useTheme } from "../../context/ThemeContext";
 import CodeEditor from "../../components/developer/CodeEditor";
 import PlatformHub from "../../components/developer/PlatformHub";
 import TestPrepSection from "../../components/developer/TestPrepSection";
@@ -18,6 +21,7 @@ type DeveloperTab = "editor" | "platforms" | "prep";
 
 export const DeveloperHub: React.FC = () => {
     const navigate = useNavigate();
+    const { theme, setTheme } = useTheme();
     const [activeTab, setActiveTab] = useState<DeveloperTab>("editor");
     const [selectedProblem, setSelectedProblem] = useState<CodingProblem | null>(null);
 
@@ -117,8 +121,18 @@ export const DeveloperHub: React.FC = () => {
                         </button>
                     </div>
 
-                    {/* RIGHT: AUTH STATUS */}
+                    {/* RIGHT: AUTH STATUS & THEME TOGGLE */}
                     <div className="flex items-center gap-2">
+                        {/* THEME TOGGLE BUTTON */}
+                        <button
+                            type="button"
+                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                            className="flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-slate-700 dark:text-neutral-300 hover:text-cyan-500 hover:border-cyan-500 transition"
+                            title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
+                        >
+                            {theme === "dark" ? <Sun size={14} className="text-amber-400" /> : <Moon size={14} className="text-indigo-600" />}
+                        </button>
+
                         {token && user ? (
                             <button
                                 type="button"
@@ -196,9 +210,15 @@ export const DeveloperHub: React.FC = () => {
             </header>
 
             {/* MAIN CONTENT AREA */}
-            <main className="mx-auto max-w-[1700px] px-3 py-4 sm:px-6 lg:px-8">
+            <main
+                className={
+                    activeTab === "editor"
+                        ? "mx-auto max-w-[1920px] px-2 py-2 sm:px-4 sm:py-2.5 h-[calc(100vh-4.25rem)] flex flex-col overflow-hidden"
+                        : "mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8"
+                }
+            >
                 {activeTab === "editor" && (
-                    <div className="space-y-4">
+                    <div className="h-full w-full flex-1 min-h-0">
                         <CodeEditor
                             initialCode={selectedProblem ? selectedProblem.starterCode.python : undefined}
                             initialLanguage="python"
