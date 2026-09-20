@@ -44,35 +44,49 @@ export const DeveloperHub: React.FC = () => {
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-black dark:text-neutral-100 transition-colors duration-200">
             {/* TOP NAVIGATION BAR */}
-            <header className="sticky top-0 z-40 border-b border-slate-200/80 dark:border-neutral-800 bg-white/95 dark:bg-black/95 backdrop-blur-xl">
-                <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-                    {/* LEFT: BACK & BRAND */}
-                    <div className="flex items-center gap-3">
+            <header className="sticky top-0 z-40 border-b border-slate-200/80 dark:border-white/[0.08] bg-white/85 dark:bg-[#07090e]/90 backdrop-blur-xl supports-[backdrop-filter]:bg-white/75 shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-colors duration-200">
+                {/* Micro accent gradient line on very top */}
+                <div className="h-[2px] w-full bg-gradient-to-r from-cyan-500/0 via-cyan-500/70 to-blue-600/0" />
+
+                <div className="mx-auto flex h-16 max-w-[1920px] items-center justify-between px-3 sm:px-5 lg:px-7">
+                    {/* LEFT: BACK BUTTON & BRAND */}
+                    <div className="flex items-center gap-2.5 sm:gap-3.5">
                         <button
                             type="button"
                             onClick={() => navigate("/")}
-                            className="group flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3 py-2 text-xs font-semibold text-slate-600 dark:text-neutral-300 hover:text-cyan-500 transition"
+                            className="group flex items-center gap-1.5 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-slate-50/80 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm"
+                            title="Return to Calvion Home"
                         >
-                            <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
-                            <span>Home</span>
+                            <ArrowLeft size={13} className="text-slate-400 dark:text-neutral-400 group-hover:text-cyan-500 group-hover:-translate-x-0.5 transition-all duration-200" />
+                            <span className="hidden sm:inline">Home</span>
                         </button>
 
-                        <div className="h-6 w-px bg-slate-200 dark:bg-neutral-800" />
+                        <div className="h-5 w-px bg-slate-200/80 dark:bg-neutral-800" />
 
                         <div className="flex items-center gap-2.5">
-                            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-sm font-mono font-bold text-sm">
-                                &lt;/&gt;
+                            <div className="relative group flex h-9 w-9 shrink-0 items-center justify-center rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 shadow-sm shadow-cyan-500/25">
+                                <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-white dark:bg-[#0c0e14] overflow-hidden p-1 transition duration-200">
+                                    <img
+                                        src="/calvion-icon.png"
+                                        alt="Calvion"
+                                        className="h-full w-full object-contain"
+                                    />
+                                </div>
                             </div>
-                            <div>
-                                <div className="flex items-center gap-2">
-                                    <h1 className="text-sm font-extrabold text-slate-900 dark:text-white">
-                                        Calvion Developer Hub
-                                    </h1>
-                                    <span className="rounded-full bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.2 text-[10px] font-bold text-cyan-600 dark:text-cyan-400">
+                            <div className="flex flex-col justify-center">
+                                <div className="flex items-center gap-1.5 sm:gap-2">
+                                    <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white flex items-center">
+                                        Calvion
+                                        <span className="ml-1 font-black bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
+                                            Developer Hub
+                                        </span>
+                                    </span>
+                                    <span className="inline-flex items-center gap-1 rounded-full bg-cyan-500/10 dark:bg-cyan-400/10 border border-cyan-500/20 px-2 py-0.2 text-[10px] font-bold text-cyan-700 dark:text-cyan-300">
+                                        <span className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse" />
                                         v1.0
                                     </span>
                                 </div>
-                                <p className="hidden text-[10px] text-slate-400 dark:text-neutral-500 sm:block">
+                                <p className="hidden text-[10.5px] font-medium text-slate-400 dark:text-neutral-400 xl:block -mt-0.5">
                                     Competitive Coding, In-Browser Sandbox & DSA Prep
                                 </p>
                             </div>
@@ -80,46 +94,58 @@ export const DeveloperHub: React.FC = () => {
                     </div>
 
                     {/* CENTER: TAB NAVIGATION */}
-                    <div className="hidden md:flex items-center rounded-2xl border border-slate-200 dark:border-neutral-800 bg-slate-100/80 dark:bg-[#0c0c0e] p-1 gap-1 text-xs font-bold">
+                    <nav className="hidden md:flex items-center p-1 rounded-xl bg-slate-100/90 dark:bg-neutral-900/90 border border-slate-200/80 dark:border-neutral-800 shadow-inner">
                         <button
                             type="button"
                             onClick={() => setActiveTab("editor")}
-                            className={`flex items-center gap-2 rounded-xl px-4 py-2 transition ${
+                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${
                                 activeTab === "editor"
-                                    ? "bg-white text-slate-900 dark:bg-neutral-900 dark:text-white shadow-sm"
-                                    : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
+                                    ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
+                                    : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
                             }`}
                         >
-                            <Terminal size={14} className={activeTab === "editor" ? "text-cyan-500" : ""} />
+                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${
+                                activeTab === "editor" ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400" : "text-slate-400 dark:text-neutral-500"
+                            }`}>
+                                <Terminal size={13} />
+                            </div>
                             <span>Code Playground</span>
                         </button>
 
                         <button
                             type="button"
                             onClick={() => setActiveTab("platforms")}
-                            className={`flex items-center gap-2 rounded-xl px-4 py-2 transition ${
+                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${
                                 activeTab === "platforms"
-                                    ? "bg-white text-slate-900 dark:bg-neutral-900 dark:text-white shadow-sm"
-                                    : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
+                                    ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
+                                    : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
                             }`}
                         >
-                            <Trophy size={14} className={activeTab === "platforms" ? "text-amber-500" : ""} />
+                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${
+                                activeTab === "platforms" ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : "text-slate-400 dark:text-neutral-500"
+                            }`}>
+                                <Trophy size={13} />
+                            </div>
                             <span>Competitive Platforms</span>
                         </button>
 
                         <button
                             type="button"
                             onClick={() => setActiveTab("prep")}
-                            className={`flex items-center gap-2 rounded-xl px-4 py-2 transition ${
+                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${
                                 activeTab === "prep"
-                                    ? "bg-white text-slate-900 dark:bg-neutral-900 dark:text-white shadow-sm"
-                                    : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
+                                    ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
+                                    : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
                             }`}
                         >
-                            <BookOpen size={14} className={activeTab === "prep" ? "text-emerald-500" : ""} />
+                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${
+                                activeTab === "prep" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-neutral-500"
+                            }`}>
+                                <BookOpen size={13} />
+                            </div>
                             <span>Coding Test Prep</span>
                         </button>
-                    </div>
+                    </nav>
 
                     {/* RIGHT: AUTH STATUS & THEME TOGGLE */}
                     <div className="flex items-center gap-2">
@@ -127,40 +153,48 @@ export const DeveloperHub: React.FC = () => {
                         <button
                             type="button"
                             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-slate-700 dark:text-neutral-300 hover:text-cyan-500 hover:border-cyan-500 transition"
+                            className="group relative flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#12141c] text-slate-600 dark:text-neutral-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500/40 dark:hover:border-cyan-500/40 shadow-sm transition-all duration-200"
                             title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
+                            aria-label="Toggle Theme"
                         >
-                            {theme === "dark" ? <Sun size={14} className="text-amber-400" /> : <Moon size={14} className="text-indigo-600" />}
+                            {theme === "dark" ? (
+                                <Sun size={15} className="text-amber-400 transition-transform duration-300 group-hover:rotate-45" />
+                            ) : (
+                                <Moon size={15} className="text-indigo-600 transition-transform duration-300 group-hover:-rotate-12" />
+                            )}
                         </button>
+
+                        <div className="h-5 w-px bg-slate-200/80 dark:bg-neutral-800" />
 
                         {token && user ? (
                             <button
                                 type="button"
                                 onClick={() => navigate("/dashboard")}
-                                className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-neutral-200 hover:border-cyan-500 transition"
+                                className="group flex h-9 items-center gap-2 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#12141c] px-3 text-xs font-semibold text-slate-700 dark:text-neutral-200 hover:border-cyan-500/50 hover:bg-slate-50 dark:hover:bg-neutral-800/80 transition-all duration-200 shadow-sm"
                             >
-                                <div className="h-6 w-6 rounded-full bg-cyan-500/20 text-cyan-500 flex items-center justify-center text-[10px]">
+                                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold text-[10px] shadow-sm">
                                     {user.name ? user.name.charAt(0).toUpperCase() : "U"}
                                 </div>
-                                <span className="hidden sm:inline">{user.name || "Vault Connected"}</span>
-                                <Lock size={12} className="text-emerald-500" />
+                                <span className="hidden sm:inline font-medium text-slate-800 dark:text-neutral-200">{user.name || "Vault"}</span>
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 ring-2 ring-emerald-500/20" title="Connected" />
+                                <Lock size={12} className="text-slate-400 group-hover:text-cyan-500 transition-colors ml-0.5" />
                             </button>
                         ) : (
                             <div className="flex items-center gap-2">
                                 <button
                                     type="button"
                                     onClick={() => navigate("/login")}
-                                    className="hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-neutral-300 hover:bg-slate-50 dark:hover:bg-neutral-800 transition"
+                                    className="hidden sm:inline-flex h-9 items-center gap-1.5 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#12141c] px-3.5 text-xs font-semibold text-slate-700 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-neutral-800/80 hover:border-slate-300 dark:hover:border-neutral-700 transition-all duration-200 shadow-sm"
                                 >
-                                    <LogIn size={13} />
+                                    <LogIn size={13} className="text-slate-400 dark:text-neutral-400" />
                                     <span>Sign In</span>
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => navigate("/register")}
-                                    className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-sm hover:from-cyan-600 hover:to-blue-700 transition"
+                                    className="group relative inline-flex h-9 items-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 via-cyan-600 to-blue-600 hover:from-cyan-400 hover:to-blue-500 px-3.5 text-xs font-semibold text-white shadow-sm shadow-cyan-500/25 hover:shadow-cyan-500/40 active:scale-[0.98] transition-all duration-200"
                                 >
-                                    <UserPlus size={13} />
+                                    <UserPlus size={13} className="group-hover:scale-110 transition-transform duration-200" />
                                     <span>Create Account</span>
                                 </button>
                             </div>
@@ -169,14 +203,14 @@ export const DeveloperHub: React.FC = () => {
                 </div>
 
                 {/* MOBILE TAB SWITCHER */}
-                <div className="flex md:hidden border-t border-slate-200 dark:border-neutral-800 bg-slate-50 dark:bg-black p-2 gap-1 overflow-x-auto text-xs font-bold">
+                <div className="flex md:hidden border-t border-slate-200/80 dark:border-neutral-800 bg-white/90 dark:bg-[#090b10]/95 backdrop-blur-md p-1.5 gap-1 overflow-x-auto text-xs font-semibold">
                     <button
                         type="button"
                         onClick={() => setActiveTab("editor")}
-                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-xl py-2 ${
+                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${
                             activeTab === "editor"
-                                ? "bg-white dark:bg-neutral-900 text-cyan-600 dark:text-cyan-400 shadow-sm"
-                                : "text-slate-600 dark:text-neutral-400"
+                                ? "bg-slate-100 dark:bg-neutral-800 text-cyan-600 dark:text-cyan-400 shadow-sm font-bold"
+                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
                         }`}
                     >
                         <Terminal size={14} />
@@ -185,10 +219,10 @@ export const DeveloperHub: React.FC = () => {
                     <button
                         type="button"
                         onClick={() => setActiveTab("platforms")}
-                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-xl py-2 ${
+                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${
                             activeTab === "platforms"
-                                ? "bg-white dark:bg-neutral-900 text-amber-600 dark:text-amber-400 shadow-sm"
-                                : "text-slate-600 dark:text-neutral-400"
+                                ? "bg-slate-100 dark:bg-neutral-800 text-amber-600 dark:text-amber-400 shadow-sm font-bold"
+                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
                         }`}
                     >
                         <Trophy size={14} />
@@ -197,10 +231,10 @@ export const DeveloperHub: React.FC = () => {
                     <button
                         type="button"
                         onClick={() => setActiveTab("prep")}
-                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-xl py-2 ${
+                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${
                             activeTab === "prep"
-                                ? "bg-white dark:bg-neutral-900 text-emerald-600 dark:text-emerald-400 shadow-sm"
-                                : "text-slate-600 dark:text-neutral-400"
+                                ? "bg-slate-100 dark:bg-neutral-800 text-emerald-600 dark:text-emerald-400 shadow-sm font-bold"
+                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
                         }`}
                     >
                         <BookOpen size={14} />
