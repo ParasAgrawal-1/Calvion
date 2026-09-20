@@ -183,10 +183,7 @@ function Home() {
                 HEADER
             ===================================================== */}
 
-            <header className="sticky top-0 z-50 border-b border-slate-200/80 dark:border-white/[0.08] bg-white/85 dark:bg-[#07090e]/90 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-colors duration-200">
-                {/* Micro accent gradient line on very top */}
-                <div className="h-[2px] w-full bg-gradient-to-r from-cyan-500/0 via-cyan-500/70 to-blue-600/0" />
-
+            <header className="sticky top-0 z-50 border-b border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#07090e] shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-colors duration-200">
                 <div className="mx-auto flex h-16 w-full max-w-[1920px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
 
                     {/* ================= LOGO ================= */}
@@ -476,7 +473,7 @@ function Home() {
                 >
 
 
-                    {/* BACKGROUND GLOW */}
+                    {/* BACKGROUND GLOW (Dark mode only) */}
 
                     <div
                         className="
@@ -487,7 +484,8 @@ function Home() {
                             h-[500px]
                             w-[500px]
                             rounded-full
-                            bg-blue-100/70
+                            hidden
+                            dark:block
                             dark:bg-cyan-600/10
                             blur-3xl
                         "
@@ -502,7 +500,8 @@ function Home() {
                             h-[450px]
                             w-[450px]
                             rounded-full
-                            bg-indigo-100/60
+                            hidden
+                            dark:block
                             dark:bg-blue-600/10
                             blur-3xl
                         "

@@ -44,9 +44,7 @@ export const DeveloperHub: React.FC = () => {
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-black dark:text-neutral-100 transition-colors duration-200">
             {/* TOP NAVIGATION BAR */}
-            <header className="sticky top-0 z-40 border-b border-slate-200/80 dark:border-white/[0.08] bg-white/85 dark:bg-[#07090e]/90 backdrop-blur-xl supports-[backdrop-filter]:bg-white/75 shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-colors duration-200">
-                {/* Micro accent gradient line on very top */}
-                <div className="h-[2px] w-full bg-gradient-to-r from-cyan-500/0 via-cyan-500/70 to-blue-600/0" />
+            <header className="sticky top-0 z-40 border-b border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#07090e] shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-colors duration-200">
 
                 <div className="mx-auto flex h-16 max-w-[1920px] items-center justify-between px-3 sm:px-5 lg:px-7">
                     {/* LEFT: BACK BUTTON & BRAND */}
