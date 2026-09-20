@@ -520,7 +520,11 @@ function Home() {
                         overflow-hidden
                         border-b
                         border-slate-200/70
+                        dark:border-neutral-800/80
                         bg-white
+                        dark:bg-[#07090e]
+                        transition-colors
+                        duration-200
                     "
                 >
 
@@ -537,6 +541,7 @@ function Home() {
                             w-[500px]
                             rounded-full
                             bg-blue-100/70
+                            dark:bg-blue-600/10
                             blur-3xl
                         "
                     />
@@ -551,6 +556,7 @@ function Home() {
                             w-[450px]
                             rounded-full
                             bg-indigo-100/60
+                            dark:bg-indigo-600/10
                             blur-3xl
                         "
                     />
@@ -593,7 +599,9 @@ function Home() {
                                     rounded-full
                                     border
                                     border-blue-100
+                                    dark:border-blue-500/20
                                     bg-blue-50
+                                    dark:bg-blue-500/10
                                     px-3.5
                                     py-1.5
                                     text-xs
@@ -601,6 +609,7 @@ function Home() {
                                     uppercase
                                     tracking-wider
                                     text-blue-600
+                                    dark:text-blue-400
                                 "
                             >
 
@@ -610,6 +619,7 @@ function Home() {
                                         w-1.5
                                         rounded-full
                                         bg-blue-600
+                                        dark:bg-blue-400
                                     "
                                 />
 
@@ -628,6 +638,7 @@ function Home() {
                                     leading-[1.08]
                                     tracking-tight
                                     text-slate-950
+                                    dark:text-white
                                     sm:min-h-[125px]
                                     sm:text-5xl
                                     lg:text-6xl
@@ -699,6 +710,7 @@ function Home() {
                                     text-base
                                     leading-7
                                     text-slate-500
+                                    dark:text-neutral-400
                                     sm:text-lg
                                     sm:leading-8
                                 "
@@ -777,16 +789,22 @@ function Home() {
                                         rounded-xl
                                         border
                                         border-slate-200
+                                        dark:border-neutral-800
                                         bg-white
+                                        dark:bg-neutral-900
                                         px-6
                                         text-sm
                                         font-semibold
                                         text-slate-700
+                                        dark:text-neutral-200
                                         shadow-sm
                                         transition
                                         hover:border-blue-200
+                                        dark:hover:border-neutral-700
                                         hover:bg-blue-50
+                                        dark:hover:bg-neutral-800
                                         hover:text-blue-600
+                                        dark:hover:text-white
                                     "
                                 >
 
@@ -812,17 +830,20 @@ function Home() {
                                         border
                                         border-cyan-500/30
                                         bg-cyan-500/10
+                                        dark:bg-cyan-500/20
                                         px-5
                                         text-sm
                                         font-bold
                                         text-cyan-700
+                                        dark:text-cyan-300
                                         shadow-sm
                                         transition
                                         hover:bg-cyan-500/20
+                                        dark:hover:bg-cyan-500/30
                                         hover:border-cyan-500/50
                                     "
                                 >
-                                    <Code2 size={18} className="text-cyan-600" />
+                                    <Code2 size={18} className="text-cyan-600 dark:text-cyan-400" />
                                     <span>Developer Hub</span>
                                 </button>
 
@@ -855,12 +876,13 @@ function Home() {
                                             gap-2
                                             text-sm
                                             text-slate-500
+                                            dark:text-neutral-400
                                         "
                                     >
 
                                         <CheckCircle2
                                             size={16}
-                                            className="text-blue-600"
+                                            className="text-blue-600 dark:text-blue-400"
                                         />
 
                                         {item}
@@ -884,10 +906,15 @@ function Home() {
                                     rounded-3xl
                                     border
                                     border-slate-200
+                                    dark:border-neutral-800
                                     bg-white
+                                    dark:bg-[#0c0e16]
                                     p-5
                                     shadow-[0_25px_70px_rgba(37,99,235,0.10)]
+                                    dark:shadow-2xl
                                     sm:p-7
+                                    transition-colors
+                                    duration-200
                                 "
                             >
 
@@ -912,6 +939,7 @@ function Home() {
                                                 uppercase
                                                 tracking-wider
                                                 text-slate-400
+                                                dark:text-neutral-500
                                             "
                                         >
                                             Your workspace
@@ -923,6 +951,7 @@ function Home() {
                                                 text-lg
                                                 font-bold
                                                 text-slate-900
+                                                dark:text-white
                                             "
                                         >
                                             Digital Assets
@@ -940,7 +969,9 @@ function Home() {
                                             justify-center
                                             rounded-xl
                                             bg-blue-50
+                                            dark:bg-blue-500/10
                                             text-blue-600
+                                            dark:text-blue-400
                                         "
                                     >
 
@@ -978,13 +1009,17 @@ function Home() {
                                                     rounded-2xl
                                                     border
                                                     border-slate-100
+                                                    dark:border-neutral-800
                                                     bg-slate-50/70
+                                                    dark:bg-[#12151e]
                                                     p-3.5
                                                     transition
                                                     duration-200
                                                     hover:-translate-y-0.5
                                                     hover:border-blue-100
+                                                    dark:hover:border-neutral-700
                                                     hover:bg-white
+                                                    dark:hover:bg-[#161a26]
                                                     hover:shadow-md
                                                 "
                                             >
@@ -999,6 +1034,7 @@ function Home() {
                                                         justify-center
                                                         rounded-xl
                                                         border
+                                                        dark:border-transparent
                                                         ${className}
                                                     `}
                                                 >
@@ -1015,6 +1051,7 @@ function Home() {
                                                         text-sm
                                                         font-medium
                                                         text-slate-700
+                                                        dark:text-neutral-200
                                                     "
                                                 >
                                                     {title}
@@ -1040,6 +1077,11 @@ function Home() {
                                         bg-gradient-to-r
                                         from-blue-50
                                         to-indigo-50
+                                        dark:from-neutral-900/80
+                                        dark:to-neutral-900/80
+                                        border
+                                        border-transparent
+                                        dark:border-neutral-800
                                         px-4
                                         py-3
                                     "
@@ -1055,7 +1097,7 @@ function Home() {
 
                                         <ShieldCheck
                                             size={17}
-                                            className="text-blue-600"
+                                            className="text-blue-600 dark:text-blue-400"
                                         />
 
                                         <span
@@ -1063,6 +1105,7 @@ function Home() {
                                                 text-xs
                                                 font-semibold
                                                 text-blue-600
+                                                dark:text-blue-400
                                             "
                                         >
                                             One secure workspace
@@ -1073,7 +1116,7 @@ function Home() {
 
                                     <ArrowRight
                                         size={16}
-                                        className="text-blue-600"
+                                        className="text-blue-600 dark:text-blue-400"
                                     />
 
                                 </div>
@@ -1095,6 +1138,8 @@ function Home() {
                                     bg-gradient-to-br
                                     from-blue-100
                                     to-indigo-100
+                                    dark:from-blue-950/20
+                                    dark:to-indigo-950/20
                                 "
                             />
 
@@ -1114,12 +1159,15 @@ function Home() {
                     className="
                         scroll-mt-20
                         bg-[#f8fafc]
+                        dark:bg-[#06080e]
                         px-5
                         py-16
                         sm:px-8
                         sm:py-20
                         lg:px-10
                         lg:py-24
+                        transition-colors
+                        duration-200
                     "
                 >
 
@@ -1148,6 +1196,7 @@ function Home() {
                                     uppercase
                                     tracking-[0.18em]
                                     text-blue-600
+                                    dark:text-blue-400
                                 "
                             >
                                 Why Calvion
@@ -1161,6 +1210,7 @@ function Home() {
                                     font-bold
                                     tracking-tight
                                     text-slate-950
+                                    dark:text-white
                                     sm:text-4xl
                                 "
                             >
@@ -1174,6 +1224,7 @@ function Home() {
                                     text-base
                                     leading-7
                                     text-slate-500
+                                    dark:text-neutral-400
                                 "
                             >
                                 A simple workspace for managing
@@ -1210,15 +1261,19 @@ function Home() {
                                             rounded-2xl
                                             border
                                             border-slate-200
+                                            dark:border-neutral-800
                                             bg-white
+                                            dark:bg-[#0c0e16]
                                             p-6
                                             shadow-sm
                                             transition
                                             duration-300
                                             hover:-translate-y-1
                                             hover:border-blue-200
+                                            dark:hover:border-neutral-700
                                             hover:shadow-xl
                                             hover:shadow-blue-100/40
+                                            dark:hover:shadow-black/50
                                         "
                                     >
 
@@ -1231,6 +1286,7 @@ function Home() {
                                                 justify-center
                                                 rounded-xl
                                                 ${className}
+                                                dark:border-transparent
                                                 transition
                                                 duration-300
                                                 group-hover:scale-105
@@ -1248,8 +1304,10 @@ function Home() {
                                                 text-lg
                                                 font-bold
                                                 text-slate-900
+                                                dark:text-white
                                                 transition
                                                 group-hover:text-blue-600
+                                                dark:group-hover:text-cyan-400
                                             "
                                         >
                                             {title}
@@ -1262,6 +1320,7 @@ function Home() {
                                                 text-sm
                                                 leading-6
                                                 text-slate-500
+                                                dark:text-neutral-400
                                             "
                                         >
                                             {description}
@@ -1473,12 +1532,16 @@ function Home() {
                         scroll-mt-20
                         border-y
                         border-slate-200
+                        dark:border-neutral-800/80
                         bg-white
+                        dark:bg-[#07090e]
                         px-5
                         py-16
                         sm:px-8
                         sm:py-20
                         lg:px-10
+                        transition-colors
+                        duration-200
                     "
                 >
 
@@ -1500,9 +1563,12 @@ function Home() {
                                 justify-center
                                 rounded-2xl
                                 bg-blue-50
+                                dark:bg-blue-500/10
                                 text-blue-600
+                                dark:text-blue-400
                                 ring-1
                                 ring-blue-100
+                                dark:ring-blue-500/20
                             "
                         >
 
@@ -1519,6 +1585,7 @@ function Home() {
                                 uppercase
                                 tracking-[0.18em]
                                 text-blue-600
+                                dark:text-blue-400
                             "
                         >
                             Security First
@@ -1532,6 +1599,7 @@ function Home() {
                                 font-bold
                                 tracking-tight
                                 text-slate-950
+                                dark:text-white
                                 sm:text-4xl
                             "
                         >
@@ -1547,6 +1615,7 @@ function Home() {
                                 text-base
                                 leading-7
                                 text-slate-500
+                                dark:text-neutral-400
                             "
                         >
                             Authentication, OTP verification and
@@ -1577,12 +1646,15 @@ function Home() {
                                         rounded-full
                                         border
                                         border-blue-100
+                                        dark:border-neutral-800
                                         bg-blue-50
+                                        dark:bg-neutral-900/80
                                         px-4
                                         py-2
                                         text-sm
                                         font-medium
                                         text-blue-600
+                                        dark:text-cyan-400
                                     "
                                 >
                                     {item}
@@ -1603,11 +1675,15 @@ function Home() {
 
                 <section
                     className="
+                        bg-slate-50
+                        dark:bg-[#06080e]
                         px-5
                         py-16
                         sm:px-8
                         sm:py-20
                         lg:px-10
+                        transition-colors
+                        duration-200
                     "
                 >
 
@@ -1620,17 +1696,24 @@ function Home() {
                             rounded-3xl
                             border
                             border-blue-100
+                            dark:border-neutral-800
                             bg-gradient-to-br
                             from-blue-50
                             via-white
                             to-indigo-50
+                            dark:from-[#0d121e]
+                            dark:via-[#090d16]
+                            dark:to-[#0d121e]
                             px-6
                             py-14
                             text-center
                             shadow-xl
                             shadow-blue-100/50
+                            dark:shadow-2xl
                             sm:px-12
                             sm:py-16
+                            transition-colors
+                            duration-200
                         "
                     >
 
@@ -1644,6 +1727,7 @@ function Home() {
                                 w-64
                                 rounded-full
                                 bg-blue-100/80
+                                dark:bg-blue-600/10
                                 blur-3xl
                             "
                         />
@@ -1658,6 +1742,7 @@ function Home() {
                                 w-64
                                 rounded-full
                                 bg-indigo-100/70
+                                dark:bg-indigo-600/10
                                 blur-3xl
                             "
                         />
@@ -1676,10 +1761,13 @@ function Home() {
                                     justify-center
                                     rounded-2xl
                                     bg-white
+                                    dark:bg-neutral-800
                                     text-blue-600
+                                    dark:text-cyan-400
                                     shadow-sm
                                     ring-1
                                     ring-blue-100
+                                    dark:ring-neutral-700
                                 "
                             >
 
@@ -1695,6 +1783,7 @@ function Home() {
                                     font-bold
                                     tracking-tight
                                     text-slate-950
+                                    dark:text-white
                                     sm:text-4xl
                                 "
                             >
@@ -1711,6 +1800,7 @@ function Home() {
                                     text-sm
                                     leading-6
                                     text-slate-500
+                                    dark:text-neutral-400
                                     sm:text-base
                                 "
                             >
@@ -1772,7 +1862,11 @@ function Home() {
                 className="
                     border-t
                     border-slate-200
+                    dark:border-neutral-800
                     bg-white
+                    dark:bg-[#06080e]
+                    transition-colors
+                    duration-200
                 "
             >
 
@@ -1834,6 +1928,7 @@ function Home() {
                             className="
                                 font-bold
                                 text-slate-900
+                                dark:text-white
                             "
                         >
                             Calvion
@@ -1850,6 +1945,7 @@ function Home() {
                             text-xs
                             leading-5
                             text-slate-400
+                            dark:text-neutral-500
                             lg:text-right
                         "
                     >
