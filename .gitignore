@@ -57,3 +57,7 @@ backend/uploads/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Local Server Runner Scripts
+start-server.bat
+stop-server.bat

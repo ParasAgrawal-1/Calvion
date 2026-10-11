@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Sun, Moon } from "lucide-react";
+import { Mail, ShieldCheck } from "lucide-react";
 import api from "../services/api";
-import { useTheme } from "../context/ThemeContext";
-import "../styles/auth.css";
+import AuthHeader from "../components/AuthHeader";
 
 function VerifyRegistrationOtp() {
     const navigate = useNavigate();
-    const { theme, setTheme } = useTheme();
 
     // Get registration data BEFORE rendering
     const email = localStorage.getItem("registerEmail");
@@ -91,218 +89,155 @@ function VerifyRegistrationOtp() {
     };
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] text-slate-900 dark:bg-[#06070a] dark:text-neutral-100 transition-colors duration-200 flex flex-col justify-between">
-            {/* UNIFIED DEVELOPER HUB STYLE HEADER */}
-            <header className="sticky top-0 z-50 border-b border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#07090e] shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-colors duration-200">
-                <div className="mx-auto flex h-16 w-full max-w-[1920px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
+        <div className="min-h-screen bg-[#f8fafc] text-slate-900 dark:bg-[#06070a] dark:text-neutral-100 transition-colors duration-200 flex flex-col">
+            <AuthHeader
+                backTo="/register"
+                backLabel="Register"
+                rightAction={{
+                    label: "Sign In",
+                    onClick: () => navigate("/login"),
+                }}
+            />
 
-                    {/* LEFT: BACK BUTTON & BRAND */}
-                    <div className="flex items-center gap-2.5 sm:gap-3.5">
-                        <button
-                            type="button"
-                            onClick={() => navigate("/register")}
-                            className="group flex items-center gap-1.5 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-slate-50/80 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm"
-                            title="Return to Register"
-                        >
-                            <ArrowLeft size={13} className="text-slate-400 dark:text-neutral-400 group-hover:text-cyan-500 group-hover:-translate-x-0.5 transition-all duration-200" />
-                            <span className="hidden sm:inline">Register</span>
-                        </button>
+            {/* MAIN */}
+            <main className="relative flex flex-1 items-center justify-center px-4 py-10 sm:px-6">
 
-                        <div className="h-5 w-px bg-slate-200/80 dark:bg-neutral-800" />
-
-                        <div className="flex items-center gap-2.5">
-                            <div className="relative group flex h-9 w-9 shrink-0 items-center justify-center rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 shadow-sm shadow-cyan-500/25">
-                                <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-white dark:bg-[#0c0e14] overflow-hidden p-1 transition duration-200">
-                                    <img
-                                        src="/calvion-icon.png"
-                                        alt="Calvion"
-                                        className="h-full w-full object-contain"
-                                    />
-                                </div>
-                            </div>
-                            <div className="text-left">
-                                <div className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-white flex items-center">
-                                    Calvion
-                                    <span className="ml-1.5 font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent text-xs uppercase tracking-wider">
-                                        Cloud
-                                    </span>
-                                </div>
-                                <div className="hidden text-[10.5px] font-medium text-slate-400 dark:text-neutral-500 sm:block -mt-0.5">
-                                    Digital Asset Manager
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* RIGHT ACTIONS */}
-                    <div className="flex items-center gap-2 sm:gap-3">
-                        {/* THEME TOGGLE */}
-                        <button
-                            type="button"
-                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="group relative flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#12141c] text-slate-600 dark:text-neutral-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500/40 dark:hover:border-cyan-500/40 shadow-sm transition-all duration-200"
-                            title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
-                            aria-label="Toggle Theme"
-                        >
-                            {theme === "dark" ? (
-                                <Sun size={16} className="text-amber-400 transition-transform duration-300 group-hover:rotate-45" />
-                            ) : (
-                                <Moon size={16} className="text-indigo-600 transition-transform duration-300 group-hover:-rotate-12" />
-                            )}
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() => navigate("/login")}
-                            className="rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-slate-50/80 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] px-3.5 py-1.5 text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-white transition-all duration-200 shadow-sm"
-                        >
-                            Sign In
-                        </button>
-                    </div>
-
-                </div>
-            </header>
-
-            {/* MAIN CONTENT */}
-            <main className="relative flex min-h-[calc(100vh-64px)] items-center justify-center px-4 py-10 sm:px-6">
                 {/* BACKGROUND GLOW */}
                 <div className="pointer-events-none fixed inset-0 overflow-hidden -z-10">
                     <div className="absolute -top-40 right-1/4 h-[450px] w-[450px] rounded-full bg-cyan-500/5 dark:bg-cyan-600/10 blur-3xl" />
                     <div className="absolute -bottom-40 left-1/4 h-[450px] w-[450px] rounded-full bg-blue-500/5 dark:bg-blue-600/10 blur-3xl" />
                 </div>
 
-                <div className="auth-wrapper" style={{ maxWidth: "500px", width: "100%" }}>
+                <div className="w-full max-w-[480px]">
 
-
-                {/* ================= OTP CARD ================= */}
-
-                <section className="auth-card">
-
-                    <div className="auth-header">
-
-                        <div className="otp-icon">
-                            ✉
+                    {/* ICON + HEADING */}
+                    <div className="mb-8 text-center">
+                        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25">
+                            <Mail size={26} />
                         </div>
-
-                        <h1>
+                        <h1 className="text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white">
                             Verify your email
                         </h1>
-
-                        <p>
+                        <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-neutral-400">
                             We've sent a 6-digit verification code to
                         </p>
-
                         {email && (
-                            <strong className="otp-email">
+                            <p className="mt-1 text-sm font-semibold text-slate-700 dark:text-neutral-300">
                                 {email}
-                            </strong>
+                            </p>
                         )}
-
                     </div>
 
+                    {/* CARD */}
+                    <div className="rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 shadow-xl shadow-slate-200/50 dark:shadow-none sm:p-8 transition-colors duration-200">
 
-                    {/* ================= DEMO OTP ================= */}
-
-                    {demoOtp && (
-                        <div className="auth-success-message">
-                            Demo OTP:{" "}
-                            <strong>{demoOtp}</strong>
-                        </div>
-                    )}
-
-
-                    {/* ================= OTP FORM ================= */}
-
-                    <form onSubmit={handleVerifyOtp}>
-
-                        <div className="form-group">
-
-                            <label htmlFor="otp">
-                                Verification code
-                            </label>
-
-                            <input
-                                id="otp"
-                                type="text"
-                                inputMode="numeric"
-                                placeholder="Enter 6-digit code"
-                                value={otp}
-                                onChange={(e) =>
-                                    setOtp(
-                                        e.target.value
-                                            .replace(/\D/g, "")
-                                            .slice(0, 6)
-                                    )
-                                }
-                                maxLength={6}
-                                autoComplete="one-time-code"
-                                required
-                            />
-
-                        </div>
-
-
-                        {/* ================= MESSAGE ================= */}
-
-                        {message && (
-                            <div
-                                className={
-                                    success
-                                        ? "auth-success-message"
-                                        : "auth-message"
-                                }
-                                role="alert"
-                            >
-                                {message}
+                        {/* DEMO OTP */}
+                        {demoOtp && (
+                            <div className="mb-6 rounded-xl border border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/30 px-4 py-3">
+                                <p className="text-sm font-medium text-blue-700 dark:text-blue-400">
+                                    Demo OTP: <strong>{demoOtp}</strong>
+                                </p>
                             </div>
                         )}
 
+                        {/* MESSAGE */}
+                        {message && (
+                            <div
+                                className={`mb-6 rounded-xl border px-4 py-3 ${
+                                    success
+                                        ? "border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-950/30"
+                                        : "border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/30"
+                                }`}
+                                role="alert"
+                            >
+                                <p className={`text-sm font-medium leading-5 ${
+                                    success
+                                        ? "text-green-700 dark:text-green-400"
+                                        : "text-red-700 dark:text-red-400"
+                                }`}>
+                                    {message}
+                                </p>
+                            </div>
+                        )}
 
-                        {/* ================= VERIFY BUTTON ================= */}
+                        {/* FORM */}
+                        <form onSubmit={handleVerifyOtp} className="space-y-5">
 
-                        <button
-                            type="submit"
-                            className="auth-button"
-                            disabled={
-                                loading ||
-                                otp.length !== 6
-                            }
-                        >
-                            {loading
-                                ? "Verifying..."
-                                : "Verify email"}
-                        </button>
+                            {/* OTP INPUT */}
+                            <div>
+                                <label
+                                    htmlFor="otp"
+                                    className="mb-2 block text-sm font-semibold text-slate-700 dark:text-neutral-300"
+                                >
+                                    Verification code
+                                </label>
+                                <input
+                                    id="otp"
+                                    type="text"
+                                    inputMode="numeric"
+                                    placeholder="Enter 6-digit code"
+                                    value={otp}
+                                    onChange={(e) =>
+                                        setOtp(
+                                            e.target.value
+                                                .replace(/\D/g, "")
+                                                .slice(0, 6)
+                                        )
+                                    }
+                                    maxLength={6}
+                                    autoComplete="one-time-code"
+                                    required
+                                    className="h-12 w-full rounded-xl border border-slate-200 dark:border-neutral-800 bg-slate-50/70 dark:bg-[#121318] px-4 text-center text-2xl font-bold tracking-[0.5em] text-slate-900 dark:text-white outline-none transition placeholder:text-slate-300 dark:placeholder:text-neutral-600 focus:border-cyan-500 dark:focus:border-cyan-400 focus:bg-white dark:focus:bg-[#121318] focus:ring-4 focus:ring-cyan-500/10 dark:focus:ring-cyan-500/20"
+                                />
+                            </div>
 
-                    </form>
+                            {/* SUBMIT */}
+                            <button
+                                type="submit"
+                                disabled={loading || otp.length !== 6 || success}
+                                className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-5 text-sm font-bold text-white shadow-lg shadow-cyan-500/25 transition hover:from-cyan-600 hover:to-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                            >
+                                {loading ? (
+                                    <>
+                                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                                        Verifying...
+                                    </>
+                                ) : success ? (
+                                    <>
+                                        <ShieldCheck size={17} />
+                                        Verified!
+                                    </>
+                                ) : (
+                                    <>
+                                        <ShieldCheck size={17} />
+                                        Verify email
+                                    </>
+                                )}
+                            </button>
 
+                        </form>
 
-                    {/* ================= FOOTER ================= */}
-
-                    <div className="auth-footer">
-
-                        <p>
-                            Entered the wrong email?
-                        </p>
-
-                        <button
-                            type="button"
-                            className="create-account-link"
-                            onClick={() =>
-                                navigate("/register")
-                            }
-                        >
-                            Go back to registration
-                        </button>
+                        {/* FOOTER */}
+                        <div className="mt-7 border-t border-slate-100 dark:border-neutral-800/80 pt-6 text-center">
+                            <p className="text-sm text-slate-500 dark:text-neutral-400">
+                                Entered the wrong email?{" "}
+                                <button
+                                    type="button"
+                                    onClick={() => navigate("/register")}
+                                    className="font-semibold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 transition"
+                                >
+                                    Go back to registration
+                                </button>
+                            </p>
+                        </div>
 
                     </div>
 
-                </section>
+                </div>
 
-            </div>
+            </main>
 
-        </main>
-
-    </div>
+        </div>
     );
 }
 
