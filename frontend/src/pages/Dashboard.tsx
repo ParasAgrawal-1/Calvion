@@ -635,18 +635,27 @@ export default function Dashboard() {
 
                         <div>
 
-                            {/* BADGE */}
+                            {/* BADGES */}
 
-                            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-blue-700 shadow-sm backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/80 dark:text-cyan-400">
+                            <div className="mb-4 flex flex-wrap items-center gap-2">
+                                <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/90 px-3 py-1.5 text-xs font-semibold text-blue-700 shadow-xs backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-800/90 dark:text-cyan-400 font-mono">
+                                    <User
+                                        size={13}
+                                        className="text-cyan-600 dark:text-cyan-400"
+                                    />
+                                    OPERATOR: {userName}
+                                </div>
 
-                                <User
-                                    size={14}
-                                    className="text-cyan-600 dark:text-cyan-400"
-                                />
+                                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 font-mono shadow-xs">
+                                    <span className="pulse-dot-green"></span>
+                                    ENGINE: LOCAL NODE
+                                </div>
 
-                                Personal Workspace
-
+                                <div className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-cyan-500/25 bg-cyan-500/10 px-3 py-1.5 text-xs font-semibold text-cyan-700 dark:text-cyan-400 font-mono shadow-xs">
+                                    AES-256-GCM ACTIVE
+                                </div>
                             </div>
+
 
 
                             {/* HEADING */}

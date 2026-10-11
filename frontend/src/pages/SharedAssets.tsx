@@ -786,31 +786,35 @@ export default function SharedAssets() {
 
                     <div>
 
-                        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700 dark:border-cyan-900/60 dark:bg-cyan-950/40 dark:text-cyan-400">
-
-                            <UserRound
-                                size={13}
-                            />
-
-                            Shared Workspace
-
+                        <div className="mb-3 flex flex-wrap items-center gap-2">
+                            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700 dark:border-cyan-900/60 dark:bg-cyan-950/40 dark:text-cyan-400 font-mono">
+                                <UserRound
+                                    size={13}
+                                />
+                                ACCESS REPOSITORY
+                            </div>
+                            <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 font-mono">
+                                <span className="pulse-dot-green"></span>
+                                MULTI-TENANT RBAC
+                            </div>
                         </div>
 
 
-                        <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl dark:text-white">
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-950 dark:text-white">
 
                             Shared With Me
 
                         </h1>
 
 
-                        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base dark:text-neutral-400">
+                        <p className="mt-2.5 text-xs font-mono text-slate-500 dark:text-neutral-400">
 
-                            Assets that other Calvion users have shared with you.
+                            GRANULAR PERMISSION VAULT • ROLES & TIME-BOUND ACCESS CONTROL
 
                         </p>
 
                     </div>
+
 
 
                     {/* REFRESH */}

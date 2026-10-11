@@ -840,9 +840,10 @@ function Home() {
                             >
 
                                 {[
-                                    "Secure workspace",
-                                    "OTP verification",
-                                    "Easy organization",
+                                    "Zero-Knowledge Architecture",
+                                    "AES-256-GCM Cryptographic Vault",
+                                    "Time-Limited OTP Security",
+                                    "Self-Hosted Private Storage",
                                 ].map((item) => (
 
                                     <div
@@ -851,15 +852,16 @@ function Home() {
                                             flex
                                             items-center
                                             gap-2
-                                            text-sm
-                                            text-slate-500
-                                            dark:text-neutral-400
+                                            text-xs sm:text-sm
+                                            font-medium
+                                            text-slate-600
+                                            dark:text-neutral-300
                                         "
                                     >
 
                                         <CheckCircle2
                                             size={16}
-                                            className="text-blue-600 dark:text-cyan-400"
+                                            className="text-cyan-600 dark:text-cyan-400 shrink-0"
                                         />
 
                                         {item}
@@ -867,6 +869,7 @@ function Home() {
                                     </div>
 
                                 ))}
+
 
                             </div>
 
@@ -1130,10 +1133,46 @@ function Home() {
 
                 </section>
 
+                {/* =====================================================
+                    AWS/IBM STYLE GLOBAL CLOUD METRICS & TRUST BANNER
+                ===================================================== */}
+                <section className="border-y border-slate-200/80 dark:border-white/[0.08] bg-slate-50/90 dark:bg-[#0a0d15] py-9 px-5 sm:px-8">
+                    <div className="mx-auto max-w-[1720px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
+                        <div className="flex flex-col gap-1.5 sm:border-r border-slate-200/80 dark:border-white/[0.08] pr-4">
+                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-neutral-400">Security Standard</span>
+                            <span className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-mono flex items-center gap-2">
+                                <span className="pulse-dot-green"></span> AES-256-GCM
+                            </span>
+                            <span className="text-xs text-slate-500 dark:text-neutral-500">Zero-knowledge client-side encryption</span>
+                        </div>
+                        <div className="flex flex-col gap-1.5 lg:border-r border-slate-200/80 dark:border-white/[0.08] pr-4">
+                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-neutral-400">Data Integrity</span>
+                            <span className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-mono">
+                                SHA-256 Checksum
+                            </span>
+                            <span className="text-xs text-slate-500 dark:text-neutral-500">Immutable fingerprint validation</span>
+                        </div>
+                        <div className="flex flex-col gap-1.5 sm:border-r border-slate-200/80 dark:border-white/[0.08] pr-4">
+                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-neutral-400">Infrastructure Node</span>
+                            <span className="text-xl sm:text-2xl font-black text-cyan-600 dark:text-cyan-400 font-mono">
+                                Self-Hosted Node
+                            </span>
+                            <span className="text-xs text-slate-500 dark:text-neutral-500">Zero cloud vendor lock-in & privacy</span>
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-neutral-400">Authentication</span>
+                            <span className="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono">
+                                Cryptographic OTP
+                            </span>
+                            <span className="text-xs text-slate-500 dark:text-neutral-500">Time-limited authentication tokens</span>
+                        </div>
+                    </div>
+                </section>
 
                 {/* =====================================================
                     FEATURES
                 ===================================================== */}
+
 
                 <section
                     id="features"

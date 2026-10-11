@@ -780,6 +780,15 @@ export default function AppNavbar({
 
                 </button>
 
+                {/* ENTERPRISE CLOUD STATUS PILL */}
+                <div className="hidden xl:flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-slate-100/90 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-[11.5px] font-mono shadow-xs">
+                    <span className="pulse-dot-green"></span>
+                    <span className="font-semibold text-slate-700 dark:text-neutral-300 tracking-wide">NODE ACTIVE</span>
+                    <span className="text-slate-300 dark:text-neutral-700">•</span>
+                    <span className="text-cyan-600 dark:text-cyan-400 font-bold">AES-256-GCM</span>
+                </div>
+
+
 
                 {/* =================================================
                     RIGHT SIDE
@@ -893,8 +902,18 @@ export default function AppNavbar({
 
                     </nav>
 
+                    {/* QUICK ACTION: NEW ASSET */}
+                    <button
+                        type="button"
+                        onClick={() => goTo("/add-asset")}
+                        className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-3.5 py-2 text-xs font-bold shadow-md shadow-blue-500/20 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+                    >
+                        <Plus size={14} className="stroke-[2.5]" />
+                        <span>New Asset</span>
+                    </button>
 
                     {/* THEME TOGGLE (Sun / Moon) */}
+
                     <button
                         type="button"
                         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}

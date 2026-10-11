@@ -1061,36 +1061,37 @@ const MyAssets = () => {
 
                     <div>
 
-                        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-blue-700 dark:border-neutral-700 dark:bg-neutral-800/80 dark:text-cyan-400">
-
-                            <Database
-                                size={13}
-                            />
-
-                            Your digital workspace
-
+                        <div className="mb-3 flex flex-wrap items-center gap-2">
+                            <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-blue-700 dark:border-neutral-700 dark:bg-neutral-800/80 dark:text-cyan-400 font-mono">
+                                <Database size={13} className="text-cyan-600 dark:text-cyan-400" />
+                                CLOUD VAULT INVENTORY
+                            </div>
+                            <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 font-mono">
+                                <span className="pulse-dot-green"></span>
+                                ZERO-KNOWLEDGE E2EE
+                            </div>
                         </div>
 
 
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-slate-950 dark:text-white">
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight text-slate-950 dark:text-white">
 
                             My Assets
 
                         </h1>
 
 
-                        <p className="mt-3 text-[15px] leading-6 text-slate-500 dark:text-neutral-400">
+                        <p className="mt-2.5 text-[15px] leading-6 text-slate-500 dark:text-neutral-400 font-mono text-xs">
 
                             {totalAssets}{" "}
 
                             {
                                 totalAssets ===
                                 1
-                                    ? "asset"
-                                    : "assets"
+                                    ? "OBJECT"
+                                    : "OBJECTS"
                             }
 
-                            {" "}stored securely in your workspace.
+                            {" "}• ENCRYPTED AT REST (AES-256-GCM)
 
                         </p>
 
@@ -1106,17 +1107,18 @@ const MyAssets = () => {
                                 "/add-asset"
                             )
                         }
-                        className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 text-sm font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-100"
+                        className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 px-6 text-sm font-bold text-white shadow-md shadow-blue-500/25 transition duration-200 hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-100"
                     >
 
                         <Plus
-                            size={19}
-                            strokeWidth={2.2}
+                            size={18}
+                            strokeWidth={2.5}
                         />
 
                         Add Asset
 
                     </button>
+
 
                 </section>
 
