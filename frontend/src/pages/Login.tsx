@@ -6,12 +6,12 @@ import {
     Mail,
     ShieldCheck,
     ArrowRight,
+    ArrowLeft,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import api from "../services/api";
-import AuthHeader from "../components/AuthHeader";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -306,17 +306,39 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] text-slate-900 dark:bg-[#06070a] dark:text-neutral-100 transition-colors duration-200 flex flex-col justify-between">
+        <div className="cv-root min-h-screen bg-white text-slate-900 dark:bg-[#000000] dark:text-slate-100 transition-colors duration-200 flex flex-col justify-between">
 
-            <AuthHeader
-                backTo="/"
-                backLabel="Home"
-                rightAction={{
-                    label: "Register",
-                    hint: "Don't have an account?",
-                    onClick: () => navigate("/register"),
-                }}
-            />
+            {/* HEADER — aligned with the Calvion home page */}
+            <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-white/10 dark:bg-[#000000]/90">
+                <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+                    <Link
+                        to="/"
+                        aria-label="Calvion home"
+                        className="flex shrink-0 items-center gap-2.5 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-black"
+                    >
+                        <img
+                            src="/calvion-icon.png"
+                            alt=""
+                            width={32}
+                            height={32}
+                            decoding="async"
+                            className="h-8 w-8 rounded-lg object-contain"
+                        />
+                        <span className="cv-display text-lg font-bold text-slate-950 dark:text-white">
+                            Calvion
+                        </span>
+                    </Link>
+
+                    <button
+                        type="button"
+                        onClick={() => navigate("/")}
+                        className="inline-flex h-9 items-center rounded-lg bg-transparent px-4 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:text-neutral-300 dark:hover:bg-white/10 dark:focus-visible:ring-offset-black"
+                        >
+                        <ArrowLeft size={16} aria-hidden="true" />
+                        <span>Back</span>
+                    </button>
+                </div>
+            </header>
 
 
             {/* =================================================
@@ -325,13 +347,6 @@ export default function Login() {
 
             <main className="relative flex min-h-[calc(100vh-64px)] items-center justify-center px-4 py-10 sm:px-6">
 
-                {/* BACKGROUND GLOW */}
-
-                <div className="pointer-events-none fixed inset-0 overflow-hidden -z-10">
-                    <div className="absolute -top-40 right-1/4 h-[450px] w-[450px] rounded-full bg-cyan-500/5 dark:bg-cyan-600/10 blur-3xl" />
-                    <div className="absolute -bottom-40 left-1/4 h-[450px] w-[450px] rounded-full bg-blue-500/5 dark:bg-blue-600/10 blur-3xl" />
-                </div>
-
                 <div className="w-full max-w-[480px]">
 
 
@@ -339,7 +354,7 @@ export default function Login() {
 
                     <div className="mb-8 text-center">
 
-                        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25">
+                        <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-700 dark:bg-indigo-400/10 dark:text-indigo-300">
 
                             <ShieldCheck
                                 size={28}
@@ -347,7 +362,7 @@ export default function Login() {
 
                         </div>
 
-                        <h1 className="text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white">
+                        <h1 className="cv-display text-3xl font-bold tracking-tight text-slate-950 dark:text-white">
                             Welcome back
                         </h1>
 
@@ -362,7 +377,7 @@ export default function Login() {
                         LOGIN CARD
                     ================================================= */}
 
-                    <div className="rounded-3xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-[#0c0c0e] p-6 shadow-xl shadow-slate-200/50 dark:shadow-none sm:p-8 transition-colors duration-200">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#000000] dark:shadow-none sm:p-8 transition-colors duration-200">
 
 
                         {/* ERROR */}
@@ -426,7 +441,7 @@ export default function Login() {
                                         disabled={
                                             loading
                                         }
-                                        className="h-12 w-full rounded-xl border border-slate-200 dark:border-neutral-800 bg-slate-50/70 dark:bg-[#121318] pl-11 pr-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-neutral-500 focus:border-cyan-500 dark:focus:border-cyan-400 focus:bg-white dark:focus:bg-[#121318] focus:ring-4 focus:ring-cyan-500/10 dark:focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-60"
+                                        className="h-12 w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#0a0a0a] pl-11 pr-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-neutral-500 focus:border-indigo-500 dark:focus:border-indigo-400 focus:bg-white dark:focus:bg-[#0a0a0a] focus:ring-4 focus:ring-indigo-500/10 dark:focus:ring-indigo-400/10 disabled:cursor-not-allowed disabled:opacity-60"
                                     />
 
                                 </div>
@@ -450,7 +465,7 @@ export default function Login() {
 
                                     <Link
                                         to="/forgot-password"
-                                        className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 transition"
+                                        className="text-xs font-semibold text-indigo-700 dark:text-indigo-300 hover:text-indigo-800 dark:hover:text-indigo-200 transition"
                                     >
                                         Forgot password?
                                     </Link>
@@ -488,7 +503,7 @@ export default function Login() {
                                         disabled={
                                             loading
                                         }
-                                        className="h-12 w-full rounded-xl border border-slate-200 dark:border-neutral-800 bg-slate-50/70 dark:bg-[#121318] pl-11 pr-12 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-neutral-500 focus:border-cyan-500 dark:focus:border-cyan-400 focus:bg-white dark:focus:bg-[#121318] focus:ring-4 focus:ring-cyan-500/10 dark:focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-60"
+                                        className="h-12 w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#0a0a0a] pl-11 pr-12 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-neutral-500 focus:border-indigo-500 dark:focus:border-indigo-400 focus:bg-white dark:focus:bg-[#0a0a0a] focus:ring-4 focus:ring-indigo-500/10 dark:focus:ring-indigo-400/10 disabled:cursor-not-allowed disabled:opacity-60"
                                     />
 
 
@@ -539,7 +554,7 @@ export default function Login() {
                                 disabled={
                                     loading
                                 }
-                                className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-5 text-sm font-bold text-white shadow-lg shadow-cyan-500/25 transition hover:from-cyan-600 hover:to-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                                className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 text-sm font-semibold text-white transition-colors hover:bg-slate-700 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
                             >
 
                                 {loading ? (
@@ -568,7 +583,7 @@ export default function Login() {
 
                         {/* REGISTER */}
 
-                        <div className="mt-7 border-t border-slate-100 dark:border-neutral-800/80 pt-6 text-center">
+                        <div className="mt-7 border-t border-slate-200 dark:border-white/10 pt-6 text-center">
 
                             <p className="text-sm text-slate-500 dark:text-neutral-400">
 
@@ -576,7 +591,7 @@ export default function Login() {
 
                                 <Link
                                     to="/register"
-                                    className="font-semibold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 transition"
+                                    className="font-semibold text-indigo-700 dark:text-indigo-300 hover:text-indigo-800 dark:hover:text-indigo-200 transition"
                                 >
                                     Create one
                                 </Link>

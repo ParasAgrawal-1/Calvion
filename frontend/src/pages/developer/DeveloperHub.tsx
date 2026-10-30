@@ -69,9 +69,7 @@ export const DeveloperHub: React.FC = () => {
                             </div>
                             <span className="text-xs sm:text-sm font-black tracking-tight text-slate-900 dark:text-white flex items-center">
                                 Calvion
-                                <span className="ml-1 font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent text-[10px] sm:text-[11px] uppercase tracking-wider">
-                                    Dev
-                                </span>
+                    
                             </span>
                         </div>
                     </div>
