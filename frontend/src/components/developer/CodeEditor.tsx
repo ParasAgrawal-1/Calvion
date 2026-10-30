@@ -385,6 +385,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     };
 
     const handleRunCode = async () => {
+        if (isRunning) return;
         setIsRunning(true);
         setExecStatus(null);
         setStdout("");
@@ -402,11 +403,20 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                 timeoutSeconds: 7,
             });
 
-            const timeoutPromise = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error("Backend timeout")), 8000)
-            );
+            let backendTimeoutId: ReturnType<typeof setTimeout> | undefined;
+            const timeoutPromise = new Promise((_, reject) => {
+                backendTimeoutId = setTimeout(
+                    () => reject(new Error("Backend timeout")),
+                    8000
+                );
+            });
 
-            const res: any = await Promise.race([backendPromise, timeoutPromise]);
+            let res: any;
+            try {
+                res = await Promise.race([backendPromise, timeoutPromise]);
+            } finally {
+                if (backendTimeoutId) clearTimeout(backendTimeoutId);
+            }
 
             if (res && res.data) {
                 const data = res.data;
@@ -505,7 +515,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                 "editor.background": "#09090b",
                 "editor.foreground": "#f8fafc",
                 "editor.lineHighlightBackground": "#121216",
-                "editorCursor.foreground": "#06b6d4",
+                "editorCursor.foreground": "#22d3ee",
                 "editorLineNumber.foreground": "#52525b",
                 "editorLineNumber.activeForeground": "#22d3ee",
                 "editor.selectionBackground": "#1e293b",
@@ -697,13 +707,25 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
     return (
         <div
-            className={`flex flex-col border border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#09090b] text-slate-800 dark:text-neutral-100 shadow-xl overflow-hidden transition-all duration-200 ${isFullscreen
+            className={`flex flex-col border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#09090b] text-slate-800 dark:text-neutral-100 shadow-2xl shadow-slate-900/5 dark:shadow-black/30 ring-1 ring-slate-900/[0.03] dark:ring-white/[0.03] overflow-hidden transition-all duration-200 ${isFullscreen
                     ? "fixed inset-0 z-50 rounded-none h-screen w-screen"
                     : "w-full h-full rounded-2xl"
                 }`}
         >
+            <style>{`
+                /* Force a visible black I-beam when hovering over the editor. */
+                .monaco-editor,
+                .monaco-editor .overflow-guard,
+                .monaco-editor .monaco-scrollable-element,
+                .monaco-editor .view-lines,
+                .monaco-editor .view-overlays,
+                .monaco-editor .inputarea,
+                .monaco-editor .margin {
+                    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='24' viewBox='0 0 16 24'%3E%3Cpath d='M8 2v20M4 6h8M4 18h8' stroke='%23000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") 8 12, text !important;
+                }
+            `}</style>
             {/* TOP HEADER CONTROLS */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-neutral-800/90 bg-slate-50/90 dark:bg-[#0c0c0f] px-2.5 py-2 sm:px-4 shrink-0">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-neutral-800/90 bg-gradient-to-r from-slate-50 via-white to-slate-50 dark:from-[#0c0c0f] dark:via-[#101014] dark:to-[#0c0c0f] px-2.5 py-2.5 sm:px-4 shrink-0">
                 {/* TOP ROW: TITLE ON LEFT, QUICK RUN ON RIGHT (MOBILE) */}
                 <div className="flex items-center justify-between gap-2 w-full sm:w-auto">
                     {/* LEFT: TITLE & PROBLEM STATUS */}
@@ -718,22 +740,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                         ? `${selectedProblem.id}. ${selectedProblem.title}`
                                         : problemTitle || "Calvion IDE Studio"}
                                 </span>
-                                {selectedProblem ? (
-                                    <span
-                                        className={`shrink-0 rounded-full px-1.5 py-0.2 text-[9.5px] font-bold ring-1 ${selectedProblem.difficulty === "Easy"
-                                                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-emerald-500/30"
-                                                : selectedProblem.difficulty === "Medium"
-                                                    ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-amber-500/30"
-                                                    : "bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-rose-500/30"
-                                            }`}
-                                    >
-                                        {selectedProblem.difficulty}
-                                    </span>
-                                ) : (
-                                    <span className="shrink-0 rounded-full bg-cyan-500/10 px-1.5 py-0.2 text-[9.5px] font-bold text-cyan-600 dark:text-cyan-400 ring-1 ring-cyan-500/30">
-                                        Sandbox
-                                    </span>
-                                )}
+                           
+                                
                             </div>
                         </div>
                     </div>
@@ -1109,7 +1117,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                         }`}
                 >
                     {/* FILE TAB BAR */}
-                    <div className="flex items-center justify-between border-b border-slate-200 dark:border-neutral-800 bg-slate-100/90 dark:bg-[#0c0c0f] px-3 shrink-0 h-9">
+                    <div className="flex items-center justify-between border-b border-slate-200 dark:border-neutral-800 bg-slate-50 dark:bg-[#0c0c0f] px-3 shrink-0 h-10">
                         <div className="flex items-center">
                             <div className="flex items-center gap-1.5 border-t-2 border-cyan-500 bg-white dark:bg-[#09090b] px-3 py-1.5 text-xs font-semibold text-cyan-600 dark:text-cyan-300">
                                 <FileCode size={13} className="text-cyan-500 dark:text-cyan-400" />
@@ -1128,6 +1136,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                     {/* MONACO CODE EDITOR (EXPANDS EXACTLY TO FIT CONTAINER) */}
                     <div className="relative flex-1 min-h-0 bg-white dark:bg-[#09090b]">
                         <Editor
+                            aria-label="Calvion code editor"
                             height="100%"
                             language={language}
                             value={code}
@@ -1142,7 +1151,11 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                                 wordWrap: wordWrap ? "on" : "off",
                                 automaticLayout: true,
                                 scrollBeyondLastLine: false,
-                                cursorBlinking: "smooth",
+                                // Keep both the mouse pointer and text caret visible.
+                                mouseStyle: "text",
+                                cursorStyle: "line",
+                                cursorWidth: 2,
+                                cursorBlinking: "blink",
                                 cursorSmoothCaretAnimation: "on",
                                 smoothScrolling: true,
                                 bracketPairColorization: { enabled: true },
@@ -1162,7 +1175,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                         }`}
                 >
                     {/* DOCK TABS */}
-                    <div className="flex flex-wrap items-center justify-between border-b border-slate-200 dark:border-neutral-800 bg-slate-100/80 dark:bg-[#0c0c0f] px-3 shrink-0 h-9">
+                    <div className="flex flex-wrap items-center justify-between border-b border-slate-200 dark:border-neutral-800 bg-slate-50/90 dark:bg-[#0c0c0f] px-3 shrink-0 h-10">
                         <div className="flex items-center gap-1 overflow-x-auto">
                             <button
                                 type="button"
@@ -1614,7 +1627,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                 <div className="flex items-center gap-2.5">
                     <span className="hidden sm:flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span>Sandbox Ready</span>
+                        <span>Ready</span>
                     </span>
                     <span>•</span>
                     <div className="flex items-center gap-1">
