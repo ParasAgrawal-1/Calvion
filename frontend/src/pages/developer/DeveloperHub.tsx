@@ -79,7 +79,7 @@ export const DeveloperHub: React.FC = () => {
   useEffect(() => { localStorage.setItem(STORE.roadmap, JSON.stringify(completed)); }, [completed]);
 
   const go = (next: Section) => { setSection(next); window.scrollTo({ top: 0, behavior: "smooth" }); };
-  const handleSelectProblem = (problem: CodingProblem) => { setSelectedProblem(problem); go("studio"); };
+  const handleSelectProblem = (problem: CodingProblem | null) => { setSelectedProblem(problem); if (problem) go("studio"); };
   const createProject = () => {
     if (!projectName.trim()) return;
     setProjects(current => [{ id: uid(), name: projectName.trim(), description: projectDescription.trim(), stack: projectStack.trim(), updatedAt: new Date().toISOString() }, ...current]);
