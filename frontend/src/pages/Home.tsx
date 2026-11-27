@@ -52,8 +52,7 @@ const wrap = "mx-auto w-full max-w-[1280px] px-5 sm:px-8";
 const focusRing =
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-indigo-300 dark:focus-visible:ring-offset-[#000000]";
 
-const btnPrimary =
-    "bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200";
+
 const btnGhost =
     "border border-slate-300 bg-white text-slate-800 hover:bg-slate-50 dark:border-white/15 dark:bg-white/5 dark:text-neutral-100 dark:hover:bg-white/10";
 

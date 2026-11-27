@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-    Terminal,
-    Trophy,
-    BookOpen,
-    ArrowLeft,
-    UserPlus,
-    LogIn,
-    Lock,
-    Sun,
-    Moon,
+  Activity, ArrowLeft, BookOpen, Braces, Bug, Check, ChevronRight, Code2,
+  Compass, Copy, ExternalLink, FileCode2, FolderKanban, Gauge,
+  GraduationCap, Layers3, Lock, LogIn, Moon, Plus, Search,
+  Sparkles, Sun, Terminal, Trash2, Trophy, UserPlus, Wrench, X, Zap,
 } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import CodeEditor from "../../components/developer/CodeEditor";
@@ -17,230 +12,163 @@ import PlatformHub from "../../components/developer/PlatformHub";
 import TestPrepSection from "../../components/developer/TestPrepSection";
 import type { CodingProblem } from "../../components/developer/TestPrepSection";
 
-type DeveloperTab = "editor" | "platforms" | "prep";
+type Section = "home" | "studio" | "projects" | "assistant" | "learn" | "toolbox" | "platforms" | "prep" | "profile";
+type Project = { id: string; name: string; description: string; stack: string; updatedAt: string };
+type Snippet = { id: string; title: string; language: string; code: string; createdAt: string };
+const STORE = { projects: "calvion_dev_projects_v1", roadmap: "calvion_dev_roadmap_v1", snippets: "calvion_dev_snippets_v1" };
+const roadmap = [
+  { group: "Foundations", items: ["Programming fundamentals", "Object-oriented programming", "Git and GitHub", "Command line basics"] },
+  { group: "Core computer science", items: ["Data structures and algorithms", "Database fundamentals and SQL", "Operating systems", "Computer networks"] },
+  { group: "Building software", items: ["Frontend development", "Backend development and REST APIs", "Testing and debugging", "Deployment and DevOps basics"] },
+  { group: "Advanced practice", items: ["System design fundamentals", "Security best practices", "Performance and scalability", "Open-source contribution"] },
+];
+const initialProjects: Project[] = [];
+const readStore = <T,>(key: string, fallback: T): T => {
+  try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) as T : fallback; } catch { return fallback; }
+};
+const uid = () => `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
+const nav: { id: Section; label: string; icon: React.ElementType; group: string }[] = [
+  { id: "home", label: "Overview", icon: Layers3, group: "Workspace" },
+  { id: "studio", label: "Code Studio", icon: Terminal, group: "Workspace" },
+  { id: "projects", label: "Project Lab", icon: FolderKanban, group: "Workspace" },
+  { id: "assistant", label: "AI Assistant", icon: Sparkles, group: "Build" },
+  { id: "learn", label: "Learning Paths", icon: GraduationCap, group: "Grow" },
+  { id: "toolbox", label: "Developer Tools", icon: Wrench, group: "Build" },
+  { id: "platforms", label: "Communities & Platforms", icon: Compass, group: "Grow" },
+  { id: "prep", label: "Interview Prep", icon: BookOpen, group: "Grow" },
+  { id: "profile", label: "Developer Profile", icon: Activity, group: "Account" },
+];
+
+const panel = "rounded-2xl border border-slate-200/80 bg-white shadow-sm dark:border-white/[0.08] dark:bg-[#11151d]";
+const buttonPrimary = "inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/40";
+const buttonSecondary = "inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:hover:bg-white/[0.08]";
 
 export const DeveloperHub: React.FC = () => {
-    const navigate = useNavigate();
-    const { theme, setTheme } = useTheme();
-    const [activeTab, setActiveTab] = useState<DeveloperTab>("editor");
-    const [selectedProblem, setSelectedProblem] = useState<CodingProblem | null>(null);
+  const navigate = useNavigate();
+  const { theme, setTheme } = useTheme();
+  const [section, setSection] = useState<Section>("home");
+  const [selectedProblem, setSelectedProblem] = useState<CodingProblem | null>(null);
+  const [projects, setProjects] = useState<Project[]>(() => readStore(STORE.projects, initialProjects));
+  const [snippets, setSnippets] = useState<Snippet[]>(() => readStore(STORE.snippets, []));
+  const [completed, setCompleted] = useState<string[]>(() => readStore(STORE.roadmap, []));
+  const [projectName, setProjectName] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [projectStack, setProjectStack] = useState("React · TypeScript");
+  const [showProjectForm, setShowProjectForm] = useState(false);
+  const [tool, setTool] = useState("json");
+  const [toolInput, setToolInput] = useState('{\n  "name": "Calvion",\n  "type": "developer workspace"\n}');
+  const [toolOutput, setToolOutput] = useState("");
+  const [toolError, setToolError] = useState("");
+  const [assistantPrompt, setAssistantPrompt] = useState("");
+  const [snippetTitle, setSnippetTitle] = useState("");
+  const [snippetCode, setSnippetCode] = useState("");
+  const [showSnippetForm, setShowSnippetForm] = useState(false);
+  const [search, setSearch] = useState("");
+  const [copied, setCopied] = useState(false);
 
-    // Check if user is logged in
-    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
-    const userJson = localStorage.getItem("user") || sessionStorage.getItem("user");
-    let user: any = null;
+  const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+  const userJson = localStorage.getItem("user") || sessionStorage.getItem("user");
+  const user = useMemo(() => { try { return userJson ? JSON.parse(userJson) : null; } catch { return null; } }, [userJson]);
+  const displayName = user?.name?.trim()?.split(" ")[0] || "Developer";
+  const totalRoadmap = roadmap.reduce((sum, group) => sum + group.items.length, 0);
+  const progress = Math.round((completed.length / totalRoadmap) * 100);
+
+  useEffect(() => { localStorage.setItem(STORE.projects, JSON.stringify(projects)); }, [projects]);
+  useEffect(() => { localStorage.setItem(STORE.snippets, JSON.stringify(snippets)); }, [snippets]);
+  useEffect(() => { localStorage.setItem(STORE.roadmap, JSON.stringify(completed)); }, [completed]);
+
+  const go = (next: Section) => { setSection(next); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  const handleSelectProblem = (problem: CodingProblem) => { setSelectedProblem(problem); go("studio"); };
+  const createProject = () => {
+    if (!projectName.trim()) return;
+    setProjects(current => [{ id: uid(), name: projectName.trim(), description: projectDescription.trim(), stack: projectStack.trim(), updatedAt: new Date().toISOString() }, ...current]);
+    setProjectName(""); setProjectDescription(""); setProjectStack("React · TypeScript"); setShowProjectForm(false);
+  };
+  const runTool = () => {
+    setToolError(""); setToolOutput("");
     try {
-        if (userJson) user = JSON.parse(userJson);
-    } catch {
-        // ignore
-    }
+      if (tool === "json") setToolOutput(JSON.stringify(JSON.parse(toolInput), null, 2));
+      else if (tool === "base64-encode") setToolOutput(btoa(unescape(encodeURIComponent(toolInput))));
+      else if (tool === "base64-decode") setToolOutput(decodeURIComponent(escape(atob(toolInput.trim()))));
+      else if (tool === "jwt") {
+        const parts = toolInput.trim().split(".");
+        if (parts.length < 2) throw new Error("Enter a valid JWT with header and payload sections.");
+        const decode = (value: string) => JSON.stringify(JSON.parse(decodeURIComponent(escape(atob(value.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(value.length / 4) * 4, "="))))), null, 2);
+        setToolOutput(`HEADER\n${decode(parts[0])}\n\nPAYLOAD\n${decode(parts[1])}\n\nNote: This only decodes the token. It does not verify its signature.`);
+      } else if (tool === "regex") {
+        const [pattern, flags = "", ...sample] = toolInput.split("\n");
+        const expression = new RegExp(pattern.replace(/^\/(.*)\/$/, "$1"), flags);
+        const text = sample.join("\n");
+        const matches = [...text.matchAll(new RegExp(expression.source, expression.flags.includes("g") ? expression.flags : `${expression.flags}g`))];
+        setToolOutput(matches.length ? matches.map(match => `Match: ${match[0]} · Index: ${match.index}`).join("\n") : "No matches found.");
+      }
+    } catch (error) { setToolError(error instanceof Error ? error.message : "Unable to process this input."); }
+  };
+  const copyOutput = async () => { try { await navigator.clipboard.writeText(toolOutput); setCopied(true); window.setTimeout(() => setCopied(false), 1500); } catch { setToolError("Clipboard access is unavailable in this browser."); } };
+  const saveSnippet = () => {
+    if (!snippetTitle.trim() || !snippetCode.trim()) return;
+    setSnippets(current => [{ id: uid(), title: snippetTitle.trim(), language: "Text", code: snippetCode, createdAt: new Date().toISOString() }, ...current]);
+    setSnippetTitle(""); setSnippetCode(""); setShowSnippetForm(false);
+  };
 
-    const handleSelectProblem = (problem: CodingProblem) => {
-        setSelectedProblem(problem);
-        setActiveTab("editor");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
+  const Header = () => <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#090d14]/90">
+    <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between gap-3 px-4 sm:px-6">
+      <div className="flex min-w-0 items-center gap-3">
+        <button onClick={() => navigate("/")} className={buttonSecondary + " !rounded-lg !px-2.5 !py-2"} title="Back to Calvion home"><ArrowLeft size={15}/><span className="hidden sm:inline">Home</span></button>
+        <div className="h-6 w-px bg-slate-200 dark:bg-white/10"/>
+        <button onClick={() => go("home")} className="flex items-center gap-2.5"><img src="/calvion-icon.png" alt="Calvion" className="h-8 w-8 object-contain"/><span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white">Calvion <span className="font-medium text-cyan-600 dark:text-cyan-400">Developer</span></span></button>
+      </div>
+      <div className="flex items-center gap-2">
+        {token && user ? <button onClick={() => navigate("/dashboard")} className={buttonSecondary + " !rounded-lg !px-2.5 !py-2"}><span className="grid h-6 w-6 place-items-center rounded-full bg-cyan-600 text-xs font-bold text-white">{displayName[0]?.toUpperCase()}</span><span className="hidden sm:inline">{user.name || "My Vault"}</span><Lock size={12}/></button> : <><button onClick={() => navigate("/login")} className={buttonSecondary + " !rounded-lg !px-2.5 !py-2"}><LogIn size={14}/><span className="hidden sm:inline">Sign in</span></button><button onClick={() => navigate("/register")} className={buttonPrimary + " !rounded-lg !px-3 !py-2"}><UserPlus size={14}/><span className="hidden sm:inline">Create account</span></button></>}
+        <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className={buttonSecondary + " !h-9 !w-9 !rounded-lg !p-0"} aria-label="Toggle theme">{theme === "dark" ? <Sun size={16}/> : <Moon size={16}/>}</button>
+      </div>
+    </div>
+  </header>;
 
-    return (
-        <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-black dark:text-neutral-100 transition-colors duration-200">
-            {/* TOP NAVIGATION BAR */}
-            <header className="sticky top-0 z-40 border-b border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#07090e] shadow-[0_1px_3px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-colors duration-200">
+  const Sidebar = () => <aside className="hidden w-60 shrink-0 border-r border-slate-200/80 bg-white/70 px-3 py-5 dark:border-white/[0.08] dark:bg-[#0d1118] lg:block">
+    <div className="px-3 pb-3 text-[10px] font-bold uppercase tracking-[.18em] text-slate-400">Your developer space</div>
+    {(["Workspace", "Build", "Grow", "Account"] as const).map(group => <div key={group} className="mb-5"><p className="mb-1 px-3 text-[10px] font-semibold uppercase tracking-wider text-slate-400">{group}</p>{nav.filter(item => item.group === group).map(item => { const Icon = item.icon; return <button key={item.id} onClick={() => go(item.id)} className={`mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[13px] transition ${section === item.id ? "bg-cyan-50 font-semibold text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-300" : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/[0.05]"}`}><Icon size={16}/>{item.label}{section === item.id && <ChevronRight size={14} className="ml-auto"/>}</button>; })}</div>)}
+    <div className="mt-8 rounded-2xl border border-cyan-100 bg-cyan-50/70 p-3 dark:border-cyan-400/10 dark:bg-cyan-400/[0.06]"><div className="flex items-center gap-2 text-xs font-semibold text-cyan-800 dark:text-cyan-200"><Zap size={14}/> Built to build</div><p className="mt-1.5 text-[11px] leading-5 text-cyan-800/75 dark:text-cyan-100/60">One place for your tools, projects and learning journey.</p></div>
+  </aside>;
 
-                <div className="mx-auto flex h-16 max-w-[1920px] items-center justify-between px-3 sm:px-5 lg:px-7">
-                    {/* LEFT: BACK BUTTON & BRAND */}
-                    <div className="flex items-center gap-2 sm:gap-3">
-                        <button
-                            type="button"
-                            onClick={() => navigate("/")}
-                            className="group flex items-center gap-1.5 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-slate-50/80 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm"
-                            title="Return to Calvion Home"
-                        >
-                            <ArrowLeft size={13} className="text-slate-400 dark:text-neutral-400 group-hover:text-cyan-500 group-hover:-translate-x-0.5 transition-all duration-200" />
-                            <span className="hidden sm:inline">Home</span>
-                        </button>
+  const PageTitle = ({ eyebrow, title, description, action }: { eyebrow: string; title: string; description: string; action?: React.ReactNode }) => <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><p className="mb-2 text-[10px] font-bold uppercase tracking-[.2em] text-cyan-600 dark:text-cyan-400">{eyebrow}</p><h1 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-3xl">{title}</h1><p className="mt-1.5 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">{description}</p></div>{action}</div>;
 
-                        <div className="h-5 w-px bg-slate-200/80 dark:bg-neutral-800" />
+  const Tile = ({ icon: Icon, title, text, onClick, tone = "cyan" }: { icon: React.ElementType; title: string; text: string; onClick: () => void; tone?: string }) => <button onClick={onClick} className={`${panel} group p-4 text-left transition hover:-translate-y-0.5 hover:border-cyan-300 hover:shadow-md dark:hover:border-cyan-400/30`}><span className={`mb-4 grid h-10 w-10 place-items-center rounded-xl ${tone === "violet" ? "bg-violet-50 text-violet-600 dark:bg-violet-400/10 dark:text-violet-300" : tone === "amber" ? "bg-amber-50 text-amber-600 dark:bg-amber-400/10 dark:text-amber-300" : tone === "emerald" ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300" : "bg-cyan-50 text-cyan-600 dark:bg-cyan-400/10 dark:text-cyan-300"}`}><Icon size={19}/></span><span className="block text-sm font-semibold text-slate-900 dark:text-white">{title}</span><span className="mt-1 block text-xs leading-5 text-slate-500 dark:text-slate-400">{text}</span><span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">Open workspace <ChevronRight size={13} className="transition group-hover:translate-x-0.5"/></span></button>;
 
-                        <div className="flex items-center gap-2">
-                            <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-xl p-[1px] bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 shadow-sm shadow-cyan-500/25">
-                                <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-white dark:bg-[#0c0e14] overflow-hidden p-1">
-                                    <img src="/calvion-icon.png" alt="Calvion" className="h-full w-full object-contain" />
-                                </div>
-                            </div>
-                            <span className="text-xs sm:text-sm font-black tracking-tight text-slate-900 dark:text-white flex items-center">
-                                Calvion
-                    
-                            </span>
-                        </div>
-                    </div>
+  return <div className="min-h-screen bg-[#f6f8fb] text-slate-900 antialiased dark:bg-[#090d14] dark:text-slate-100">
+    <Header/>
+    <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-[1600px]"><Sidebar/>
+      <main className="min-w-0 flex-1 px-4 py-6 pb-24 sm:px-6 sm:py-8 lg:px-9">
+        <div className="mb-5 flex gap-1 overflow-x-auto pb-1 lg:hidden">{nav.map(item => { const Icon = item.icon; return <button key={item.id} onClick={() => go(item.id)} className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-2 text-xs ${section === item.id ? "bg-cyan-100 font-semibold text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-200" : "bg-white text-slate-500 dark:bg-white/[0.04] dark:text-slate-400"}`}><Icon size={13}/>{item.label}</button>; })}</div>
 
-                    {/* CENTER: TAB NAVIGATION */}
-                    <nav className="hidden md:flex items-center p-1 rounded-xl bg-slate-100/90 dark:bg-neutral-900/90 border border-slate-200/80 dark:border-neutral-800 shadow-inner">
-                        <button
-                            type="button"
-                            onClick={() => setActiveTab("editor")}
-                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${activeTab === "editor"
-                                ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
-                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
-                                }`}
-                        >
-                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${activeTab === "editor" ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400" : "text-slate-400 dark:text-neutral-500"
-                                }`}>
-                                <Terminal size={13} />
-                            </div>
-                            <span>Code Playground</span>
-                        </button>
+        {section === "home" && <>
+          <div className="relative mb-7 overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/[0.08] dark:bg-[#111923] sm:p-8 lg:p-10"><div className="pointer-events-none absolute -right-20 -top-28 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl"/><div className="relative max-w-3xl"><div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-[11px] font-semibold text-cyan-700 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-300"><Sparkles size={13}/> Your space to create, learn and ship</div><h1 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-4xl">Build something <span className="text-cyan-600 dark:text-cyan-400">remarkable</span>, {displayName}.</h1><p className="mt-3 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400 sm:text-base">A connected developer environment for experimenting with code, organizing projects, learning new skills and solving real engineering problems.</p><div className="mt-6 flex flex-wrap gap-2"><button onClick={() => go("studio")} className={buttonPrimary}><Terminal size={15}/> Open Code Studio</button><button onClick={() => go("projects")} className={buttonSecondary}><Plus size={15}/> Start a project</button></div></div><div className="relative mt-8 grid grid-cols-2 gap-3 border-t border-slate-100 pt-5 dark:border-white/[0.08] sm:grid-cols-4"><div><p className="text-2xl font-semibold">{projects.length}</p><p className="mt-1 text-[11px] text-slate-500">Your projects</p></div><div><p className="text-2xl font-semibold">{snippets.length}</p><p className="mt-1 text-[11px] text-slate-500">Saved snippets</p></div><div><p className="text-2xl font-semibold">{completed.length}/{totalRoadmap}</p><p className="mt-1 text-[11px] text-slate-500">Learning steps</p></div><div><p className="text-2xl font-semibold">{progress}%</p><p className="mt-1 text-[11px] text-slate-500">Roadmap progress</p></div></div></div>
+          <div className="mb-3 flex items-center justify-between"><h2 className="text-base font-semibold">Your workspaces</h2><span className="text-xs text-slate-400">Choose where to begin</span></div><div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3"><Tile icon={Terminal} title="Code Studio" text="Write and experiment with code using your existing Calvion editor." onClick={() => go("studio")}/><Tile icon={FolderKanban} title="Project Lab" text="Keep project ideas, descriptions and technology stacks organized." onClick={() => go("projects")} tone="violet"/><Tile icon={Sparkles} title="AI Developer Assistant" text="Prepare code questions and debugging prompts for your AI workflow." onClick={() => go("assistant")} tone="amber"/><Tile icon={GraduationCap} title="Learning Paths" text="Build a foundation across CS, software engineering and modern development." onClick={() => go("learn")} tone="emerald"/><Tile icon={Wrench} title="Developer Toolbox" text="Format JSON, encode data, decode JWT payloads and test regular expressions." onClick={() => go("toolbox")}/><Tile icon={Trophy} title="Practice & Interview Prep" text="Continue using your existing coding preparation and platform integrations." onClick={() => go("prep")} tone="violet"/></div>
+          <div className={`${panel} mt-6 flex flex-col gap-4 p-5 sm:flex-row sm:items-center`}><div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300"><Gauge size={20}/></div><div className="min-w-0 flex-1"><h3 className="text-sm font-semibold">Your learning journey</h3><p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{completed.length} of {totalRoadmap} milestones completed · Your progress is saved in this browser.</p><div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10"><div className="h-full rounded-full bg-emerald-500 transition-all" style={{ width: `${progress}%` }}/></div></div><button onClick={() => go("learn")} className={buttonSecondary}>View roadmap <ChevronRight size={14}/></button></div>
+        </>}
 
-                        <button
-                            type="button"
-                            onClick={() => setActiveTab("platforms")}
-                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${activeTab === "platforms"
-                                ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
-                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
-                                }`}
-                        >
-                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${activeTab === "platforms" ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : "text-slate-400 dark:text-neutral-500"
-                                }`}>
-                                <Trophy size={13} />
-                            </div>
-                            <span>Competitive Platforms</span>
-                        </button>
+        {section === "studio" && <div className="flex h-[calc(100dvh-8rem)] min-h-[560px] flex-col"><div className="mb-3 flex shrink-0 items-center justify-between"><div><p className="text-[10px] font-bold uppercase tracking-[.2em] text-cyan-600 dark:text-cyan-400">Workspace / Build</p><h1 className="mt-1 text-xl font-semibold">Code Studio</h1></div><span className="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-semibold text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-300">Existing editor connected</span></div><div className="min-h-0 flex-1 overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#11151d]"><CodeEditor initialCode={selectedProblem ? selectedProblem.starterCode.python : undefined} initialLanguage="python" problemTitle={selectedProblem ? `${selectedProblem.id}. ${selectedProblem.title}` : undefined} activeProblem={selectedProblem} onSelectProblem={handleSelectProblem}/></div></div>}
 
-                        <button
-                            type="button"
-                            onClick={() => setActiveTab("prep")}
-                            className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 ${activeTab === "prep"
-                                ? "bg-white dark:bg-[#161922] text-slate-900 dark:text-white shadow-sm border border-slate-200/60 dark:border-white/[0.08]"
-                                : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-neutral-800/50"
-                                }`}
-                        >
-                            <div className={`flex h-5 w-5 items-center justify-center rounded-md transition-colors ${activeTab === "prep" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-neutral-500"
-                                }`}>
-                                <BookOpen size={13} />
-                            </div>
-                            <span>Coding Test Prep</span>
-                        </button>
-                    </nav>
+        {section === "projects" && <><PageTitle eyebrow="Workspace / Organize" title="Project Lab" description="A lightweight home for project ideas and the work you want to bring to life." action={<button onClick={() => setShowProjectForm(v => !v)} className={buttonPrimary}><Plus size={15}/> New project</button>}/>
+          {showProjectForm && <div className={`${panel} mb-5 p-5`}><div className="mb-4 flex items-center justify-between"><h2 className="text-sm font-semibold">Create a project card</h2><button onClick={() => setShowProjectForm(false)}><X size={17}/></button></div><div className="grid gap-3 sm:grid-cols-2"><label className="text-xs font-medium text-slate-600 dark:text-slate-300">Project name<input value={projectName} onChange={e => setProjectName(e.target.value)} placeholder="e.g. Portfolio website" className="mt-1.5 h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-cyan-500 dark:border-white/10 dark:bg-white/[0.04]"/></label><label className="text-xs font-medium text-slate-600 dark:text-slate-300">Technology stack<input value={projectStack} onChange={e => setProjectStack(e.target.value)} placeholder="React · Spring Boot" className="mt-1.5 h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-cyan-500 dark:border-white/10 dark:bg-white/[0.04]"/></label><label className="text-xs font-medium text-slate-600 dark:text-slate-300 sm:col-span-2">Description<textarea value={projectDescription} onChange={e => setProjectDescription(e.target.value)} rows={2} placeholder="What are you building?" className="mt-1.5 w-full rounded-xl border border-slate-200 bg-white p-3 text-sm outline-none focus:border-cyan-500 dark:border-white/10 dark:bg-white/[0.04]"/></label></div><div className="mt-4 flex justify-end gap-2"><button onClick={() => setShowProjectForm(false)} className={buttonSecondary}>Cancel</button><button onClick={createProject} disabled={!projectName.trim()} className={buttonPrimary + " disabled:cursor-not-allowed disabled:opacity-40"}>Create project</button></div></div>}
+          <div className="mb-4 flex items-center gap-2"><div className="relative max-w-sm flex-1"><Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search your projects" className="h-10 w-full rounded-xl border border-slate-200 bg-white pl-9 pr-3 text-sm outline-none focus:border-cyan-500 dark:border-white/10 dark:bg-white/[0.04]"/></div></div>
+          {projects.filter(p => `${p.name} ${p.description} ${p.stack}`.toLowerCase().includes(search.toLowerCase())).length ? <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{projects.filter(p => `${p.name} ${p.description} ${p.stack}`.toLowerCase().includes(search.toLowerCase())).map(project => <article key={project.id} className={`${panel} p-5`}><div className="flex items-start justify-between"><span className="grid h-10 w-10 place-items-center rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-400/10 dark:text-violet-300"><FileCode2 size={18}/></span><button onClick={() => setProjects(items => items.filter(item => item.id !== project.id))} className="rounded-lg p-2 text-slate-400 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-400/10" aria-label={`Delete ${project.name}`}><Trash2 size={15}/></button></div><h3 className="mt-4 text-sm font-semibold">{project.name}</h3><p className="mt-1 min-h-10 text-xs leading-5 text-slate-500 dark:text-slate-400">{project.description || "No description added yet."}</p><div className="mt-4 flex items-center justify-between gap-2 border-t border-slate-100 pt-3 dark:border-white/[0.08]"><span className="truncate text-[11px] text-cyan-700 dark:text-cyan-300">{project.stack}</span><span className="shrink-0 text-[10px] text-slate-400">{new Date(project.updatedAt).toLocaleDateString()}</span></div></article>)}</div> : <div className={`${panel} px-6 py-14 text-center`}><FolderKanban size={28} className="mx-auto text-slate-300"/><h3 className="mt-3 text-sm font-semibold">{search ? "No matching projects" : "Your project space is ready"}</h3><p className="mx-auto mt-1 max-w-sm text-xs leading-5 text-slate-500">{search ? "Try another search term." : "Create your first project card to keep your ideas and technology choices together."}</p>{!search && <button onClick={() => setShowProjectForm(true)} className={buttonPrimary + " mt-4"}><Plus size={14}/> Create first project</button>}</div>}
+          <div className={`${panel} mt-6 p-5`}><div className="mb-3 flex items-center justify-between"><div><h2 className="text-sm font-semibold">Saved snippets & notes</h2><p className="mt-1 text-xs text-slate-500">Store reusable code fragments or development notes locally.</p></div><button onClick={() => setShowSnippetForm(v => !v)} className={buttonSecondary}><Plus size={14}/> Add snippet</button></div>{showSnippetForm && <div className="mb-4 space-y-2"><input value={snippetTitle} onChange={e => setSnippetTitle(e.target.value)} placeholder="Snippet title" className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm dark:border-white/10 dark:bg-white/[0.04]"/><textarea value={snippetCode} onChange={e => setSnippetCode(e.target.value)} rows={4} placeholder="Paste code or notes..." className="w-full rounded-xl border border-slate-200 bg-white p-3 font-mono text-xs dark:border-white/10 dark:bg-white/[0.04]"/><div className="flex justify-end"><button onClick={saveSnippet} className={buttonPrimary}>Save snippet</button></div></div>}{snippets.length ? <div className="space-y-2">{snippets.map(item => <div key={item.id} className="flex items-center gap-3 rounded-xl bg-slate-50 p-3 dark:bg-white/[0.04]"><div className="min-w-0 flex-1"><p className="truncate text-xs font-semibold">{item.title}</p><p className="mt-1 truncate font-mono text-[10px] text-slate-500">{item.code}</p></div><button onClick={() => navigator.clipboard?.writeText(item.code)} className="p-2 text-slate-400 hover:text-cyan-600" title="Copy snippet"><Copy size={14}/></button><button onClick={() => setSnippets(items => items.filter(s => s.id !== item.id))} className="p-2 text-slate-400 hover:text-rose-600" title="Delete snippet"><Trash2 size={14}/></button></div>)}</div> : <p className="rounded-xl bg-slate-50 px-4 py-5 text-center text-xs text-slate-400 dark:bg-white/[0.03]">No saved snippets yet.</p>}</div>
+        </>}
 
-                    {/* RIGHT: AUTH STATUS & THEME TOGGLE */}
-                    <div className="flex items-center gap-2">
-                        {/* THEME TOGGLE BUTTON */}
-                        <button
-                            type="button"
-                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="group relative flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#12141c] text-slate-600 dark:text-neutral-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500/40 dark:hover:border-cyan-500/40 shadow-sm transition-all duration-200"
-                            title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
-                            aria-label="Toggle Theme"
-                        >
-                            {theme === "dark" ? (
-                                <Sun size={15} className="text-amber-400 transition-transform duration-300 group-hover:rotate-45" />
-                            ) : (
-                                <Moon size={15} className="text-indigo-600 transition-transform duration-300 group-hover:-rotate-12" />
-                            )}
-                        </button>
+        {section === "assistant" && <><PageTitle eyebrow="Build / Think" title="AI Developer Assistant" description="A dedicated place to shape coding questions, debugging context and review requests for your AI workflow."/><div className={`${panel} p-5 sm:p-7`}><div className="flex items-start gap-3"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-400/10 dark:text-violet-300"><Sparkles size={20}/></span><div><h2 className="text-sm font-semibold">Developer prompt builder</h2><p className="mt-1 text-xs leading-5 text-slate-500">Describe the issue or task. Calvion will prepare a structured prompt you can copy into your connected AI assistant.</p></div></div><textarea value={assistantPrompt} onChange={e => setAssistantPrompt(e.target.value)} rows={6} placeholder="Example: My Spring Boot API returns 403 when sending a verification email. Help me trace the cause..." className="mt-5 w-full rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6 outline-none focus:border-cyan-500 dark:border-white/10 dark:bg-[#0b1017]"/><div className="mt-3 flex flex-wrap justify-between gap-2"><p className="text-[11px] text-slate-400">Avoid including passwords, API keys or private tokens.</p><button disabled={!assistantPrompt.trim()} onClick={() => navigator.clipboard?.writeText(`Act as a senior software engineer. Help me with this development task.\n\nContext:\n${assistantPrompt}\n\nPlease: 1) identify likely causes, 2) explain how to investigate, 3) propose a safe solution, 4) show corrected code where useful, 5) mention tests and edge cases.`)} className={buttonPrimary + " disabled:opacity-40"}><Copy size={14}/> Copy structured prompt</button></div></div><div className="mt-4 grid gap-3 sm:grid-cols-3"><div className={`${panel} p-4`}><Bug size={17} className="text-rose-500"/><h3 className="mt-3 text-xs font-semibold">Debug an error</h3><p className="mt-1 text-[11px] leading-5 text-slate-500">Share the error, expected result and relevant code.</p></div><div className={`${panel} p-4`}><Code2 size={17} className="text-cyan-500"/><h3 className="mt-3 text-xs font-semibold">Review code</h3><p className="mt-1 text-[11px] leading-5 text-slate-500">Ask for readability, security and performance feedback.</p></div><div className={`${panel} p-4`}><Check size={17} className="text-emerald-500"/><h3 className="mt-3 text-xs font-semibold">Generate test ideas</h3><p className="mt-1 text-[11px] leading-5 text-slate-500">Request unit, integration and edge-case test scenarios.</p></div></div><p className="mt-4 text-[11px] text-slate-400">AI responses are not generated in this page yet. A model/API connection is required before in-app chat, code analysis or automated fixes can work.</p></>}
 
-                        <div className="h-5 w-px bg-slate-200/80 dark:bg-neutral-800" />
+        {section === "learn" && <><PageTitle eyebrow="Grow / Learn" title="Learning Paths" description="A flexible roadmap from programming foundations to professional software engineering."/><div className={`${panel} mb-5 p-5`}><div className="flex items-center justify-between gap-3"><div><h2 className="text-sm font-semibold">Your overall progress</h2><p className="mt-1 text-xs text-slate-500">{completed.length} of {totalRoadmap} milestones completed</p></div><span className="text-2xl font-semibold text-cyan-600 dark:text-cyan-300">{progress}%</span></div><div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10"><div className="h-full rounded-full bg-cyan-500 transition-all" style={{width:`${progress}%`}}/></div></div><div className="space-y-4">{roadmap.map((group,index) => <section key={group.group} className={`${panel} p-5`}><div className="mb-4 flex items-center gap-3"><span className="grid h-8 w-8 place-items-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600 dark:bg-white/10 dark:text-slate-300">0{index+1}</span><div><h2 className="text-sm font-semibold">{group.group}</h2><p className="text-[11px] text-slate-400">{group.items.filter(item => completed.includes(item)).length} / {group.items.length} completed</p></div></div><div className="grid gap-2 sm:grid-cols-2">{group.items.map(item => <label key={item} className="flex cursor-pointer items-center gap-3 rounded-xl bg-slate-50 px-3 py-3 text-xs dark:bg-white/[0.035]"><input type="checkbox" checked={completed.includes(item)} onChange={e => setCompleted(items => e.target.checked ? [...items,item] : items.filter(value => value !== item))} className="h-4 w-4 accent-cyan-600"/><span className={completed.includes(item) ? "text-slate-400 line-through" : "text-slate-700 dark:text-slate-200"}>{item}</span></label>)}</div></section>)}</div></>}
 
-                        {token && user ? (
-                            <button
-                                type="button"
-                                onClick={() => navigate("/dashboard")}
-                                className="group flex h-9 items-center gap-2 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#12141c] px-3 text-xs font-semibold text-slate-700 dark:text-neutral-200 hover:border-cyan-500/50 hover:bg-slate-50 dark:hover:bg-neutral-800/80 transition-all duration-200 shadow-sm"
-                            >
-                                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold text-[10px] shadow-sm">
-                                    {user.name ? user.name.charAt(0).toUpperCase() : "U"}
-                                </div>
-                                <span className="hidden sm:inline font-medium text-slate-800 dark:text-neutral-200">{user.name || "Vault"}</span>
-                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 ring-2 ring-emerald-500/20" title="Connected" />
-                                <Lock size={12} className="text-slate-400 group-hover:text-cyan-500 transition-colors ml-0.5" />
-                            </button>
-                        ) : (
-                            <div className="flex items-center gap-2">
-                                <button
-                                    type="button"
-                                    onClick={() => navigate("/login")}
-                                    className="hidden sm:inline-flex h-9 items-center gap-1.5 rounded-xl border border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-[#12141c] px-3.5 text-xs font-semibold text-slate-700 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-neutral-800/80 hover:border-slate-300 dark:hover:border-neutral-700 transition-all duration-200 shadow-sm"
-                                >
-                                    <LogIn size={13} className="text-slate-400 dark:text-neutral-400" />
-                                    <span>Sign In</span>
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => navigate("/register")}
-                                    className="group relative inline-flex h-9 items-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 via-cyan-600 to-blue-600 hover:from-cyan-400 hover:to-blue-500 px-3.5 text-xs font-semibold text-white shadow-sm shadow-cyan-500/25 hover:shadow-cyan-500/40 active:scale-[0.98] transition-all duration-200"
-                                >
-                                    <UserPlus size={13} className="group-hover:scale-110 transition-transform duration-200" />
-                                    <span>Create Account</span>
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                </div>
+        {section === "toolbox" && <><PageTitle eyebrow="Build / Utilities" title="Developer Toolbox" description="Small everyday utilities that run locally in your browser. No input is sent to a server."/><div className="grid gap-4 xl:grid-cols-[240px_minmax(0,1fr)]"><div className={`${panel} h-fit p-2`}>{[{id:"json",label:"JSON Formatter"},{id:"base64-encode",label:"Base64 Encode"},{id:"base64-decode",label:"Base64 Decode"},{id:"jwt",label:"JWT Decoder"},{id:"regex",label:"Regex Tester"}].map(item => <button key={item.id} onClick={() => {setTool(item.id);setToolOutput("");setToolError("");setToolInput(item.id === "json" ? '{\n  "name": "Calvion"\n}' : item.id === "regex" ? "\\bcat\\b\ngi\nThe cat sat beside a catalog." : "");}} className={`mb-1 w-full rounded-xl px-3 py-3 text-left text-xs ${tool === item.id ? "bg-cyan-50 font-semibold text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-200" : "text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-white/[0.04]"}`}><Braces size={14} className="mr-2 inline"/>{item.label}</button>)}</div><div className={`${panel} min-w-0 p-4 sm:p-5`}><div className="mb-3 flex items-center justify-between"><h2 className="text-sm font-semibold">{{json:"JSON Formatter", "base64-encode":"Base64 Encode", "base64-decode":"Base64 Decode", jwt:"JWT Decoder", regex:"Regex Tester"}[tool]}</h2><span className="text-[10px] text-emerald-600 dark:text-emerald-300">Runs in browser</span></div><p className="mb-3 text-xs text-slate-500">{tool === "regex" ? "Enter the regular expression on line 1, flags on line 2, and sample text on following lines." : tool === "jwt" ? "Paste a JWT to decode its header and payload. Signature verification is not performed." : "Enter your input below and run the selected utility."}</p><textarea value={toolInput} onChange={e => setToolInput(e.target.value)} rows={9} spellCheck={false} className="w-full rounded-xl border border-slate-200 bg-[#f8fafc] p-4 font-mono text-xs leading-6 outline-none focus:border-cyan-500 dark:border-white/10 dark:bg-[#090d14]"/><div className="mt-3 flex justify-end"><button onClick={runTool} className={buttonPrimary}><Zap size={14}/> Run tool</button></div>{toolError && <div className="mt-3 rounded-xl border border-rose-200 bg-rose-50 p-3 text-xs text-rose-700 dark:border-rose-400/20 dark:bg-rose-400/10 dark:text-rose-300">{toolError}</div>}{toolOutput && <div className="mt-4"><div className="mb-2 flex items-center justify-between"><span className="text-xs font-semibold">Output</span><button onClick={copyOutput} className={buttonSecondary + " !px-2.5 !py-1.5 !text-xs"}>{copied ? <Check size={13}/> : <Copy size={13}/>} {copied ? "Copied" : "Copy"}</button></div><pre className="max-h-96 overflow-auto whitespace-pre-wrap break-words rounded-xl bg-slate-950 p-4 font-mono text-xs leading-6 text-emerald-300">{toolOutput}</pre></div>}</div></div></>}
 
-                {/* MOBILE TAB SWITCHER */}
-                <div className="flex md:hidden border-t border-slate-200/80 dark:border-neutral-800 bg-white/90 dark:bg-[#090b10]/95 backdrop-blur-md p-1.5 gap-1 overflow-x-auto text-xs font-semibold">
-                    <button
-                        type="button"
-                        onClick={() => setActiveTab("editor")}
-                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${activeTab === "editor"
-                            ? "bg-slate-100 dark:bg-neutral-800 text-cyan-600 dark:text-cyan-400 shadow-sm font-bold"
-                            : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
-                            }`}
-                    >
-                        <Terminal size={14} />
-                        <span>Editor</span>
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => setActiveTab("platforms")}
-                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${activeTab === "platforms"
-                            ? "bg-slate-100 dark:bg-neutral-800 text-amber-600 dark:text-amber-400 shadow-sm font-bold"
-                            : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
-                            }`}
-                    >
-                        <Trophy size={14} />
-                        <span>Platforms</span>
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => setActiveTab("prep")}
-                        className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 transition-all duration-200 ${activeTab === "prep"
-                            ? "bg-slate-100 dark:bg-neutral-800 text-emerald-600 dark:text-emerald-400 shadow-sm font-bold"
-                            : "text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white"
-                            }`}
-                    >
-                        <BookOpen size={14} />
-                        <span>DSA Prep</span>
-                    </button>
-                </div>
-            </header>
-
-            {/* MAIN CONTENT AREA */}
-            <main
-                className={
-                    activeTab === "editor"
-                        ? "mx-auto max-w-[1920px] px-2 py-2 sm:px-4 sm:py-2.5 h-[calc(100dvh-7.5rem)] md:h-[calc(100vh-4.25rem)] flex flex-col overflow-hidden"
-                        : "mx-auto max-w-7xl px-4 py-6 pb-24 sm:px-6 sm:pb-8 lg:px-8"
-                }
-            >
-                {activeTab === "editor" && (
-                    <div className="h-full w-full flex-1 min-h-0">
-                        <CodeEditor
-                            initialCode={selectedProblem ? selectedProblem.starterCode.python : undefined}
-                            initialLanguage="python"
-                            problemTitle={selectedProblem ? `${selectedProblem.id}. ${selectedProblem.title}` : undefined}
-                            activeProblem={selectedProblem}
-                            onSelectProblem={setSelectedProblem}
-                        />
-                    </div>
-                )}
-
-                {activeTab === "platforms" && <PlatformHub />}
-
-                {activeTab === "prep" && <TestPrepSection onSelectProblem={handleSelectProblem} />}
-            </main>
-        </div>
-    );
+        {section === "platforms" && <><PageTitle eyebrow="Grow / Connect" title="Communities & Platforms" description="Explore your existing coding platform directory and discover places to practice, compete and connect."/><div className={`${panel} p-4 sm:p-6`}><PlatformHub/></div></>}
+        {section === "prep" && <><PageTitle eyebrow="Grow / Prepare" title="Interview & Coding Prep" description="Continue your existing Calvion coding test preparation and question workflows."/><div className={`${panel} p-4 sm:p-6`}><TestPrepSection onSelectProblem={handleSelectProblem}/></div></>}
+        {section === "profile" && <><PageTitle eyebrow="Account / Identity" title="Developer Profile" description="A snapshot of your developer workspace and the work you've saved here."/><div className={`${panel} p-6`}><div className="flex items-center gap-4"><span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-xl font-bold text-white">{displayName[0]?.toUpperCase()}</span><div><h2 className="text-lg font-semibold">{user?.name || "Developer profile"}</h2><p className="text-xs text-slate-500">{user?.email || "Sign in to connect your Calvion account"}</p></div></div><div className="mt-6 grid gap-3 sm:grid-cols-3"><div className="rounded-xl bg-slate-50 p-4 dark:bg-white/[0.04]"><p className="text-2xl font-semibold">{projects.length}</p><p className="mt-1 text-xs text-slate-500">Project cards</p></div><div className="rounded-xl bg-slate-50 p-4 dark:bg-white/[0.04]"><p className="text-2xl font-semibold">{snippets.length}</p><p className="mt-1 text-xs text-slate-500">Saved snippets</p></div><div className="rounded-xl bg-slate-50 p-4 dark:bg-white/[0.04]"><p className="text-2xl font-semibold">{progress}%</p><p className="mt-1 text-xs text-slate-500">Learning roadmap</p></div></div><div className="mt-5 flex flex-wrap gap-2"><button onClick={() => navigate(token ? "/dashboard" : "/login")} className={buttonPrimary}>{token ? "Open Calvion Dashboard" : "Sign in to Calvion"}<ExternalLink size={14}/></button><button onClick={() => go("learn")} className={buttonSecondary}>View learning progress</button></div></div></>}
+      </main>
+    </div>
+  </div>;
 };
 
 export default DeveloperHub;

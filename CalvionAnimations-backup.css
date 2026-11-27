@@ -1,0 +1,88 @@
+/*
+ * Calvion animations only.
+ * Add: import "./CalvionAnimations.css";
+ * to the entry file that renders your app (e.g. src/main.tsx).
+ * No colors, layout, text, or component logic are changed.
+ */
+
+@keyframes cv-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cv-soft-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Gentle page entrance */
+.cv-root > main {
+  animation: cv-soft-fade 650ms ease-out both;
+}
+
+/* Header appears smoothly without changing its dimensions or colors */
+.cv-root > header {
+  animation: cv-soft-fade 500ms ease-out both;
+}
+
+/* Reveal top-level homepage sections as they enter the viewport.
+   Browsers without view-timeline support simply show the content normally. */
+@supports (animation-timeline: view()) {
+  .cv-root main > section {
+    animation: cv-fade-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 28%;
+  }
+}
+
+/* Soft hover lift for existing feature cards; no visual styling or colors change */
+.cv-root article {
+  transition: transform 220ms ease;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .cv-root article:hover {
+    transform: translateY(-3px);
+  }
+
+  .cv-root a,
+  .cv-root button {
+    transition-property: transform;
+    transition-duration: 180ms;
+    transition-timing-function: ease-out;
+  }
+
+  .cv-root a:hover,
+  .cv-root button:hover {
+    transform: translateY(-1px);
+  }
+
+  .cv-root .rounded-2xl,
+  .cv-root .rounded-3xl {
+    transition: box-shadow 220ms ease, transform 220ms ease;
+  }
+}
+
+/* Respect users who request reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cv-root > main,
+  .cv-root > header,
+  .cv-root main > section {
+    animation: none !important;
+  }
+
+  .cv-root article,
+  .cv-root a,
+  .cv-root button,
+  .cv-root .rounded-2xl,
+  .cv-root .rounded-3xl {
+    transition: none !important;
+    transform: none !important;
+  }
+}
